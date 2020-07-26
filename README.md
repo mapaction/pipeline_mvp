@@ -1,4 +1,4 @@
-# pipeline-mvp
+# pipeline_mvp
 
 ## Running
 
