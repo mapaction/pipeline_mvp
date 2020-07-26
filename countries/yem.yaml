@@ -1,0 +1,7 @@
+solids:
+  extract_admin_cod:
+    inputs:
+      hdx_address:
+        value: yemen-admin-boundaries
+      hdx_filename:
+        value: yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip
