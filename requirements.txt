@@ -1,3 +1,4 @@
 dagster==0.8.8
 dagit==0.8.8
 hdx-python-api==4.5.9
+geopandas==0.8.1

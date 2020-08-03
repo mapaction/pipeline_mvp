@@ -9,9 +9,8 @@ from dagster import (
     ModeDefinition
 )
 
-
 from pipeline_mvp.utils.utils import config_logger
-from pipeline_mvp.admin import extract_admin_cod
+from pipeline_mvp.admin import extract_admin_cod, transform_admin_cod
 
 config_logger()
 logger = logging.getLogger(__name__)
@@ -24,6 +23,9 @@ class CMF(object):
 
     def get_raw_data_dir(self):
         return os.path.join(self._location, self._event_id, 'GIS', '1_Original_Data')
+
+    def get_final_data_dir(self):
+        return os.path.join(self._location, self._event_id, 'GIS', '2_Active_Data')
 
 
 @resource(config_schema={'location': Field(String),
@@ -40,4 +42,4 @@ def cmf_resource(context):
     ]
 )
 def pipeline_admin_cod():
-    extract_admin_cod()
+    transform_admin_cod(extract_admin_cod())
