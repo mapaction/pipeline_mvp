@@ -6,14 +6,12 @@ from dagster import (
     String,
     pipeline,
     resource,
-    ModeDefinition
+    ModeDefinition,
+    logger
 )
+import coloredlogs
 
-from pipeline_mvp.utils.utils import config_logger
 import pipeline_mvp.admin as admin
-
-config_logger()
-logger = logging.getLogger(__name__)
 
 
 class CMF(object):
@@ -34,10 +32,42 @@ def cmf_resource(context):
     return CMF(context.resource_config['location'], context.resource_config['event_id'])
 
 
+@logger(
+    {
+        'log_level': Field(str, is_required=False, default_value='INFO'),
+        'name': Field(str, is_required=False, default_value='dagster'),
+    },
+    description='Format logger',
+)
+def custom_console_logger(init_context):
+
+    level = init_context.logger_config['log_level']
+    name = init_context.logger_config['name']
+    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    date_format = "%Y-%m-%d %H:%M:%S"
+
+    # Note: if want to turn off Fiona warnings, then can make a separate logger from root,
+    # and set root to error level
+    dagster_logger = logging.getLoggerClass()(name, level=level)
+    root_logger = logging.getLogger('')
+    for logger in [dagster_logger, root_logger]:
+        coloredlogs.install(
+            logger=logger,
+            level=level,
+            fmt=format,
+            datefmt=date_format,
+            field_styles={'levelname': {'color': 'blue'}, 'asctime': {'color': 'green'}, 'name': {'color': 'magenta'}},
+            level_styles={'debug': {}, 'error': {'color': 'red'}},
+        )
+
+    return dagster_logger
+
+
 @pipeline(
     mode_defs=[
         ModeDefinition(
-            resource_defs={'cmf': cmf_resource}
+            resource_defs={'cmf': cmf_resource},
+            logger_defs={'custom_console_logger': custom_console_logger}
         )
     ]
 )

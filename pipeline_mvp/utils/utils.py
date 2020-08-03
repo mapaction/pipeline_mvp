@@ -14,17 +14,6 @@ Configuration.create(hdx_site=HDX_SITE, user_agent=USER_AGENT, hdx_read_only=Tru
 logger = logging.getLogger(__name__)
 
 
-def config_logger():
-    """
-    Setup the logger
-    """
-    logging.basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        level=logging.INFO,
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-
-
 def mkdir(path: str):
     """
     Create a direcotry if it doesn't exist
