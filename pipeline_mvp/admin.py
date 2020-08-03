@@ -4,7 +4,8 @@ import logging
 from dagster import solid
 import geopandas as gpd
 
-from pipeline_mvp.utils.utils import get_dataset_from_hdx, get_layer_by_name_contains_and_geometry
+from pipeline_mvp.utils.utils import get_layer_by_name_contains_and_geometry
+from pipeline_mvp.utils.hdx import get_dataset_from_hdx
 
 # TODO: move this somewhere
 CRS = 'EPSG:4326'
