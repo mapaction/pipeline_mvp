@@ -10,7 +10,7 @@ from dagster import (
 )
 
 from pipeline_mvp.utils.utils import config_logger
-from pipeline_mvp.admin import extract_admin_cod, transform_admin_cod
+import pipeline_mvp.admin as admin
 
 config_logger()
 logger = logging.getLogger(__name__)
@@ -42,4 +42,7 @@ def cmf_resource(context):
     ]
 )
 def pipeline_admin_cod():
-    transform_admin_cod(extract_admin_cod())
+    raw_filename = admin.extract_admin_cod()
+    admin.transform_admin0_cod(raw_filename)
+    admin.transform_admin1_cod(raw_filename)
+    admin.transform_admin2_cod(raw_filename)
