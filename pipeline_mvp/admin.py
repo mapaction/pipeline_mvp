@@ -1,7 +1,7 @@
 import os
 import logging
 
-from dagster import solid
+from dagster import solid, Output, AssetMaterialization, EventMetadataEntry
 import geopandas as gpd
 
 from pipeline_mvp.utils.utils import get_layer_by_name_contains_and_geometry
@@ -19,7 +19,18 @@ def extract_admin_cod(context, hdx_address, hdx_filename):
     CODS_raw_data_dir = '101_OCHA'
     save_filepath = os.path.join(context.resources.cmf.get_raw_data_dir(), CODS_raw_data_dir, hdx_filename)
     get_dataset_from_hdx(hdx_address, hdx_filename, save_filepath)
-    return save_filepath
+    # Confirm that the file was saved
+    yield AssetMaterialization(
+        asset_key='admin_cod_raw',
+        description='Raw COD admin boundaries',
+        metadata_entries=[
+            EventMetadataEntry.path(
+                save_filepath, 'save_filepath'
+            )
+        ],
+    )
+    # Yield final output as a filename
+    yield Output(save_filepath)
 
 
 def transform_admin_cod(context, raw_filepath: str, admin_level: int):
@@ -30,13 +41,25 @@ def transform_admin_cod(context, raw_filepath: str, admin_level: int):
     if df_adm.crs != CRS:
         df_adm.to_crs(CRS)
     # Modify the column names to suit the schema
-    #dd TODO move this, only works for COD Yemen
+    # TODO move this, only works for COD Yemen
     schema_mapping = {f'admin{admin_level}Name_en': 'name_en'}
     df_adm = df_adm.rename(columns=schema_mapping)
     # Write out
     output_filename = f'yem_admn_ad{admin_level}_py_s0_unocha_pp.shp'
-    df_adm.to_file(os.path.join(context.resources.cmf.get_final_data_dir(), '202_admn',
-                                output_filename), encoding='utf-8')
+    output_filepath = os.path.join(context.resources.cmf.get_final_data_dir(), '202_admn', output_filename)
+    df_adm.to_file(output_filepath, encoding='utf-8')
+    # Confirm that the file was saved
+    yield AssetMaterialization(
+        asset_key=f'admin_cod_lvl{admin_level}',
+        description=f'Processed COD admin boundaries level {admin_level}',
+        metadata_entries=[
+            EventMetadataEntry.path(
+                output_filepath, 'output_filepath'
+            )
+        ],
+    )
+    # Need to yield actual output
+    yield Output(None)
 
 
 @solid(required_resource_keys={'cmf'})
