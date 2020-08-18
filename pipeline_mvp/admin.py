@@ -12,13 +12,13 @@ CRS = 'EPSG:4326'
 logger = logging.getLogger(__name__)
 
 
-@solid(required_resource_keys={'cmf'})
-def extract_admin_cod(context, hdx_address, hdx_filename):
-    context.log.info('Downloading COD admin boundaries')
+@solid(required_resource_keys = {'cmf'})
+def extract_admin_cod(context, hdx_address: str, hdx_filename: str):
+    logger.info('Downloading COD admin boundaries')
     # TODO: For CODS - refactor this out somewhere
     CODS_raw_data_dir = '101_OCHA'
-    save_filepath = os.path.join(context.resources.cmf.get_raw_data_dir(), CODS_raw_data_dir, hdx_filename)
-    get_dataset_from_hdx(hdx_address, hdx_filename, save_filepath)
+    save_directory = os.path.join(context.resources.cmf.get_raw_data_dir(), CODS_raw_data_dir)
+    save_filepath = get_dataset_from_hdx(hdx_address, hdx_filename, save_directory)
     # Confirm that the file was saved
     yield AssetMaterialization(
         asset_key='admin_cod_raw',
@@ -34,7 +34,7 @@ def extract_admin_cod(context, hdx_address, hdx_filename):
 
 
 def transform_admin_cod(context, raw_filepath: str, admin_level: int):
-    context.log.info('Transforming COD admin boundaries')
+    logger.info('Transforming COD admin boundaries')
     layer_name = get_layer_by_name_contains_and_geometry(raw_filepath, f'adm{admin_level}', geometry='Polygon')
     df_adm = gpd.read_file(f'zip://{raw_filepath}', layer=layer_name)
     # Change CRS
