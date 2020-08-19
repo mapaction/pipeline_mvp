@@ -1,7 +1,15 @@
 import os
 import logging
 
-from dagster import solid, Output, AssetMaterialization, EventMetadataEntry
+from dagster import (
+    solid,
+    Output,
+    AssetMaterialization,
+    EventMetadataEntry,
+    Field,
+    OutputDefinition,
+    Array
+)
 import geopandas as gpd
 
 from pipeline_mvp.utils.utils import get_layer_by_name_contains_and_geometry
@@ -32,11 +40,30 @@ def extract_admin_cod(context, hdx_address: str, hdx_filename: str):
     # Yield final output as a filename
     yield Output(save_filepath)
 
+@solid(
+    config_schema={
+        'max_admin_level': Field(int, is_required=False, default_value=2)
+    },
+    output_defs=[
+        # name='hot_cereals', dagster_type=DataFrame, is_required=False
+        OutputDefinition(name='df_adm0', is_required=False),
+        OutputDefinition(name='df_adm1', is_required=False),
+        OutputDefinition(name='df_adm2', is_required=False),
+    ],
+)
+def read_in_admin_cod(context, raw_filepath: str):
+    for admin_level in range(context.solid_config['max_admin_level'] + 1):
+        layer_name = get_layer_by_name_contains_and_geometry(raw_filepath, f'adm{admin_level}', geometry='Polygon')
+        df_adm = gpd.read_file(f'zip://{raw_filepath}', layer=layer_name)
+        df_adm.attrs['admin_level'] = admin_level
+        yield Output(df_adm, f'df_adm{admin_level}')
 
-def transform_admin_cod(context, raw_filepath: str, admin_level: int):
+
+@solid(required_resource_keys={'cmf'})
+def transform_admin_cod(context, df_adm):
     logger.info('Transforming COD admin boundaries')
-    layer_name = get_layer_by_name_contains_and_geometry(raw_filepath, f'adm{admin_level}', geometry='Polygon')
-    df_adm = gpd.read_file(f'zip://{raw_filepath}', layer=layer_name)
+    # Admin level is stored in metadata
+    admin_level = df_adm.attrs['admin_level']
     # Change CRS
     if df_adm.crs != CRS:
         df_adm.to_crs(CRS)
@@ -60,18 +87,3 @@ def transform_admin_cod(context, raw_filepath: str, admin_level: int):
     )
     # Need to yield actual output
     yield Output(None)
-
-
-@solid(required_resource_keys={'cmf'})
-def transform_admin0_cod(context, raw_filepath: str):
-    return transform_admin_cod(context, raw_filepath, admin_level=0)
-
-
-@solid(required_resource_keys={'cmf'})
-def transform_admin1_cod(context, raw_filepath: str):
-    return transform_admin_cod(context, raw_filepath, admin_level=1)
-
-
-@solid(required_resource_keys={'cmf'})
-def transform_admin2_cod(context, raw_filepath: str):
-    return transform_admin_cod(context, raw_filepath, admin_level=2)
