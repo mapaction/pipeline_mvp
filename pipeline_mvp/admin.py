@@ -40,19 +40,16 @@ def extract_admin_cod(context, hdx_address: str, hdx_filename: str):
     # Yield final output as a filename
     yield Output(save_filepath)
 
+
 @solid(
     config_schema={
         'max_admin_level': Field(int, is_required=False, default_value=2)
     },
-    output_defs=[
-        # name='hot_cereals', dagster_type=DataFrame, is_required=False
-        OutputDefinition(name='df_adm0', is_required=False),
-        OutputDefinition(name='df_adm1', is_required=False),
-        OutputDefinition(name='df_adm2', is_required=False),
-    ],
+    output_defs=[OutputDefinition(name=f'df_adm{i}', is_required=False) for i in range(4)]
 )
 def read_in_admin_cod(context, raw_filepath: str):
     for admin_level in range(context.solid_config['max_admin_level'] + 1):
+        logger.info(f'Running admin level {admin_level}')
         layer_name = get_layer_by_name_contains_and_geometry(raw_filepath, f'adm{admin_level}', geometry='Polygon')
         df_adm = gpd.read_file(f'zip://{raw_filepath}', layer=layer_name)
         df_adm.attrs['admin_level'] = admin_level

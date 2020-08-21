@@ -16,7 +16,6 @@ from pipeline_mvp import settings, admin
 )
 def pipeline_admin_cod():
     raw_filename = admin.extract_admin_cod()
-    df_adm0, df_adm1, df_adm2 = admin.read_in_admin_cod(raw_filename)
-    admin.transform_admin_cod(df_adm0)
-    admin.transform_admin_cod(df_adm1)
-    admin.transform_admin_cod(df_adm2)
+    df_adm_list = admin.read_in_admin_cod(raw_filename)
+    for df_adm in df_adm_list:
+        admin.transform_admin_cod(df_adm)

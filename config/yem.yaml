@@ -5,3 +5,6 @@ solids:
         value: yemen-admin-boundaries
       hdx_filename:
         value: yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip
+  read_in_admin_cod:
+    config:
+      max_admin_level: 3
