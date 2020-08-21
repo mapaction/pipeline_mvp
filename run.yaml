@@ -10,5 +10,4 @@ storage:
 loggers:
   custom_console_logger:
     config:
-      log_level: INFO
-
+      log_level: DEBUG

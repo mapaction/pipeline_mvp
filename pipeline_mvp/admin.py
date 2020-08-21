@@ -8,14 +8,12 @@ from dagster import (
     EventMetadataEntry,
     Field,
     OutputDefinition,
-    DagsterType
 )
-from dagster_pandas import DataFrame
 import geopandas as gpd
 
 from pipeline_mvp.utils.utils import get_layer_by_name_contains_and_geometry
 from pipeline_mvp.utils.hdx import get_dataset_from_hdx
-from pipeline_mvp.types import GeoDataFrame
+from pipeline_mvp.types import DagsterGeoDataFrame, AdminBoundaries
 
 # TODO: move this somewhere
 CRS = 'EPSG:4326'
@@ -47,7 +45,7 @@ def extract_admin_cod(context, hdx_address: str, hdx_filename: str) -> str:
     config_schema={
         'max_admin_level': Field(int, is_required=False, default_value=2)
     },
-    output_defs=[OutputDefinition(GeoDataFrame, name=f'df_adm{i}', is_required=False) for i in range(4)]
+    output_defs=[OutputDefinition(DagsterGeoDataFrame, name=f'df_adm{i}', is_required=False) for i in range(4)]
 )
 def read_in_admin_cod(context, raw_filepath: str) :
     for admin_level in range(context.solid_config['max_admin_level'] + 1):
@@ -59,7 +57,7 @@ def read_in_admin_cod(context, raw_filepath: str) :
 
 
 @solid(required_resource_keys={'cmf'})
-def transform_admin_cod(context, df_adm: GeoDataFrame) -> GeoDataFrame:
+def transform_admin_cod(context, df_adm: DagsterGeoDataFrame) -> AdminBoundaries:
     logger.info('Transforming COD admin boundaries')
     # Admin level is stored in metadata
     admin_level = df_adm.attrs['admin_level']
