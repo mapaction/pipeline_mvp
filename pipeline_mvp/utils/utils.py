@@ -1,3 +1,5 @@
+import os
+import time
 import logging
 from pathlib import Path
 
@@ -13,6 +15,14 @@ def mkdir(path: str):
     :param path: path of directory to create
     """
     Path(path).mkdir(parents=True, exist_ok=True)
+
+
+def get_file_age_days(filepath: str):
+    try:
+        file_age_days = (time.time() - os.path.getatime(filepath)) / 60 / 60
+    except FileNotFoundError:
+        file_age_days = -1
+    return file_age_days
 
 
 def get_layer_by_name_contains_and_geometry(filepath: str, layer_name_contains: str , geometry: str=None):
