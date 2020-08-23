@@ -86,18 +86,9 @@ def transform_admin_cod(context, df_adm: DagsterGeoDataFrame) -> AdminBoundaries
     df_adm.attrs['source_date'] = df_adm.iloc[0]['validOn']
     df_adm.attrs['create_date'] = datetime.now().strftime('%Y-%m-%d')
     df_adm.attrs['geometry_type'] = df_adm.iloc[0]['geometry']
-    # Write out
-    # TODO: refactor out the filename
-    output_filename = f'yem_admn_ad{admin_level}_py_s0_unocha_pp.shp'
-    output_filepath = os.path.join(context.resources.cmf.get_final_data_dir(), '202_admn', output_filename)
-    df_adm.to_file(output_filepath, encoding='utf-8')
-    yield AssetMaterialization(
-        asset_key=f'admin_cod_lvl{admin_level}',
-        description=f'Processed COD admin boundaries level {admin_level}',
-        metadata_entries=[
-            EventMetadataEntry.path(
-                output_filepath, 'output_filepath'
-            )
-        ],
-    )
+    # TODO this is a quick hack, should be fixed (break down the metadata, have a method for forming the filename)
+    df_adm.attrs['output_filename'] = os.path.join('202_adm', f'yem_admn_ad{admin_level}_py_s0_unocha_pp.shp')
+    df_adm.attrs['asset_key'] =f'admin_cod_lvl{admin_level}'
+    df_adm.attrs['description'] = f'Processed COD admin boundaries level {admin_level}',
+    #  Because of output type will materialize to shapefile
     yield Output(df_adm)

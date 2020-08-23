@@ -9,6 +9,7 @@ from dagster import (
 )
 
 from pipeline_mvp.utils import utils
+from pipeline_mvp.materializations import shapefile_materializer
 
 logger = logging.getLogger(__name__)
 
@@ -73,5 +74,6 @@ def admin_boundaries_type_check(_, df_adm):
 AdminBoundaries = DagsterType(
     name='AdminBoundaries',
     type_check_fn=admin_boundaries_type_check,
-    description='A GeoDataFrame containing administrative boundaries'
+    description='A GeoDataFrame containing administrative boundaries',
+    materializer=shapefile_materializer
 )

@@ -36,6 +36,7 @@ def custom_console_logger(init_context):
         )
 
     # Stop overly verbose Python packages from logging too much
-    logging.getLogger("fiona").setLevel(max(logging.WARNING, vars(logging)[level.upper()]))
+    for package in ["fiona", "hxl"]:
+        logging.getLogger(package).setLevel(max(logging.WARNING, vars(logging)[level.upper()]))
 
     return dagster_logger
