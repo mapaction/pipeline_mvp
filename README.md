@@ -36,4 +36,11 @@
     DAGSTER_HOME=$dagster_home dagit -f main.py
     ```
    where `$dagster_home` is the directory containing `dagster.yaml`
+   
+## Testing
+
+In the top-level directory, execute:
+```
+pytest
+```
  
