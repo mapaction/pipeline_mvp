@@ -3,3 +3,4 @@ dagit==0.9.3
 dagster_pandas==0.9.3
 hdx-python-api==4.5.9
 geopandas==0.8.1
+PyYAML==5.3.1

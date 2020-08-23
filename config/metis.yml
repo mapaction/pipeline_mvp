@@ -1,0 +1,4 @@
+# TODO: check what Metis actually needs
+admin_boundaries:
+  name: nameAdm{level}
+  pcode: pcodAdm{level}

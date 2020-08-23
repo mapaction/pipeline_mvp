@@ -1,5 +1,6 @@
 import os
 import logging
+from datetime import datetime
 
 from dagster import (
     solid,
@@ -10,8 +11,9 @@ from dagster import (
     OutputDefinition,
 )
 import geopandas as gpd
+from hdx.location.country import Country
 
-from pipeline_mvp.utils.utils import get_layer_by_name_contains_and_geometry
+from pipeline_mvp.utils import utils
 from pipeline_mvp.utils.hdx import get_dataset_from_hdx
 from pipeline_mvp.types import DagsterGeoDataFrame, AdminBoundaries
 
@@ -50,7 +52,9 @@ def extract_admin_cod(context, hdx_address: str, hdx_filename: str) -> str:
 def read_in_admin_cod(context, raw_filepath: str) :
     for admin_level in range(context.solid_config['max_admin_level'] + 1):
         logger.info(f'Running admin level {admin_level}')
-        layer_name = get_layer_by_name_contains_and_geometry(raw_filepath, f'adm{admin_level}', geometry='Polygon')
+        layer_name = utils.get_layer_by_name_contains_and_geometry(raw_filepath,
+                                                                   f'adm{admin_level}',
+                                                                   geometry='Polygon')
         df_adm = gpd.read_file(f'zip://{raw_filepath}', layer=layer_name)
         df_adm.attrs['admin_level'] = admin_level
         yield Output(df_adm, f'df_adm{admin_level}')
@@ -63,16 +67,30 @@ def transform_admin_cod(context, df_adm: DagsterGeoDataFrame) -> AdminBoundaries
     admin_level = df_adm.attrs['admin_level']
     # Change CRS
     if df_adm.crs != CRS:
-        df_adm.to_crs(CRS)
+        df_adm.to_crs(CRS, inplace=True)
     # Modify the column names to suit the schema
-    # TODO move this, only works for COD Yemen
-    schema_mapping = {f'admin{admin_level}Name_en': 'name_en'}
-    df_adm = df_adm.rename(columns=schema_mapping)
+    # TODO: refactor the keys out to e.g. config file
+    metis_config = utils.get_metis_config()
+    admin_level_names = {f'admin{level}Name_en': metis_config['admin_boundaries']['name'].format(level=level)
+                         for level in range(admin_level+1)}
+    pcode_names = {f'admin{level}Pcode': metis_config['admin_boundaries']['pcode'].format(level=level)
+                   for level in range(admin_level+1)}
+    schema_mapping = {**admin_level_names, **pcode_names}
+    df_adm.rename(columns=schema_mapping, inplace=True)
+    # Add metadata
+    # TODO: Some stuff here is COD / Yemen specific
+    df_adm.attrs['crs'] = df_adm.crs
+    df_adm.attrs['iso3'] = context.resources.cmf.iso3
+    df_adm.attrs['iso2'] = Country.get_iso2_from_iso3(context.resources.cmf.iso3)
+    df_adm.attrs['publisher'] = 'OCHA'
+    df_adm.attrs['source_date'] = df_adm.iloc[0]['validOn']
+    df_adm.attrs['create_date'] = datetime.now().strftime('%Y-%m-%d')
+    df_adm.attrs['geometry_type'] = df_adm.iloc[0]['geometry']
     # Write out
+    # TODO: refactor out the filename
     output_filename = f'yem_admn_ad{admin_level}_py_s0_unocha_pp.shp'
     output_filepath = os.path.join(context.resources.cmf.get_final_data_dir(), '202_admn', output_filename)
     df_adm.to_file(output_filepath, encoding='utf-8')
-    # Confirm that the file was saved
     yield AssetMaterialization(
         asset_key=f'admin_cod_lvl{admin_level}',
         description=f'Processed COD admin boundaries level {admin_level}',

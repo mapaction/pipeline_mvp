@@ -3,13 +3,13 @@ from dagster import (
     ModeDefinition,
 )
 
-from pipeline_mvp import settings, admin
+from pipeline_mvp import settings, resources, admin
 
 
 @pipeline(
     mode_defs=[
         ModeDefinition(
-            resource_defs={'cmf': settings.cmf_resource},
+            resource_defs={'cmf': resources.cmf_resource},
             logger_defs={'custom_console_logger': settings.custom_console_logger}
         )
     ]

@@ -3,6 +3,8 @@ resources:
     config:
       location: /home/turnerm/data/yemen_cmf
       event_id: 2020yem01
+      # This is probably very bad but it seems the only place for "global" run settings
+      iso3: yem
 storage:
   filesystem:
     config:

@@ -1,31 +1,10 @@
-import os
 import logging
 
 from dagster import (
     Field,
-    String,
-    resource,
     logger
 )
 import coloredlogs
-
-
-class CMF(object):
-    def __init__(self, location, event_id):
-        self._location = location
-        self._event_id = event_id
-
-    def get_raw_data_dir(self):
-        return os.path.join(self._location, self._event_id, 'GIS', '1_Original_Data')
-
-    def get_final_data_dir(self):
-        return os.path.join(self._location, self._event_id, 'GIS', '2_Active_Data')
-
-
-@resource(config_schema={'location': Field(String),
-                         'event_id': Field(String)})
-def cmf_resource(context):
-    return CMF(context.resource_config['location'], context.resource_config['event_id'])
 
 
 @logger(
