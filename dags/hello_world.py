@@ -19,4 +19,9 @@ t2 = BashOperator(
     bash_command='echo "Hello Digital Power"',
     dag=dag)
 
-t1 >> t2
+t3 = BashOperator(
+    task_id='task_3',
+    bash_command='ls /data',
+    dag=dag)
+
+t1 >> t2 >> t3
