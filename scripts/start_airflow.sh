@@ -11,4 +11,5 @@ docker run --name local-airflow-server \
            -v $(pwd)/data/:/opt/data \
            -v $(pwd)/dags/:/usr/local/airflow/dags \
            puckel/docker-airflow webserver
-x-www-browser http://localhost:8080
+
+# Accessible on localhost:8080
