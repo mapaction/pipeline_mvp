@@ -79,6 +79,9 @@ def transform(source: str, input_filename: str, schema_filename: str, output_fil
     # Validate
     validate(instance=df_adm0.to_dict('list'), schema=parse_yaml(schema_filename))
     # Write to output
-    with tempfile.TemporaryFile() as fp:
-        df_adm0.to_file(fp)
-        copy_file(fp, output_filename)
+    # with open("/opt/data/")
+    with open(os.path.join(tempfile.tempdir, output_filename), "wb") as f:
+    # with tempfile.NamedTemporaryFile(dir="/opt/data") as fp:
+        df_adm0.to_file(f)
+        print(f.name, output_filename)
+        copy_file(f.name, output_filename)

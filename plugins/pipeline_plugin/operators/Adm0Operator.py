@@ -9,7 +9,7 @@ def print_custom(country, **kwargs):
     transform(source="cod",
               input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
               schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin0_affected_area_py.yml",
-              output_filename="test/yem_processed.zip")
+              output_filename="/opt/data/test/yem_processed.zip")
 
 class Adm0Operator(PythonOperator):
     @apply_defaults
