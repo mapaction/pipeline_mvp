@@ -1,6 +1,3 @@
 {
-    "cwd": "${workspaceFolder}",
-    "env": {
-        "PYTHONPATH": "${cwd}:${cwd}/plugins:${cwd}/dags"
-    }
+    "cwd": "${workspaceFolder}"
 }

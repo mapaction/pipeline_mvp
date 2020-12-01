@@ -2,5 +2,6 @@
     "python.pythonPath": ".venv/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.linting.flake8Args": ["--ignore=E24,W504", "--max-line-length=120"]
+    "python.linting.flake8Args": ["--ignore=E24,W504", "--max-line-length=120"],
+    "python.envFile": "${workspaceFolder}/.env"
 }

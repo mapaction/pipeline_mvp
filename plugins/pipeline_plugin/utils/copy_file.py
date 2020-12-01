@@ -14,3 +14,5 @@ def copy_file(source_path, target_path):
         shutil.move(source_path, full_target_path)
     elif environment == "staging":
         print("Staging")
+    elif environment == "production":
+        print("Production")
