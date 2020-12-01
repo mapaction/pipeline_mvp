@@ -1,11 +1,9 @@
 from airflow.plugins_manager import AirflowPlugin
-from pipeline_plugin.operators.HDXOperator import HDXExtractOperator
+from pipeline_plugin.operators.HDXExtractOperator import HDXExtractOperator
 from pipeline_plugin.operators.Adm0Operator import Adm0Operator
 
 
-
-
-class AirflowCrmPlugin(AirflowPlugin):
+class PipelinePlugin(AirflowPlugin):
     name = "pipeline_plugin"  # does not need to match the package name
     operators = [HDXExtractOperator, Adm0Operator]
     sensors = []

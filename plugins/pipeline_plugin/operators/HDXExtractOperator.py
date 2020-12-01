@@ -15,6 +15,8 @@ class HDXExtractOperator(PythonOperator):
     def __init__(
             self,
             country: str,
+            # admin_level: int,
+            # admin_url: str,
             *args, **kwargs) -> None:
         self.country = country
         super().__init__(python_callable=print_custom, op_kwargs={"country": country}, *args, **kwargs)

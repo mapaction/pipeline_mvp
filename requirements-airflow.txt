@@ -1,1 +1,2 @@
 hdx-python-api==4.5.9
+geopandas==0.6.1

@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 
 def local_arguments():
     return {
-        'schedule_interval': None
+        'schedule_interval': None,
+        'start_date': datetime(2028, 1, 1)
     }
 
 
