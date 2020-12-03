@@ -3,8 +3,10 @@ import yaml
 
 
 class Config:
-    def __init__(self):
-        with open(os.path.join(os.getcwd(), "dags", "config", "config.yaml")) as f:
+    def __init__(self, path=None):
+        if not path:
+            path = os.path.join(os.getcwd(), "dags", "config")
+        with open(os.path.join(path, "config.yaml")) as f:
             self.raw_config = yaml.safe_load(f)
 
     def get_adm_url(self):
