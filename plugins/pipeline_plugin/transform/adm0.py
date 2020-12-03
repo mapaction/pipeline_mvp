@@ -18,7 +18,7 @@ def transform(source: str, input_filename: str, schema_filename: str, output_fil
     """
     :param source: "cod" or "gadm"
     """
-    # config = parse_yaml('config.yml')
+    # config = parse_yaml('config.yaml')
 
     if source == "cod":
         layerlist = fiona.listlayers(f'zip://{input_filename}')

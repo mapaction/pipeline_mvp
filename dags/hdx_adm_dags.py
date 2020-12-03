@@ -11,13 +11,24 @@ def create_adm0_dag(country, geo_extent, schedule_interval, catchup, config, def
     hdx_extract = HDXExtractOperator(
         task_id=f"adm0_{country}_extract",
         country=country,
+        config=config,
+        hdx_type=config.hdx_adm,
         dag=dag
     )
     adm0_transform = Adm0Operator(
         task_id=f"adm0_{country}_transform",
         country=country,
+        config=config,
         dag=dag
     )
 
+    # adm1_transform = Adm1Operator(
+    #     task_id=f"adm1_{country}_transform",
+    #     country=country,
+    #     config=config,
+    #     dag=dag
+    # )
+
     hdx_extract >> adm0_transform
+    # hdx_extract >> [adm0_transform, adm1_transform]
     return dag
