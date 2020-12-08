@@ -6,12 +6,10 @@ from jsonschema import validate
 from pipeline_plugin.utils.yaml_api import parse_yaml
 
 
-def transform(input_filename: str, schema_filename: str, output_filename: str):
+def transform(input_filename: str, schema_filename: str, output_filename: str, config):
     """
     :param source: "cod" or "gadm"
     """
-    config = parse_yaml('config.yml')
-
 
     df_roads = gpd.read_file(f'zip://{input_filename}')
     # COD data has some NAs
@@ -20,7 +18,7 @@ def transform(input_filename: str, schema_filename: str, output_filename: str):
     # TODO need to convert from XML to GPKG rather than OSM to GPKG
 
     # Change CRS
-    df_roads = df_roads.to_crs(config['constants']['crs'])
+    df_roads = df_roads.to_crs(config.get_crs())
     # Rename columns
     df_roads = df_roads.rename(columns=schema_mapping)
     # Make columns needed for validation

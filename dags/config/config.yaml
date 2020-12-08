@@ -39,7 +39,7 @@ countries:
     gadm:
       url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
 
-#   Todo srtm, ourairports, wfp_airports
+#   Todo srtm, ourairports, wfp_airports, osm
 # Todo TRANSFORM
 
 

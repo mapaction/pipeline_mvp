@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 
-from airflow.operators.pipeline_plugin import HDXExtractOperator, Adm0Operator, RoadsTransformOperator
+from airflow.operators.pipeline_plugin import HDXExtractOperator, Adm0Operator, Adm1Operator, RoadsTransformOperator
 
 from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
 from utils.config_parser import Config

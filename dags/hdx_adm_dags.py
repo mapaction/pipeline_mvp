@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 
-from airflow.operators.pipeline_plugin import HDXExtractOperator, Adm0Operator
+from airflow.operators.pipeline_plugin import HDXExtractOperator, Adm0Operator, Adm1Operator
 
 
 def create_adm0_dag(country, geo_extent, schedule_interval, catchup, config, default_args):
@@ -22,13 +22,13 @@ def create_adm0_dag(country, geo_extent, schedule_interval, catchup, config, def
         dag=dag
     )
 
-    # adm1_transform = Adm1Operator(
-    #     task_id=f"adm1_{country}_transform",
-    #     country=country,
-    #     config=config,
-    #     dag=dag
-    # )
+    adm1_transform = Adm1Operator(
+        task_id=f"adm1_{country}_transform",
+        country=country,
+        config=config,
+        dag=dag
+    )
 
-    hdx_extract >> adm0_transform
-    # hdx_extract >> [adm0_transform, adm1_transform]
+    # hdx_extract >> adm0_transform
+    hdx_extract >> [adm0_transform, adm1_transform]
     return dag

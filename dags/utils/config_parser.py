@@ -19,11 +19,12 @@ class Config:
             file_name += f"_{free_text}"
         return file_name
 
-    def get_hdx_input_filename(self, country):
-        return "bla"
-
     def _get_country(self, country: str):
         return self.raw_config['countries'][countries.lookup(country).name.lower()]
 
     def get_hdx(self, country: str, hdx_type):
         return self._get_country(country)['hdx_cod'][hdx_type]
+
+    def get_crs(self):
+        return self.raw_config['constants']['crs']
+

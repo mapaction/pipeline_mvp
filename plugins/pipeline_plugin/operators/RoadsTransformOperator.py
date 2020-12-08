@@ -12,10 +12,12 @@ class RoadsTransformOperator(PythonOperator):
             config,
             *args, **kwargs) -> None:
         self.country = country
-        super().__init__(python_callable=self.transform_roads, op_kwargs={"country": country}, *args, **kwargs)
+        super().__init__(python_callable=self.transform_roads, op_kwargs={"country": country, 'config': config}, *args,
+                         **kwargs)
 
-    def transform_roads(self, country, **kwargs):
+    def transform_roads(self, country, config, **kwargs):
         print(f"COUNTRY v2.0: {country}")
-        transform(input_filename="/opt/data/test/cod_roads.zip",
+        transform(input_filename="/opt/data/test/ymn-roads.zip",
                   schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/roads_affected_area_py.yml",
-                  output_filename="/opt/data/test/yem_tran_rds_ln_s1_ocha_pp.shp")
+                  output_filename="/opt/data/test/yem_tran_rds_ln_s1_ocha_pp.shp",
+                  config=config)
