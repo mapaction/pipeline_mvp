@@ -18,6 +18,7 @@ class Config:
     def _get_country_config(self, country: str) -> dict:
         return self.raw_config['countries'][countries.lookup(country).name.lower()]
 
+    # HDX COD
     def _get_hdx(self, country: str, hdx_type) -> dict:
         return self._get_country_config(country)['hdx_cod'][hdx_type]
 
@@ -33,6 +34,22 @@ class Config:
     def get_hdx_roads_filename(self, country: str):
         return self._get_hdx(country, hdx_type='roads')['filename']
 
+    # OSM
+    def _get_osm(self, country: str):
+        return self._get_country_config(country)['osm']
+
+    def get_osm_url(self, country: str):
+        return self._get_osm(country)['url']
+
+    def get_osm_roads_tags(self, country: str):
+        return self._get_osm(country)['roads']['osm_tags']
+
+    def get_osm_roads_raw_osm(self, country: str):
+        return self._get_osm(country)['roads']['raw_osm']
+
+    def get_osm_roadsraw_shp(self, country: str):
+        return self._get_osm(country)['roads']['raw_gpkg']
+
     def get_crs(self):
         return self.raw_config['constants']['crs']
 
@@ -44,6 +61,13 @@ class Config:
 
     def get_iso3(self, country: str):
         return countries.lookup(country).alpha_3
+
+    def get_iso2(self, country: str):
+        return countries.lookup(country).alpha_2
+
+    # Schemas
+    def get_schema_directory(self):
+        return "/usr/local/airflow/plugins/pipeline_plugin/schemas/"
 
     # Schema mapping from adm0 transform
     def get_adm0_schema_mapping(self, source: str):
