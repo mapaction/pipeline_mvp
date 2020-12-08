@@ -1,10 +1,10 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
-from pipeline_plugin.transform.road import transform
+from pipeline_plugin.transform.hdx_road import transform
 
 
-class RoadsTransformOperator(PythonOperator):
+class HDXRoadsTransformOperator(PythonOperator):
     @apply_defaults
     def __init__(
             self,
