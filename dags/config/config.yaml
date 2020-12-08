@@ -1,3 +1,8 @@
+dirs:
+  raw_data: raw_data
+  processed_data: processed_data
+  schemas: schemas
+
 constants:
   ISO3: YEM
   ISO2: YE
@@ -44,3 +49,23 @@ countries:
 
 
 
+geoboundaries:
+  # https://www.geoboundaries.org/api.html
+  url: 'https://www.geoboundaries.org/gbRequest.html'
+  typ: 'TYP=SSCGS'
+  all: 'ISO=ALL&ADM=ADM0&TYP=SSCGS'
+  isofield: 'shapeISO'
+  subfolder: 'geoboundaries'
+  raw: 'geobnd_'    # The Extract process will ammend the admX level and .zip
+  downloadURL_api_key: 'downloadURL'
+  boundaryType_api_key: 'boundaryType'
+  adm0:
+    raw: 'geobnd_adm0.zip'
+    unzip: 'geobnd_adm0'
+    processed: 'yem_admn_ad0_py_s0_geobnd_pp.shp'
+  adm1:
+    raw: 'geobnd_adm1.zip'
+    processed: 'yem_admn_ad1_py_s0_geobnd_pp.shp'
+  adm2:
+    raw: 'geobnd_adm2.zip'
+    processed: 'yem_admn_ad2_py_s0_geobnd_pp.shp'

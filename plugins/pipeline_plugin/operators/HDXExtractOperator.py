@@ -10,16 +10,14 @@ class HDXExtractOperator(PythonOperator):
             self,
             country: str,
             config,
-            hdx_type,
+            hdx_address,
+            hdx_filename,
             *args, **kwargs) -> None:
         self.country = country
         super().__init__(python_callable=self.retrieve_hdx_data,
-                         op_kwargs={"country": country, 'config': config, 'hdx_type': hdx_type}, *args, **kwargs)
+                         op_kwargs={"country": country, 'config': config, 'hdx_address': hdx_address,
+                                    'hdx_filename': hdx_filename}, *args, **kwargs)
 
-    def retrieve_hdx_data(self, country, config, hdx_type, **kwargs):
-        hdx_adm_config = config.get_hdx(country=country, hdx_type=hdx_type)
+    def retrieve_hdx_data(self, country, config, hdx_address, hdx_filename, **kwargs):
         print(f"Country: {country}")
-        print('hdx address from config', hdx_adm_config)
-        get_dataset_from_hdx(hdx_address=hdx_adm_config['address'],
-                             dataset_name=hdx_adm_config['filename'],
-                             save_directory="test")
+        get_dataset_from_hdx(hdx_address=hdx_address, dataset_name=hdx_filename, save_directory="test")

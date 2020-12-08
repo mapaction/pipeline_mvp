@@ -12,7 +12,8 @@ def create_adm0_dag(country, geo_extent, schedule_interval, catchup, config, def
         task_id=f"adm0_{country}_extract",
         country=country,
         config=config,
-        hdx_type=config.hdx_adm,
+        hdx_address=config.get_hdx_adm_address(country=country),
+        hdx_filename=config.get_hdx_adm_filename(country=country),
         dag=dag
     )
     adm0_transform = Adm0Operator(

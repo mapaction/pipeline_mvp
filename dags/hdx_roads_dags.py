@@ -12,7 +12,8 @@ def create_road_dag(country, geo_extent, schedule_interval, catchup, config, def
         task_id=f"adm0_{country}_extract",
         country=country,
         config=config,
-        hdx_type=config.hdx_roads,
+        hdx_address=config.get_hdx_roads_address(country=country),
+        hdx_filename=config.get_hdx_roads_filename(country=country),
         dag=dag
     )
     roads_transform = RoadsTransformOperator(
