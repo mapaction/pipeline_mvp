@@ -7,5 +7,3 @@ rasterio==1.1.8
 apache-airflow==1.10.12
 hdx-python-api==4.5.9
 pycountry==20.7.3
-# ogr==0.18.0
-# GDAL==3.0.4

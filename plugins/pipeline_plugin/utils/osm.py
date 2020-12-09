@@ -1,9 +1,10 @@
 import os
 import subprocess
-# import ogr
-# import gdal
+import ogr
+import gdal
 import geopandas as gpd
-# from sqlalchemy.dialects.postgresql import HSTORE
+from sqlalchemy.dialects.postgresql import HSTORE
+
 
 
 def convert_osm_to_gpkg(input_filename: str, tmp_filename: str, layer_name: str):
