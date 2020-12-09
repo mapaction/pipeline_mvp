@@ -23,7 +23,7 @@ def create_hdx_adm0_dag(country, schedule_interval, catchup, config, default_arg
         schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin0_affected_area_py.yml",
         output_filename="/opt/data/test/yem_adm0_processed.zip",
         iso3=config.get_iso3(country),
-        rawdir=config.get_dir_raw_data(),
+        raw_data_dir=config.get_dir_raw_data(),
         geoboundaries_adm0_raw=config.get_geoboundaries_adm0_raw(),
         schema_mapping=config.get_adm0_schema_mapping(source='cod'),
         crs=config.get_crs(),
