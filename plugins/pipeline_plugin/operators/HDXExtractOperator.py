@@ -9,12 +9,15 @@ class HDXExtractOperator(PythonOperator):
     def __init__(
             self,
             country: str,
+            config,
+            hdx_address,
+            hdx_filename,
             *args, **kwargs) -> None:
         self.country = country
-        super().__init__(python_callable=self.retrieve_hdx_data, op_kwargs={"country": country}, *args, **kwargs)
+        super().__init__(python_callable=self.retrieve_hdx_data,
+                         op_kwargs={"country": country, 'config': config, 'hdx_address': hdx_address,
+                                    'hdx_filename': hdx_filename}, *args, **kwargs)
 
-    def retrieve_hdx_data(self, country, **kwargs):
+    def retrieve_hdx_data(self, country, config, hdx_address, hdx_filename, **kwargs):
         print(f"Country: {country}")
-        get_dataset_from_hdx('yemen-admin-boundaries',
-                             'yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip',
-                             "test")
+        get_dataset_from_hdx(hdx_address=hdx_address, dataset_name=hdx_filename, save_directory="test")

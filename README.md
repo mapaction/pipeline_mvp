@@ -53,3 +53,5 @@ The Airflow server runs in a Docker container, which has the `/dags`, `/plugins`
 ### Airflow symbolic links
 
 TODO: Explain symbolic links for IDE development
+TODO: Explain GDAL/OGR
+<!-- To install GDAL/OGR -> https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html -->

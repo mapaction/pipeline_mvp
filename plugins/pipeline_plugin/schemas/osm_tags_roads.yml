@@ -1,0 +1,19 @@
+osm_types: 
+  - way
+geom_type:
+  lines
+tags:
+  - highway:
+    - motorway
+    - trunk
+    - primary
+    - secondary
+    - tertiary
+    - residential
+    - unclassified
+    - trunk_link
+    - motorway_link
+    - primary_link
+    - secondary_link
+    - tertiary_link
+    - road

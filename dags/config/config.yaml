@@ -2,6 +2,7 @@ dirs:
   raw_data: raw_data
   processed_data: processed_data
   schemas: schemas
+
 constants:
   ISO3: YEM
   ISO2: YE
@@ -9,165 +10,52 @@ constants:
   crs_general: EPSG:4326
   altitude_light_deg: 315.0
   azimuth_light_deg: 45.0
-adm0:
-  schema: admin0_affected_area_py.yml
-  # The GADM urls are all the same. The geopackage includes all available
-  # levels. 
-  gadm: 
-    raw: gadm_adm0.zip
-    processed: yem_admn_ad0_py_s0_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
-  cod:
-    raw: cod_adm0.zip
-    processed: yem_admn_ad0_py_s0_unocha_pp.shp
-adm1:
-  schema: admin1_affected_area_py.yml
+
+
+# EXTRACT
+world:
+  hdx_cod:
+    global_seaports:
+      address: 'world-port-index'
+      filename: 'world_port_index.zip'
   gadm:
-    raw: gadm_adm1.zip
-    processed: yem_admn_ad1_py_s1_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
-  cod:
-    raw: cod_adm1.zip
-    processed: yem_admn_ad1_py_s1_unocha_pp.shp
-adm2:
-  schema: admin2_affected_area_py.yml
-  gadm:
-    raw: gadm_adm2.zip
-    processed: yem_admn_ad2_py_s2_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'  
-  cod:
-    raw: cod_adm2.zip
-    processed: yem_admn_ad2_py_s2_unocha_pp.shp
-adm3:
-  schema: admin3_affected_area_py.yml
-  gadm:
-    raw: gadm_adm3.zip
-    processed: yem_admn_ad3_py_s3_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'  
-  cod:
-    raw: cod_adm3.zip
-    processed: yem_admn_ad3_py_s3_unocha_pp.shp
-osm:
-  url: 'http://overpass-api.de/api/interpreter?'
-  lakes:
-    osm_tags: 'osm_tags_lakes.yml'
-    raw_osm: osm_lakes.xml
-    raw_gpkg: osm_lakes.gpkg
-    processed: yem_phys_lak_py_s1_osm_pp.shp
-  rivers:
-    osm_tags: 'osm_tags_rivers.yml'
-    raw_osm: osm_rivers.xml
-    raw_gpkg: osm_rivers.gpkg
-    processed: yem_phys_riv_ln_s1_osm_pp.shp
-  rail:
-    osm_tags: 'osm_tags_rail.yml'
-    raw_osm: osm_rail.xml
-    raw_gpkg: osm_rail.gpkg
-    processed: yem_trans_rrd_ln_s1_osm_pp.shp
-  roads:
-    osm_tags: 'osm_tags_roads.yml'
-    raw_osm: osm_roads.xml
-    raw_gpkg: osm_roads.gpkg
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
-  airports:
-    osm_tags: 'osm_tags_airports.yml'
-    raw_osm: osm_airports.xml
-    raw_gpkg: osm_airports.gpkg
-    processed: yem_tran_air_pt_s1_osm_pp.shp
-  admin:
-    osm_tags: 'osm_tags_admin.yml'
-    raw_osm: osm_admin.xml
-    raw_gpkg: osm_admin.gpkg
-rivers:
-  schema: rivers_affected_area_ln.yml
-  cod:
-    raw: cod_rivers.zip
-    processed: yem_phys_riv_ln_s1_unocha_pp.shp
-seaports:
-  schema: seaports_affected_area_pt.yml
-  cod:
-    raw: cod_seaports.zip
-    processed: yem_tran_por_pt_s1_unocha_pp.shp
-seaports_global:
-  schema: seaports_affected_area_pt.yml
-  cod:
-    raw: cod_global_seaports.zip
-    processed: yem_tran_por_pt_s1_worldportindex_pp.shp
-gadm:
-  schema: gadm_admin_py.yml
-  raw: GADM_ADM.zip
-  # Use variable substitution so no need to change the ISO3 code
-  # See Snakemake extract_gadm_adm
-  url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_{ISO3}_gpkg.zip'
-surrounding:
-  schema: admin0_surrounding_countries_py.yml
-  gadm:
-    rawzip: gadm36_gpkg.zip
-    raw: gadm36.gpkg
-    processed: yem_admn_ad0_py_s0_gadm_pp_surrounding_countries.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gadm36_gpkg.zip'
+    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_{ISO3}_gpkg.zip'
   geoboundaries:
-    processed: yem_admn_ad0_py_s0_gedbnd_pp_surrounding_countries.shp
-geoboundaries:
-  # https://www.geoboundaries.org/api.html
-  url: 'https://www.geoboundaries.org/gbRequest.html'
-  typ: 'TYP=SSCGS'
-  all: 'ISO=ALL&ADM=ADM0&TYP=SSCGS'
-  isofield: 'shapeISO'
-  subfolder: 'geoboundaries'
-  raw: 'geobnd_'    # The Extract process will ammend the admX level and .zip 
-  downloadURL_api_key: 'downloadURL'
-  boundaryType_api_key: 'boundaryType'
-  adm0:
-    raw: 'geobnd_adm0.zip'
-    unzip: 'geobnd_adm0'
-    processed: 'yem_admn_ad0_py_s0_geobnd_pp.shp'
-  adm1:
-    raw: 'geobnd_adm1.zip'
-    processed: 'yem_admn_ad1_py_s0_geobnd_pp.shp'
-  adm2:
-    raw: 'geobnd_adm2.zip'
-    processed: 'yem_admn_ad2_py_s0_geobnd_pp.shp'
-roads:
-  schema: roads_affected_area_ln.yml
-  cod:
-    raw: cod_roads.zip
-    processed: yem_tran_rds_ln_s1_ocha_pp.shp
-  osm:
-    raw: roads_osm.osm
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
-    url: https://overpass-api.de/api/interpreter?data=(area[\"ISO3166-1\"=\"YE\"][\"admin_level\"=\"2\"];)->.a;(way[highway](area.a););(._;>;);out qt;
-ourairports:
-  schema: ourairports_affected_area.yml
-  url: 'https://ourairportapi.com/airports-in/'
-  raw: yem_tran_air_pt_s1_ourairports_pp_RAW.shp
-  processed: yem_tran_air_pt_s1_ourairports_pp.shp
-wfp_airports:
-  schema: wfp_airports_affected_area.yml
-  url: 'https://geonode.wfp.org/geoserver/wfs?srsName=EPSG%3A4326&typename=geonode%3Awld_trs_airports_wfp&outputFormat=json&service=WFS&request=GetFeature'
-  raw: yem_tran_air_pt_s1_wfp_pp_RAW.shp
-  processed: yem_tran_air_pt_s1_wfp_pp.shp
-srtm:
-  srtm30:
-    dl_subdir: SRTM30tiles
-    processed: yem_elev_dem_ras_s1_srtm_pp_30m.tif
-    basichillshade: yem_elev_hsh_ras_s1_srtm_pp_basic30m.tif
-    prettyhillshade: yem_elev_hsh_ras_s1_srtm_pp_pretty30m.tif
-  srtm90:
-    dl_subdir: SRTM90tiles
-    processed: yem_elev_dem_ras_s1_srtm_pp_90m.tif
-    basichillshade: yem_elev_hsh_ras_s1_srtm_pp_basic90m.tif
-    prettyhillshade: yem_elev_hsh_ras_s1_srtm_pp_pretty90m.tif
-wfp:
-  url: 'https://geonode.wfp.org/geoserver/wfs?srsName=EPSG%3A4326&typename=geonode%3Awld_trs_airports_wfp&outputFormat=json&service=WFS&request=GetFeature'
-internalBnd:
-  schema: 'admin_internal_boundaries_ln.yml' 
-  adm1: 
-    processed: 'yem_admn_ad1_ln_s0_geobnd_pp.shp'
-lakes:
-  schema: lakes_affected_area_py.yml
-rail:
-  schema: rail_affected_area_ln.yml
-airports:
-  schema: airports_affected_area_pt.yml
-supplier:
+    url: https://www.geoboundaries.org/gbRequest.html?ISO=ALL&ADM=ADM0&TYP=SSCGS
+  ourairports:
+    url: 'https://ourairportapi.com/airports-in/'
+countries:
+  yemen:
+    hdx_cod:
+      adm:
+        address: 'yemen-admin-boundaries'
+        filename: 'yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip'
+      roads:
+        address: 'yemen-roads'
+        filename: 'ymn-roads.zip'
+      river:
+        address: 'yemen-water-bodies'
+        filename: 'wadies.zip'
+      seaport:
+        address: 'yemen-ports'
+        filename: 'ymn-seaport.zip'
+    osm:
+      url: 'http://overpass-api.de/api/interpreter?'
+      roads:
+        osm_tags: 'osm_tags_roads.yml'
+        raw_osm: osm_roads.xml
+        raw_gpkg: osm_roads.gpkg
+        processed: yem_tran_rds_ln_s1_osm_pp.shp
+#   Can be generated from world:gadm:url
+    gadm:
+      url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
+
+    geoboundaries:
+      adm0:
+        raw: 'geobnd_adm0.zip'
+
+#   Todo srtm, ourairports, wfp_airports, osm
+# Todo TRANSFORM
+
+
+
