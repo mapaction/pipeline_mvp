@@ -50,9 +50,9 @@ countries:
     gadm:
       url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
 
-    geoboundaries:
-      adm0:
-        raw: 'geobnd_adm0.zip'
+geoboundaries:
+  adm0:
+    raw: 'geobnd_adm0.zip'
 
 #   Todo srtm, ourairports, wfp_airports, osm
 # Todo TRANSFORM
