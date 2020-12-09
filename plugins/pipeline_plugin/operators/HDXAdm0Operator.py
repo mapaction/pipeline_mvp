@@ -5,7 +5,7 @@ from pipeline_plugin.transform import hdx_adm0
 
 
 def transform_adm0(country, config, **kwargs):
-    print(f"COUNTRY v2.0: {country}")
+    print(f"COUNTRY v3.0: {country}")
     hdx_adm0.transform(source="cod",
                        input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
                        schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin0_affected_area_py.yml",
