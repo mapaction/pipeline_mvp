@@ -4,23 +4,23 @@ from airflow.utils.decorators import apply_defaults
 from pipeline_plugin.transform import hdx_adm0
 
 
-def transform_adm0(country, config, **kwargs):
-    print(f"COUNTRY v3.0: {country}")
-    hdx_adm0.transform(source="cod",
-                       input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
-                       schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin0_affected_area_py.yml",
-                       output_filename="/opt/data/test/yem_adm0_processed.zip",
-                       country=country,
-                       config=config)
+def transform_adm0(source: str, input_filename, schema_filename, output_filename, iso3, raw_data_dir,
+                   geoboundaries_adm0_raw, schema_mapping, crs, *args, **kwargs):
+    hdx_adm0.transform(source=source, input_filename=input_filename, schema_filename=schema_filename,
+                       output_filename=output_filename, iso3=iso3, raw_data_dir=raw_data_dir,
+                       geoboundaries_adm0_raw=geoboundaries_adm0_raw, schema_mapping=schema_mapping, crs=crs)
 
 
 class HDXAdm0Operator(PythonOperator):
     @apply_defaults
-    def __init__(
-            self,
-            country: str,
-            config,
-            *args, **kwargs) -> None:
-        self.country = country
-        super().__init__(python_callable=transform_adm0, op_kwargs={"country": country, 'config': config}, *args,
-                         **kwargs)
+    def __init__(self, source: str, input_filename, schema_filename, output_filename, iso3, raw_data_dir,
+                 geoboundaries_adm0_raw, schema_mapping, crs, *args, **kwargs) -> None:
+        super().__init__(python_callable=transform_adm0,
+                         op_kwargs={"source": source, "input_filename": input_filename,
+                                    "schema_filename": schema_filename,
+                                    "output_filename": output_filename, "iso3": iso3,
+                                    "raw_data_dir": raw_data_dir,
+                                    "geoboundaries_adm0_raw": geoboundaries_adm0_raw,
+                                    "schema_mapping": schema_mapping, "crs": crs, },
+                         *args, **kwargs)
+

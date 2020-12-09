@@ -7,7 +7,7 @@ from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0Operato
 
 def create_hdx_adm0_dag(country, schedule_interval, catchup, config, default_args):
     dag = DAG(f"hdx_adm0_{country}", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
-    
+
     hdx_extract = HDXExtractOperator(
         task_id=f"hdx_adm0_{country}_extract",
         country=country,
@@ -18,8 +18,15 @@ def create_hdx_adm0_dag(country, schedule_interval, catchup, config, default_arg
     )
     adm0_transform = HDXAdm0Operator(
         task_id=f"hdx_adm0_{country}_transform",
-        country=country,
-        config=config,
+        source='cod',
+        input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
+        schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin0_affected_area_py.yml",
+        output_filename="/opt/data/test/yem_adm0_processed.zip",
+        iso3=config.get_iso3(country),
+        rawdir=config.get_dir_raw_data(),
+        geoboundaries_adm0_raw=config.get_geoboundaries_adm0_raw(),
+        schema_mapping=config.get_adm0_schema_mapping(source='cod'),
+        crs=config.get_crs(),
         dag=dag
     )
 

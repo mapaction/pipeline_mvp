@@ -52,11 +52,11 @@ def transform_geoboundaries(source_geob):
     return gpd.read_file(geojson[0])
 
 
-def postprocess(adm0_df: gpd.GeoDataFrame, schema_mapping, schema_filename, config):
+def postprocess(adm0_df: gpd.GeoDataFrame, schema_mapping, schema_filename, crs):
     # Change CRS
     # TODO: Add back configuration
     # df_adm0 = df_adm0.to_crs(config['constants']['crs'])
-    adm0_df = adm0_df.to_crs(config.get_crs())
+    adm0_df = adm0_df.to_crs(crs=crs)
     # Modify the column names to suit the schema
     adm0_df = adm0_df.rename(columns=schema_mapping)
     # Make columns needed for validation
@@ -69,13 +69,13 @@ def postprocess(adm0_df: gpd.GeoDataFrame, schema_mapping, schema_filename, conf
     return adm0_df
 
 
-def transform(source: str, input_filename: str, schema_filename: str, output_filename: str, country, config):
+def transform(source: str, input_filename: str, schema_filename: str, output_filename: str, iso3, raw_data_dir,
+              geoboundaries_adm0_raw, schema_mapping, crs):
     """
     :param source: "cod" or "gadm"
     """
     # config = parse_yaml('config.yaml')
 
-    iso3 = config.get_iso3(country)
     adm0_df = gpd.GeoDataFrame()
 
     if source == "cod":
@@ -86,12 +86,10 @@ def transform(source: str, input_filename: str, schema_filename: str, output_fil
                                 layer=GADM_LAYER.format(ISO3=iso3))
 
     elif source == "geoboundaries":
-        rawdir = config.get_dir_raw_data()
-        source_geob = os.path.join(rawdir, config.get_geoboundaries_adm0_raw())
+        source_geob = os.path.join(raw_data_dir, geoboundaries_adm0_raw)
         adm0_df = transform_geoboundaries(source_geob)
 
-    schema_mapping = config.get_adm0_schema_mapping(source=source)
-    adm0_df = postprocess(adm0_df=adm0_df, schema_mapping=schema_mapping, schema_filename=schema_filename, config=config)
+    adm0_df = postprocess(adm0_df=adm0_df, schema_mapping=schema_mapping, schema_filename=schema_filename, crs=crs)
 
     with open(os.path.join(tempfile.tempdir, output_filename), "wb") as f:
         adm0_df.to_file(f)
