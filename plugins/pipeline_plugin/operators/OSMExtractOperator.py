@@ -20,11 +20,11 @@ class OSMExtractOperator(PythonOperator):
         extract_osm_query(
             country=country,
             config=config,
-            osm_url=config.get_osm_url(country),
-            country_iso2=config.get_iso2(country),
+            osm_url=config.get_osm_url(country=country),
+            country_iso2=config.get_iso2(country=country),
             schema_directory=config.get_schema_directory(),
-            schema_filename=config.get_osm_roads_tags(country),
-            osm_output_filename=config.get_osm_roads_raw_osm(country),
-            gpkg_output_filename=config.get_osm_roadsraw_shp(country),
+            schema_filename=config.get_osm_roads_tags(country=country),
+            osm_output_filename=config.get_osm_roads_raw_osm(country=country),
+            gpkg_output_filename=config.get_osm_roads_raw_gpkg(country=country),
             save_directory="/opt/data/test"
         )

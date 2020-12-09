@@ -54,6 +54,9 @@ countries:
       adm0:
         raw: 'geobnd_adm0.zip'
 
+roads:
+  schema: roads_affected_area_ln.yml
+
 #   Todo srtm, ourairports, wfp_airports, osm
 # Todo TRANSFORM
 

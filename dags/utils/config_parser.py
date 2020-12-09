@@ -47,14 +47,25 @@ class Config:
     def get_osm_roads_raw_osm(self, country: str):
         return self._get_osm(country)['roads']['raw_osm']
 
-    def get_osm_roadsraw_shp(self, country: str):
+    def get_osm_roads_raw_gpkg(self, country: str):
         return self._get_osm(country)['roads']['raw_gpkg']
+
+    def get_osm_roads_processed_filename(self, country: str):
+        return self._get_osm(country)['roads']['processed']
+
+    def get_roads_schema(self):
+        return self.raw_config['roads']['schema']
 
     def get_crs(self):
         return self.raw_config['constants']['crs']
 
     def get_dir_raw_data(self):
-        return self.raw_config['dirs']['raw_data']
+        return "/opt/data/test"
+
+    def get_dir_processed_data(self):
+        return "/opt/data/test/"
+
+
 
     def get_geoboundaries_adm0_raw(self):
         return self.raw_config['geoboundaries']['adm0']['raw']
