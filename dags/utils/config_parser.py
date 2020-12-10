@@ -43,29 +43,28 @@ class Config:
     def get_osm_url(self, country: str):
         return self._get_osm(country)['url']
 
-    def get_osm_roads_tags(self, country: str):
-        return self._get_osm(country)['roads']['osm_tags']
-
     def get_osm_roads_raw_osm(self, country: str):
-        return self._get_osm(country)['roads']['raw_osm']
+        return os.path.join(self.get_dir_raw_data(),
+                            self._get_osm(country)['roads']['raw_osm'])
 
     def get_osm_roads_raw_gpkg(self, country: str):
-        return self._get_osm(country)['roads']['raw_gpkg']
+        return os.path.join(self.get_schema_directory(),
+                            self._get_osm(country)['roads']['raw_gpkg'])
 
     def get_osm_roads_processed_filename(self, country: str):
-        return self._get_osm(country)['roads']['processed']
+        return os.path.join(self.get_dir_processed_data(),
+                            self._get_osm(country)['roads']['processed'])
+
+    def get_osm_roads_tags_schema(self, country: str):
+        return os.path.join(self.get_schema_directory(),
+                            self._get_osm(country)['roads']['osm_tags'])
 
     def get_roads_schema(self):
-        return self.raw_config['roads']['schema']
+        return os.path.join(self.get_schema_directory(),
+                            self.raw_config['roads']['schema'])
 
     def get_crs(self):
         return self.raw_config['constants']['crs']
-
-    def get_dir_raw_data(self):
-        return "/opt/data/test"
-
-    def get_dir_processed_data(self):
-        return "/opt/data/test/"
 
     def get_gadm_layer_adm0(self):
         return 'gadm36_{ISO3}_0'
@@ -85,10 +84,17 @@ class Config:
     def get_iso2(self, country: str):
         return countries.lookup(country).alpha_2
 
-    # Schemas
+    # Directories
+    def get_dir_raw_data(self):
+        return "/opt/data/test"
+
+    def get_dir_processed_data(self):
+        return "/opt/data/test/"
+
     def get_schema_directory(self):
         return "/usr/local/airflow/plugins/pipeline_plugin/schemas/"
 
+    # Schemas
     # Schema mapping from adm0 transform
     def get_adm0_schema_mapping(self, source: str):
         schema_mapping = {}
@@ -103,6 +109,7 @@ class Config:
             schema_mapping = {'shapeName': 'name_en'}
         return schema_mapping
 
+    # Schema mapping from adm1 transform
     def get_adm1_schema_mapping(self, source: str):
         schema_mapping = {}
         if source == 'cod':
@@ -115,4 +122,16 @@ class Config:
             }
         elif source == 'geoboundaries':
             schema_mapping = {'shapeName': 'name_en'}
+        return schema_mapping
+
+    def get_roads_schema_mapping(self, source: str):
+        schema_mapping = {}
+        if source == "hdx" or source == "cod":
+            schema_mapping = {'TYPE': 'fclass'}
+        elif source == "osm":
+            schema_mapping = {
+                'name:en': 'name_en',
+                'name': 'name_loc',
+                'highway': 'fclass'
+            }
         return schema_mapping

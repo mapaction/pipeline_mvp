@@ -8,14 +8,15 @@ from pipeline_plugin.utils.osm import convert_osm2gpkg
 from pipeline_plugin.utils.requests_api import download_url
 
 
-def extract_osm_query(country, config, osm_url, country_iso2, schema_directory, schema_filename, osm_output_filename,
-                      gpkg_output_filename, save_directory):
-    osm_schema = parse_yaml(os.path.join(schema_directory, schema_filename))
+def extract_osm_query(osm_url,
+                      country_iso2,
+                      schema_filename,
+                      osm_output_filename,
+                      gpkg_output_filename):
+    osm_schema = parse_yaml(schema_filename)
     geom_type = osm_schema['geom_type']
-    osm_output_file = os.path.join(save_directory, osm_output_filename)
-    gpkg_output_file = os.path.join(save_directory, gpkg_output_filename)
-    get_osm_xml(osm_url, osm_query(osm_schema, country_iso2), osm_output_file)
-    convert_osm2gpkg(osm_output_file, gpkg_output_file, geom_type)
+    get_osm_xml(osm_url, osm_query(osm_schema, country_iso2), osm_output_filename)
+    convert_osm2gpkg(osm_output_filename, gpkg_output_filename, geom_type)
 
 
 def osm_query(osm_yml: dict, iso2_country: str):
