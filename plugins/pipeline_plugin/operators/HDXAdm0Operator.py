@@ -1,6 +1,7 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
+from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 from pipeline_plugin.transform import hdx_adm0
 
 
@@ -14,7 +15,7 @@ def transform_adm0(country, config, **kwargs):
                        config=config)
 
 
-class HDXAdm0Operator(PythonOperator):
+class HDXAdm0Operator(MapActionOperator):
     @apply_defaults
     def __init__(
             self,
@@ -22,5 +23,9 @@ class HDXAdm0Operator(PythonOperator):
             config,
             *args, **kwargs) -> None:
         self.country = country
-        super().__init__(python_callable=transform_adm0, op_kwargs={"country": country, 'config': config}, *args,
+        super().__init__(method=transform_adm0,
+                         arguments={"country": country, 'config': config},
+                         *args,
                          **kwargs)
+        # super().__init__(python_callable=transform_adm0, op_kwargs={"country": country, 'config': config}, *args,
+        #                  **kwargs)
