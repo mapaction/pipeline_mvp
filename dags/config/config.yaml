@@ -53,6 +53,8 @@ countries:
 geoboundaries:
   adm0:
     raw: 'geobnd_adm0.zip'
+  adm1:
+    raw: 'geobnd_adm1.zip'
 
 roads:
   schema: roads_affected_area_ln.yml

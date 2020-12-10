@@ -67,10 +67,17 @@ class Config:
     def get_dir_processed_data(self):
         return "/opt/data/test/"
 
+    def get_gadm_layer_adm0(self):
+        return 'gadm36_{ISO3}_0'
 
+    def get_gadm_layer_adm1(self):
+        return 'gadm36_{ISO3}_1'
 
     def get_geoboundaries_adm0_raw(self):
         return self.raw_config['geoboundaries']['adm0']['raw']
+
+    def get_geoboundaries_adm1_raw(self):
+        return self.raw_config['geoboundaries']['adm1']['raw']
 
     def get_iso3(self, country: str):
         return countries.lookup(country).alpha_3
@@ -91,6 +98,20 @@ class Config:
             schema_mapping = {
                 'NAME_0': 'name_en',
                 'GID_0': 'pcode'
+            }
+        elif source == 'geoboundaries':
+            schema_mapping = {'shapeName': 'name_en'}
+        return schema_mapping
+
+    def get_adm1_schema_mapping(self, source: str):
+        schema_mapping = {}
+        if source == 'cod':
+            schema_mapping = {'admin1Name_en': 'name_en'}
+        elif source == 'gadm':
+            schema_mapping = {
+                'NAME_1': 'name_en',
+                'GID_1': 'pcode',
+                'GID_0': 'par_pcode'
             }
         elif source == 'geoboundaries':
             schema_mapping = {'shapeName': 'name_en'}

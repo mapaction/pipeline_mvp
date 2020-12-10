@@ -1,23 +1,59 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
-from pipeline_plugin.transform import hdx_adm1
+from pipeline_plugin.transform import hdx_adm_transform
 
 
-def transform_adm1(country, **kwargs):
-    print(f"COUNTRY v2.0: {country}")
-    hdx_adm1.transform(source="cod",
-                       input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
-                       schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/admin1_affected_area_py.yml",
-                       output_filename="/opt/data/test/yem_adm1_processed.zip")
+def transform_adm1(source,
+                   adm_level,
+                   input_filename,
+                   schema_filename,
+                   output_filename,
+                   iso3,
+                   raw_data_dir,
+                   geoboundaries_adm1_raw,
+                   schema_mapping,
+                   crs,
+                   gadm_layer,
+                   *args, **kwargs):
+    hdx_adm_transform.transform(source=source,
+                                adm_level=adm_level,
+                                input_filename=input_filename,
+                                schema_filename=schema_filename,
+                                output_filename=output_filename,
+                                iso3=iso3,
+                                raw_data_dir=raw_data_dir,
+                                geoboundaries_adm_raw=geoboundaries_adm1_raw,
+                                schema_mapping=schema_mapping,
+                                crs=crs,
+                                gadm_layer=gadm_layer)
 
 
 class HDXAdm1Operator(PythonOperator):
     @apply_defaults
-    def __init__(
-            self,
-            country: str,
-            config,
-            *args, **kwargs) -> None:
-        self.country = country
-        super().__init__(python_callable=transform_adm1, op_kwargs={"country": country}, *args, **kwargs)
+    def __init__(self,
+                 source,
+                 adm_level,
+                 input_filename,
+                 schema_filename,
+                 output_filename,
+                 iso3,
+                 raw_data_dir,
+                 geoboundaries_adm1_raw,
+                 schema_mapping,
+                 crs,
+                 gadm_layer,
+                 *args, **kwargs) -> None:
+        super().__init__(python_callable=transform_adm1,
+                         op_kwargs={"source": source,
+                                    "adm_level": adm_level,
+                                    "input_filename": input_filename,
+                                    "schema_filename": schema_filename,
+                                    "output_filename": output_filename,
+                                    "iso3": iso3,
+                                    "raw_data_dir": raw_data_dir,
+                                    "geoboundaries_adm1_raw": geoboundaries_adm1_raw,
+                                    "schema_mapping": schema_mapping,
+                                    "crs": crs,
+                                    "gadm_layer": gadm_layer},
+                         *args, **kwargs)

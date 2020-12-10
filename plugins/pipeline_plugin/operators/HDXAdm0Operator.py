@@ -1,26 +1,59 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
-from pipeline_plugin.transform import hdx_adm0
+from pipeline_plugin.transform import hdx_adm_transform
 
 
-def transform_adm0(source: str, input_filename, schema_filename, output_filename, iso3, raw_data_dir,
-                   geoboundaries_adm0_raw, schema_mapping, crs, *args, **kwargs):
-    hdx_adm0.transform(source=source, input_filename=input_filename, schema_filename=schema_filename,
-                       output_filename=output_filename, iso3=iso3, raw_data_dir=raw_data_dir,
-                       geoboundaries_adm0_raw=geoboundaries_adm0_raw, schema_mapping=schema_mapping, crs=crs)
+def transform_adm0(source: str,
+                   adm_level,
+                   input_filename,
+                   schema_filename,
+                   output_filename,
+                   iso3,
+                   raw_data_dir,
+                   geoboundaries_adm0_raw,
+                   schema_mapping,
+                   crs,
+                   gadm_layer,
+                   *args, **kwargs):
+    hdx_adm_transform.transform(source=source,
+                                adm_level=adm_level,
+                                input_filename=input_filename,
+                                schema_filename=schema_filename,
+                                output_filename=output_filename,
+                                iso3=iso3,
+                                raw_data_dir=raw_data_dir,
+                                geoboundaries_adm_raw=geoboundaries_adm0_raw,
+                                schema_mapping=schema_mapping,
+                                crs=crs,
+                                gadm_layer=gadm_layer)
 
 
 class HDXAdm0Operator(PythonOperator):
     @apply_defaults
-    def __init__(self, source: str, input_filename, schema_filename, output_filename, iso3, raw_data_dir,
-                 geoboundaries_adm0_raw, schema_mapping, crs, *args, **kwargs) -> None:
+    def __init__(self,
+                 source: str,
+                 adm_level,
+                 input_filename,
+                 schema_filename,
+                 output_filename,
+                 iso3,
+                 raw_data_dir,
+                 geoboundaries_adm0_raw,
+                 schema_mapping,
+                 crs,
+                 gadm_layer,
+                 *args, **kwargs) -> None:
         super().__init__(python_callable=transform_adm0,
-                         op_kwargs={"source": source, "input_filename": input_filename,
+                         op_kwargs={"source": source,
+                                    "adm_level": adm_level,
+                                    "input_filename": input_filename,
                                     "schema_filename": schema_filename,
-                                    "output_filename": output_filename, "iso3": iso3,
+                                    "output_filename": output_filename,
+                                    "iso3": iso3,
                                     "raw_data_dir": raw_data_dir,
                                     "geoboundaries_adm0_raw": geoboundaries_adm0_raw,
-                                    "schema_mapping": schema_mapping, "crs": crs, },
+                                    "schema_mapping": schema_mapping,
+                                    "crs": crs,
+                                    "gadm_layer": gadm_layer},
                          *args, **kwargs)
-
