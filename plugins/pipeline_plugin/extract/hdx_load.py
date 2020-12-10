@@ -1,5 +1,4 @@
 import os
-import shutil
 import logging
 
 from hdx.hdx_configuration import Configuration
@@ -8,7 +7,7 @@ from hdx.data.dataset import Dataset
 from pipeline_plugin.utils.copy_file import copy_file
 
 
-def get_dataset_from_hdx(hdx_address: str, dataset_name: str, save_directory: str, cache_days: int = 10):
+def get_dataset_from_hdx(hdx_address: str, dataset_name: str, save_directory: str):
     """
     Use the HDX API to download a daset based on the address and dataset ID
     :param hdx_address: The HDX address of the dataset

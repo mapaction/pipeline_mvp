@@ -5,19 +5,18 @@ from datetime import datetime, timedelta
 from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0Operator, HDXAdm1Operator
 
 
-def create_hdx_adm0_dag(country, schedule_interval, catchup, config, default_args):
-    dag = DAG(f"hdx_adm_{country}", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+def create_hdx_adm_dag(country, schedule_interval, catchup, config, default_args):
+    dag = DAG(f"{country}_hdx_adm", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
 
     hdx_extract = HDXExtractOperator(
-        task_id=f"hdx_adm0_{country}_extract",
-        country=country,
-        config=config,
+        task_id=f"{country}_hdx_adm_extract",
         hdx_address=config.get_hdx_adm_address(country=country),
         hdx_filename=config.get_hdx_adm_filename(country=country),
+        save_directory="test",
         dag=dag
     )
     adm0_transform = HDXAdm0Operator(
-        task_id=f"hdx_adm0_{country}_transform",
+        task_id=f"{country}_hdx_adm0_transform",
         source='cod',
         adm_level='adm0',
         input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
@@ -33,7 +32,7 @@ def create_hdx_adm0_dag(country, schedule_interval, catchup, config, default_arg
     )
 
     adm1_transform = HDXAdm1Operator(
-        task_id=f"hdx_adm1_{country}_transform",
+        task_id=f"{country}_hdx_adm1_transform",
         source="cod",
         adm_level='adm1',
         input_filename="/opt/data/test/yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip",
