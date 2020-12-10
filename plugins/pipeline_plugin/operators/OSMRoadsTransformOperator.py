@@ -1,7 +1,7 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
-from pipeline_plugin.transform.osm_roads import transform
+from pipeline_plugin.transform.roads_transform import transform
 
 
 class OSMRoadsTransformOperator(PythonOperator):

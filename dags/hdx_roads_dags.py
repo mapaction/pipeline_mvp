@@ -11,16 +11,17 @@ def create_hdx_road_dag(country, schedule_interval, catchup, config, default_arg
     hdx_roads_extract = HDXExtractOperator(
         task_id=f"{country}_hdx_roads_extract",
         hdx_address=config.get_hdx_roads_address(country=country),
-        hdx_filename=config.get_hdx_roads_filename(country=country),
-        save_directory="test",
+        hdx_filename=config.get_hdx_roads_dataset_name(country=country),
+        output_filename=config.get_roads_cod_raw_filename(),
         dag=dag
     )
+    source = "cod"
     roads_transform = HDXRoadsTransformOperator(
         task_id=f"{country}_hdx_roads_transform",
-        input_filename="/opt/data/test/ymn-roads.zip",
-        schema_filename="/usr/local/airflow/plugins/pipeline_plugin/schemas/roads_affected_area_py.yml",
-        output_filename="/opt/data/test/yem_tran_rds_ln_s1_ocha_pp.shp",
-        schema_mapping=config.get_roads_schema_mapping(source="hdx"),
+        source=source,
+        input_filename=config.get_roads_cod_raw_filename(),
+        output_filename=config.get_roads_cod_processed_filename(),
+        schema_mapping=config.get_roads_schema_mapping(source=source),
         crs=config.get_crs(),
         dag=dag
     )

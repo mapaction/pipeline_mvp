@@ -10,13 +10,13 @@ class HDXExtractOperator(PythonOperator):
             self,
             hdx_address,
             hdx_filename,
-            save_directory,
+            output_filename,
             *args, **kwargs) -> None:
         super().__init__(python_callable=self.retrieve_hdx_data,
                          op_kwargs={'hdx_address': hdx_address,
                                     'hdx_filename': hdx_filename,
-                                    "save_directory": save_directory},
+                                    "output_filename": output_filename},
                          *args, **kwargs)
 
-    def retrieve_hdx_data(self, hdx_address, hdx_filename, save_directory, **kwargs):
-        get_dataset_from_hdx(hdx_address=hdx_address, dataset_name=hdx_filename, save_directory=save_directory)
+    def retrieve_hdx_data(self, hdx_address, hdx_filename, output_filename, **kwargs):
+        get_dataset_from_hdx(hdx_address=hdx_address, dataset_name=hdx_filename, output_filename=output_filename)

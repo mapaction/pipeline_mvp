@@ -4,7 +4,7 @@ from airflow.utils.decorators import apply_defaults
 from pipeline_plugin.transform import hdx_adm_transform
 
 
-class HDXAdm1Operator(PythonOperator):
+class HDXAdm1TransformOperator(PythonOperator):
     @apply_defaults
     def __init__(self,
                  source,
@@ -13,8 +13,7 @@ class HDXAdm1Operator(PythonOperator):
                  schema_filename,
                  output_filename,
                  iso3,
-                 raw_data_dir,
-                 geoboundaries_adm1_raw,
+                 source_geoboundaries,
                  schema_mapping,
                  crs,
                  gadm_layer,
@@ -26,8 +25,7 @@ class HDXAdm1Operator(PythonOperator):
                                     "schema_filename": schema_filename,
                                     "output_filename": output_filename,
                                     "iso3": iso3,
-                                    "raw_data_dir": raw_data_dir,
-                                    "geoboundaries_adm1_raw": geoboundaries_adm1_raw,
+                                    "source_geoboundaries": source_geoboundaries,
                                     "schema_mapping": schema_mapping,
                                     "crs": crs,
                                     "gadm_layer": gadm_layer},
@@ -40,8 +38,7 @@ class HDXAdm1Operator(PythonOperator):
                        schema_filename,
                        output_filename,
                        iso3,
-                       raw_data_dir,
-                       geoboundaries_adm1_raw,
+                       source_geoboundaries,
                        schema_mapping,
                        crs,
                        gadm_layer,
@@ -52,8 +49,7 @@ class HDXAdm1Operator(PythonOperator):
                                     schema_filename=schema_filename,
                                     output_filename=output_filename,
                                     iso3=iso3,
-                                    raw_data_dir=raw_data_dir,
-                                    geoboundaries_adm_raw=geoboundaries_adm1_raw,
+                                    source_geoboundaries=source_geoboundaries,
                                     schema_mapping=schema_mapping,
                                     crs=crs,
                                     gadm_layer=gadm_layer)

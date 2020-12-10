@@ -13,7 +13,7 @@ adm0:
   schema: admin0_affected_area_py.yml
   # The GADM urls are all the same. The geopackage includes all available
   # levels. 
-  gadm: 
+  gadm:
     raw: gadm_adm0.zip
     processed: yem_admn_ad0_py_s0_gadm_pp.shp
     url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
@@ -27,13 +27,14 @@ adm1:
     processed: yem_admn_ad1_py_s1_gadm_pp.shp
     url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
   cod:
+    raw: cod_adm1.zip
     processed: yem_admn_ad1_py_s1_unocha_pp.shp
 adm2:
   schema: admin2_affected_area_py.yml
   gadm:
     raw: gadm_adm2.zip
     processed: yem_admn_ad2_py_s2_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'  
+    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
   cod:
     raw: cod_adm2.zip
     processed: yem_admn_ad2_py_s2_unocha_pp.shp
@@ -42,7 +43,7 @@ adm3:
   gadm:
     raw: gadm_adm3.zip
     processed: yem_admn_ad3_py_s3_gadm_pp.shp
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'  
+    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
   cod:
     raw: cod_adm3.zip
     processed: yem_admn_ad3_py_s3_unocha_pp.shp
@@ -160,8 +161,8 @@ srtm:
 wfp:
   url: 'https://geonode.wfp.org/geoserver/wfs?srsName=EPSG%3A4326&typename=geonode%3Awld_trs_airports_wfp&outputFormat=json&service=WFS&request=GetFeature'
 internalBnd:
-  schema: 'admin_internal_boundaries_ln.yml' 
-  adm1: 
+  schema: 'admin_internal_boundaries_ln.yml'
+  adm1:
     processed: 'yem_admn_ad1_ln_s0_geobnd_pp.shp'
 lakes:
   schema: lakes_affected_area_py.yml

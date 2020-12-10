@@ -9,6 +9,18 @@ from pipeline_plugin.utils.yaml_api import parse_yaml
 from pipeline_plugin.utils.osm import convert_osm_to_gpkg
 
 
+def transform(source: str, input_filename: str, output_filename: str, crs, schema_mapping):
+    df_roads = gpd.GeoDataFrame()
+
+    if source == "osm":
+        df_roads = transform_osm(input_filename=input_filename, schema_mapping=schema_mapping)
+
+    elif source == "cod":
+        df_roads = transform_cod(input_filename=input_filename, schema_mapping=schema_mapping)
+
+    postprocess(df_roads=df_roads, crs=crs, output_filename=output_filename)
+
+
 def transform_osm(input_filename, schema_mapping):
     df_roads = gpd.read_file(input_filename)
     # df_roads = convert_osm_to_gpkg(input_filename, 'osm_roads.gpkg', 'lines')
@@ -59,16 +71,4 @@ def postprocess(df_roads, crs, output_filename):
     ### validate(instance=df_roads.to_dict('list'), schema=parse_yaml(schema_filename))
     # Write to output
     df_roads.to_file(output_filename, encoding='utf8')
-
-
-def transform(source: str, input_filename: str, output_filename: str, crs, schema_mapping):
-    df_roads = gpd.GeoDataFrame()
-
-    if source == "osm":
-        df_roads = transform_osm(input_filename=input_filename, schema_mapping=schema_mapping)
-
-    elif source == "cod":
-        df_roads = transform_cod(input_filename=input_filename, schema_mapping=schema_mapping)
-
-    postprocess(df_roads=df_roads, crs=crs, output_filename=output_filename)
 
