@@ -17,7 +17,7 @@ class MapActionKubernetesPodOperator(KubernetesPodOperator):
         environment_variables = {"FUNCTION_NAME": function_name,
                                  "FUNCTION_MODULE": function_module,
                                  "FUNCTION_ARGUMENTS": arguments_json}
-        super().__init__(image="map-action-task",
+        super().__init__(image="mapaction-task-image",
                          env_vars=environment_variables,
                          *args,
                          **kwargs)
