@@ -34,5 +34,3 @@ def create_osm_road_dag(country, schedule_interval, catchup, config, default_arg
 
     osm_roads_extract >> roads_transform
     return dag
-
-

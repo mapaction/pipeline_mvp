@@ -1,10 +1,10 @@
-from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
+from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 from pipeline_plugin.extract.hdx_load import get_dataset_from_hdx
 
 
-class HDXExtractOperator(PythonOperator):
+class HDXExtractOperator(MapActionOperator):
     @apply_defaults
     def __init__(
             self,
@@ -12,11 +12,8 @@ class HDXExtractOperator(PythonOperator):
             hdx_filename,
             output_filename,
             *args, **kwargs) -> None:
-        super().__init__(python_callable=self.retrieve_hdx_data,
-                         op_kwargs={'hdx_address': hdx_address,
-                                    'hdx_filename': hdx_filename,
+        super().__init__(method=get_dataset_from_hdx,
+                         arguments={'hdx_address': hdx_address,
+                                    'dataset_name': hdx_filename,
                                     "output_filename": output_filename},
                          *args, **kwargs)
-
-    def retrieve_hdx_data(self, hdx_address, hdx_filename, output_filename, **kwargs):
-        get_dataset_from_hdx(hdx_address=hdx_address, dataset_name=hdx_filename, output_filename=output_filename)
