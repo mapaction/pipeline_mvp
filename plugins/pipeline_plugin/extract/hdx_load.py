@@ -4,7 +4,7 @@ import logging
 from hdx.hdx_configuration import Configuration
 from hdx.data.dataset import Dataset
 
-from pipeline_plugin.utils.copy_file import copy_file
+from pipeline_plugin.utils.files import copy_file
 
 
 def get_dataset_from_hdx(hdx_address: str, dataset_name: str, output_filename: str):

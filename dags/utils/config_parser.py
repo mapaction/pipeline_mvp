@@ -1,5 +1,7 @@
 import os
 import yaml
+from pathlib import Path
+
 from pycountry import countries
 
 
@@ -124,10 +126,10 @@ class Config:
 
     # Directories
     def _get_raw_data_directory(self):
-        return "/opt/data/test"
+        return Path("/") / "opt" / "data"
 
     def _get_processed_data_directory(self):
-        return "/opt/data/test/"
+        return Path("/") / "opt" / "data"
 
     def _get_schema_directory(self):
         return "/usr/local/airflow/plugins/pipeline_plugin/schemas/"
