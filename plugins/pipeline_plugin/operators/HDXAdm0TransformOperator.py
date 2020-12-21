@@ -1,7 +1,8 @@
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
-
+from pathlib import Path
 from pipeline_plugin.transform import hdx_adm_transform
+from pipeline_plugin.utils.CloudStorageClient import GoogleCloudStorageClient
 
 
 class HDXAdm0TransformOperator(PythonOperator):
@@ -43,6 +44,12 @@ class HDXAdm0TransformOperator(PythonOperator):
                        crs,
                        gadm_layer,
                        *args, **kwargs):
+        client = GoogleCloudStorageClient()
+        client.get_file_from_gcs(
+            bucket_name="europe-west2-mapaction-deve-8c266b1d-bucket",
+            gcs_filename=f"data/source_folder/{Path(input_filename).name}",
+            output_filename=input_filename
+        )
         hdx_adm_transform.transform(source=source,
                                     adm_level=adm_level,
                                     input_filename=input_filename,

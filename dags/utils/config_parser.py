@@ -5,8 +5,15 @@ from pycountry import countries
 
 class Config:
     def __init__(self, path=None):
+        if os.environ.get("GCP") == "TRUE":
+            self._MAIN_AIRFLOW_FOLDER = os.path.join(os.getcwd(), "gcs")
+            self._DATA_FOLDER = os.path.join(self._MAIN_AIRFLOW_FOLDER, "data")
+        else:
+            self._MAIN_AIRFLOW_FOLDER = os.path.join(os.getcwd())
+            self._DATA_FOLDER = "/opt/data"
+
         if not path:
-            path = os.path.join(os.getcwd(), "dags", "config")
+            path = os.path.join(self._MAIN_AIRFLOW_FOLDER, "dags", "config")
         with open(os.path.join(path, "config.yaml")) as f:
             self.raw_config = yaml.safe_load(f)
 
@@ -124,13 +131,13 @@ class Config:
 
     # Directories
     def _get_raw_data_directory(self):
-        return "/opt/data/test"
+        return os.path.join(self._DATA_FOLDER, "test")
 
     def _get_processed_data_directory(self):
-        return "/opt/data/test/"
+        return os.path.join(self._DATA_FOLDER, "test")
 
     def _get_schema_directory(self):
-        return "/usr/local/airflow/plugins/pipeline_plugin/schemas/"
+        return os.path.join(self._MAIN_AIRFLOW_FOLDER, "plugins", "pipeline_plugin", "schemas")
 
     # Schema mappings
     def get_adm0_schema_mapping(self, source: str):
