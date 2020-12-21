@@ -10,8 +10,7 @@ RUN apt-get update -yqq \
     && export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
     && ogrinfo --version \
-    && pip install GDAL==2.4.0 \
-
+    && pip install GDAL==2.4.0
 
 # Copy requirements
 COPY requirements.txt /usr/src/requirements.txt
