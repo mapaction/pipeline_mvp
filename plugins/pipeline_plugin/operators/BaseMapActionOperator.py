@@ -34,7 +34,7 @@ class MapActionPythonOperator(PythonOperator):
                          **kwargs)
 
 
-if os.getenv("ENVIRONMENT") == "GCP":
+if os.getenv("GCP") == "TRUE":
     MapActionOperator = MapActionKubernetesPodOperator
 else:
     MapActionOperator = MapActionPythonOperator
