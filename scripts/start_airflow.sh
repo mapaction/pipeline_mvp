@@ -10,7 +10,7 @@ docker run --name local-airflow-server \
            -v $(pwd)/requirements-airflow.txt:/requirements.txt \
            -v $(pwd)/data/:/opt/data \
            -v $(pwd)/dags/:/usr/local/airflow/dags \
-           puckel/docker-airflow-custom webserver
+           docker-airflow-custom webserver
 
 # Accessible on localhost:8080
 

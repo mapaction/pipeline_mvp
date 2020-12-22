@@ -1,5 +1,7 @@
 import os
 import yaml
+from pathlib import Path
+
 from pycountry import countries
 
 
@@ -58,7 +60,7 @@ class Config:
                             self._get_osm(country=country)['roads']['raw_osm'])
 
     def get_osm_roads_raw_gpkg(self, country: str):
-        return os.path.join(self._get_schema_directory(),
+        return os.path.join(self._get_raw_data_directory(),
                             self._get_osm(country=country)['roads']['raw_gpkg'])
 
     def get_osm_roads_processed_filename(self, country: str):
@@ -132,9 +134,11 @@ class Config:
     # Directories
     def _get_raw_data_directory(self):
         return os.path.join(self._DATA_FOLDER, "test")
+        return Path("/") / "opt" / "data"
 
     def _get_processed_data_directory(self):
         return os.path.join(self._DATA_FOLDER, "test")
+        return Path("/") / "opt" / "data"
 
     def _get_schema_directory(self):
         return os.path.join(self._MAIN_AIRFLOW_FOLDER, "plugins", "pipeline_plugin", "schemas")
