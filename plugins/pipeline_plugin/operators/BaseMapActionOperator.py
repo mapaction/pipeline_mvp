@@ -18,7 +18,8 @@ class MapActionKubernetesPodOperator(KubernetesPodOperator):
         environment_variables = {"FUNCTION_NAME": function_name,
                                  "FUNCTION_MODULE": function_module,
                                  "FUNCTION_ARGUMENTS": arguments_json}
-        super().__init__(image="mapaction-task-image",
+        super().__init__(namespace="default",
+                         image="eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:latest",
                          name=kwargs["task_id"],
                          env_vars=environment_variables,
                          *args,

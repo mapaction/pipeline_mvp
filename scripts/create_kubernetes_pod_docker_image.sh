@@ -1,1 +1,3 @@
-docker build -t mapaction-task-image -f docker/kubernetesPodOperator.Dockerfile $(pwd)
+sudo docker build -t mapaction-cloudcomposer-kubernetes-image:latest \
+		  -f docker/kubernetesPodOperator.Dockerfile $(pwd)
+
