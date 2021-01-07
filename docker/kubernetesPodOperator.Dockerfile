@@ -21,5 +21,8 @@ RUN pip install -r /usr/src/requirements.txt
 # Copy code into container
 COPY plugins/pipeline_plugin /usr/src/pipeline_plugin
 
+# Add /usr/src to PYTHONPATH
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src"
+
 # Run Kubernetes main script
 CMD ["python", "pipeline_plugin/kubernetes_main.py"]

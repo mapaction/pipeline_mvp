@@ -10,7 +10,7 @@ if __name__ == '__main__':
     function_module = os.getenv("FUNCTION_MODULE")
     function_name = os.getenv("FUNCTION_NAME")
 
-    module = importlib.import_module(function_module, package="/usr/src/")
+    module = importlib.import_module(function_module)
     function = getattr(module, function_name)
 
     # Call function
