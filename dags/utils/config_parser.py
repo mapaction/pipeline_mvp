@@ -10,11 +10,9 @@ class Config:
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
             self._DATA_FOLDER = Path(self._MAIN_AIRFLOW_FOLDER) / "data"
-
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
             self._DATA_FOLDER = Path("/") / "opt" / "data"
-
         if not path:
             path = self._MAIN_AIRFLOW_FOLDER / "dags" / "config"
         with open(path / "config.yaml") as f:

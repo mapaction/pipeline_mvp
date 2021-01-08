@@ -3,6 +3,7 @@ import os
 from typing import Callable
 
 from pipeline_plugin.utils.deep_inspection import get_function_information
+from pipeline_plugin.config import config
 
 from airflow.operators.python_operator import PythonOperator
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
@@ -35,7 +36,7 @@ class MapActionPythonOperator(PythonOperator):
                          **kwargs)
 
 
-if os.getenv("GCP") == "TRUE":
+if config.use_kubernetes():
     MapActionOperator = MapActionKubernetesPodOperator
 else:
     MapActionOperator = MapActionPythonOperator

@@ -3,20 +3,16 @@ import shutil
 from pathlib import Path
 import time
 
-from pipeline_plugin.utils.environment import get_current_environment
+from pipeline_plugin.config import config
+from pipeline_plugin.utils.google_cloud_storage import upload_file
 
 
 CACHE_INVALID_AFTER_DAYS = 7
 
 
 def copy_file(source_path, target_path):
-    environment = get_current_environment()
-    if environment == "local":
-        shutil.move(source_path, target_path)
-    elif environment == "staging":
-        print("Staging")
-    elif environment == "production":
-        print("Production")
+    if config.use_remote_storage():
+        upload_file(source_path, target_path)
 
 
 def check_if_file_exists(filename):
@@ -30,8 +26,7 @@ def get_file_age_in_days(filename):
 
 
 def check_if_valid_cache(filename):
-    environment = get_current_environment()
-    if environment != "local":
+    if config.use_remote_storage():
         return False    
     if not check_if_file_exists(filename):
         return False
@@ -44,43 +39,3 @@ def get_base_path():
 
 def get_full_data_path(relative_path: Path):
     return get_base_path() / relative_path
-
-
-def output_paths(*argument_names):
-    def wrap(f):
-        def wrapped_f(**kwargs):
-            f(**kwargs)
-            for argument in argument_names:
-                file_path = kwargs[argument]
-                print(f"Saving output path {file_path}")
-        return wrapped_f
-    return wrap
-
-
-def input_paths(*argument_names):
-    def wrap(f):
-        def wrapped_f(**kwargs):
-            for argument in argument_names:
-                file_path = kwargs[argument]
-                print(f"Loading input path {file_path}")
-            f(**kwargs)
-        return wrapped_f
-    return wrap
-
-
-# def cache_outputs(*argument_names):
-#     def wrap(f):
-#         def wrapped_f(**kwargs):
-#             all_cache_valid = True
-#             for argument in argument_names:
-#                 filename = kwargs[argument]
-#                 if not check_if_valid_cache(filename):
-#                     all_cache_valid = False
-#                     break
-#             if not all_cache_valid:
-#                 print("At least one output file / directory not found or invalidated cache so calling the method")
-#                 f(**kwargs)
-#             else:
-#                 print("All output files / directories have valid caches")
-#         return wrapped_f
-#     return wrap
