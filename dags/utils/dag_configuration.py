@@ -17,8 +17,8 @@ def get_default_arguments():
 
 
 def get_catchup():
-    return not os.getenv("ENVIRONMENT") in ("DEVELOP", "local")
+    return not os.getenv("ENVIRONMENT") in ("DEVELOP", "LOCAL")
 
 
 def get_schedule_interval():
-    return None if os.getenv("ENVIRONMENT") in ("DEVELOP", "local") else "@daily"
+    return None if os.getenv("ENVIRONMENT") in ("DEVELOP", "LOCAL") else "@daily"

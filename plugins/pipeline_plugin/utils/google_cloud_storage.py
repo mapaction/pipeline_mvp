@@ -26,13 +26,14 @@ class GoogleCloudStorageClient:
         blob.upload_from_filename(source_filename)
 
 
-client = GoogleCloudStorageClient()
+if config_new.use_remote_storage():
+    client = GoogleCloudStorageClient()
+
 
 def upload_file(path: Path):
     bucket = config_new.get_data_bucket_name()
     blob = str(path)
     client.upload_file_to_gcs(bucket_name=bucket, destination_blob=blob, source_filename=str(path))
-    # gcs_hook.upload(bucket=bucket, object=object, filename=path)
 
 
 def download_file(path: Path):
@@ -40,20 +41,3 @@ def download_file(path: Path):
     blob = str(path)
     client.download_file_from_gcs(bucket_name=bucket, source_blob=blob, destination_filename=str(path))
     return path
-    # gcs_hook.download(bucket=bucket, object=object, filename=path)
-
-
-# def upload_file(path: Path):
-#     bucket = config.get_gcs_bucket_name()
-#     base_path = config.get_gcs_base_path()
-#     relative_path = path.relative_to(base_path)
-#     object = relative_path.to_posix()
-#     gcs_hook.upload(bucket=bucket, object=object, filename=path)
-#
-#
-# def download_file(path: Path):
-#     bucket = config.get_gcs_bucket_name()
-#     base_path = config.get_gcs_base_path()
-#     relative_path = path.relative_to(base_path)
-#     object = relative_path.to_posix()
-#     gcs_hook.download(bucket=bucket, object=object, filename=path)
