@@ -9,7 +9,7 @@ import plugins.pipeline_plugin.operators.BaseMapActionOperator
 
 
 def test_k8s_operator_parent(monkeypatch):
-    monkeypatch.setenv("ENVIRONMENT", "GCP")
+    monkeypatch.setenv("GCP", "TRUE")
     reload(plugins.pipeline_plugin.operators.BaseMapActionOperator)
     assert inspect.getmro(plugins.pipeline_plugin.operators.BaseMapActionOperator.MapActionOperator)[1] is KubernetesPodOperator
 
