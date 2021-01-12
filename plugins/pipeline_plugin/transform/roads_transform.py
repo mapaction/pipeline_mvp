@@ -1,15 +1,13 @@
-import sys
-
 import geopandas as gpd
-from jsonschema import validate
 
 from sqlalchemy.dialects.postgresql import HSTORE
 
-from pipeline_plugin.utils.yaml_api import parse_yaml
-from pipeline_plugin.utils.osm import convert_osm_to_gpkg
+from pipeline_plugin.utils.files import load_file, save_file
 
 
 def transform(source: str, input_filename: str, output_filename: str, crs, schema_mapping):
+    input_filename = load_file(input_filename)
+
     df_roads = gpd.GeoDataFrame()
 
     if source == "osm":
@@ -19,6 +17,8 @@ def transform(source: str, input_filename: str, output_filename: str, crs, schem
         df_roads = transform_cod(input_filename=input_filename, schema_mapping=schema_mapping)
 
     postprocess(df_roads=df_roads, crs=crs, output_filename=output_filename)
+
+    save_file(output_filename)
 
 
 def transform_osm(input_filename, schema_mapping):

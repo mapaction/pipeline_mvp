@@ -1,7 +1,7 @@
 import os
 import subprocess
-# import ogr
-# import gdal
+import ogr
+import gdal
 import geopandas as gpd
 from sqlalchemy.dialects.postgresql import HSTORE
 

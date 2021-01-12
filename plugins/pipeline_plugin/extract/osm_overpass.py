@@ -1,11 +1,8 @@
-import sys
-import requests
-import json
-import os
-
 from pipeline_plugin.utils.yaml_api import parse_yaml
 from pipeline_plugin.utils.osm import convert_osm2gpkg
 from pipeline_plugin.utils.requests_api import download_url
+
+from pipeline_plugin.utils.files import save_file, create_download_folder
 
 
 def extract_osm_query(osm_url,
@@ -15,8 +12,14 @@ def extract_osm_query(osm_url,
                       gpkg_output_filename):
     osm_schema = parse_yaml(schema_filename)
     geom_type = osm_schema['geom_type']
+
+    create_download_folder(osm_output_filename, gpkg_output_filename)
+
     get_osm_xml(osm_url, osm_query(osm_schema, country_iso2), osm_output_filename)
     convert_osm2gpkg(osm_output_filename, gpkg_output_filename, geom_type)
+
+    save_file(osm_output_filename)
+    save_file(gpkg_output_filename)
 
 
 def osm_query(osm_yml: dict, iso2_country: str):

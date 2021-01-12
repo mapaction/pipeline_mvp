@@ -30,6 +30,8 @@ RUN apt-get update -yqq \
 
 RUN pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION}
 
+CMD mkdir /opt/data
+
 USER airflow
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["webserver"]

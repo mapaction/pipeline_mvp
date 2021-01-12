@@ -1,10 +1,9 @@
-import os
 import logging
 
 from hdx.hdx_configuration import Configuration
 from hdx.data.dataset import Dataset
 
-from pipeline_plugin.utils.files import copy_file
+from pipeline_plugin.utils.files import copy_file, save_file
 
 
 def get_dataset_from_hdx(hdx_address: str, dataset_name: str, output_filename: str):
@@ -31,6 +30,7 @@ def get_dataset_from_hdx(hdx_address: str, dataset_name: str, output_filename: s
         if resource['name'] == dataset_name:
             _, download_filepath = resource.download()
             copy_file(source_path=download_filepath, target_path=output_filename)
+            save_file(output_filename)
             logger.info(f'Saved to {output_filename}')
             return output_filename
     raise HDXDatasetNotFound(f'HDX dataset with address "{hdx_address}" and name "{dataset_name}" not found')

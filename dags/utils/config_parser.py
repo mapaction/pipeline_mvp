@@ -9,7 +9,7 @@ class Config:
     def __init__(self, path=None):
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
-            self._DATA_FOLDER = Path(self._MAIN_AIRFLOW_FOLDER) / "data"
+            self._DATA_FOLDER = "data"
 
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
@@ -140,7 +140,7 @@ class Config:
         return self._DATA_FOLDER
 
     def _get_schema_directory(self):
-        return os.path.join(self._MAIN_AIRFLOW_FOLDER, "plugins", "pipeline_plugin", "schemas")
+        return os.path.join("/usr", "src", "pipeline_plugin", "schemas")
 
     # Schema mappings
     def get_adm0_schema_mapping(self, source: str):
