@@ -90,7 +90,7 @@ class Config:
 
     def get_adm_cod_raw_filename(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_country_config(country)['adm_cod_raw'])
+                            self._get_country(country=country)['adm_cod_raw'])
 
     def get_adm0_cod_processed_filename(self, country: str):
         return os.path.join(self._get_processed_data_directory(),

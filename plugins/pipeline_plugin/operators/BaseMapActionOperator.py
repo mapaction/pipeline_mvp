@@ -21,7 +21,7 @@ class MapActionKubernetesPodOperator(KubernetesPodOperator):
                                  "INSIDE_KUBERNETES_POD": "TRUE",
                                  "ENVIRONMENT": "PRODUCTION"}
         super().__init__(namespace="default",
-                         image="eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:v0.10.2",
+                         image="eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:v0.10.3",
                          name=kwargs["task_id"],
                          env_vars=environment_variables,
                          *args,

@@ -1,2 +1,4 @@
 googleCloudStorage:
   dataBucketName: europe-west2-mapaction-deve-542e8027-bucket
+docker:
+  imageVersion: v0.10.3
