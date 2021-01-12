@@ -24,7 +24,7 @@ COPY plugins/pipeline_plugin /usr/src/pipeline_plugin
 # Add /usr/src to PYTHONPATH
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src"
 
-CMD mkdir /usr/src/data
+RUN mkdir /usr/src/data
 
 # Run Kubernetes main script
 CMD ["python", "pipeline_plugin/kubernetes_main.py"]

@@ -1,1 +1,1 @@
-from config_parser import config
+from pipeline_plugin.config.config_parser import config

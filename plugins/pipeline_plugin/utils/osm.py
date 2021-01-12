@@ -1,7 +1,5 @@
 import os
 import subprocess
-import ogr
-import gdal
 import geopandas as gpd
 from sqlalchemy.dialects.postgresql import HSTORE
 
@@ -23,6 +21,8 @@ def hstore2dict(str):
 
 
 def convert_osm2gpkg(in_file, out_file, geom_type='multipolygons'):
+    import ogr
+    import gdal
     """
     Translate an OSM .pbf or .xml file to a shape file
     Note this will need you to select the geometry type from the OSM file:

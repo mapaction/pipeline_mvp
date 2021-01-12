@@ -1,9 +1,7 @@
 import json
-import os
 from typing import Callable
 
 from pipeline_plugin.utils.deep_inspection import get_function_information
-from pipeline_plugin.config import config
 
 from airflow.operators.python_operator import PythonOperator
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
@@ -19,9 +17,11 @@ class MapActionKubernetesPodOperator(KubernetesPodOperator):
         environment_variables = {"FUNCTION_NAME": function_name,
                                  "FUNCTION_MODULE": function_module,
                                  "FUNCTION_ARGUMENTS": arguments_json,
-                                 "GCP": "TRUE"}
+                                 "GCP": "TRUE",
+                                 "INSIDE_KUBERNETES_POD": "TRUE",
+                                 "ENVIRONMENT": "PRODUCTION"}
         super().__init__(namespace="default",
-                         image="eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:v0.9.6",
+                         image="eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:v0.10.2",
                          name=kwargs["task_id"],
                          env_vars=environment_variables,
                          *args,
@@ -37,7 +37,7 @@ class MapActionPythonOperator(PythonOperator):
                          **kwargs)
 
 
-if config.use_kubernetes():
+if True:
     MapActionOperator = MapActionKubernetesPodOperator
 else:
     MapActionOperator = MapActionPythonOperator

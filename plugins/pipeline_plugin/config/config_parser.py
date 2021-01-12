@@ -9,18 +9,30 @@ class Config:
             if os.environ.get("ENVIRONMENT") == "LOCAL":
                 path = Path(os.getcwd()) / "plugins" / "pipeline_plugin" / "config"
             else:
-                path = Path("/") / "usr" / "src" / "pipeline_plugin" / "config"
+
+                if self.is_inside_kubernetes_pod():
+                    path = Path("/") / "usr" / "src" / "pipeline_plugin" / "config"
+                else:
+                    path = Path("/") / "home" / "airflow" / "gcs" / "plugins" / "pipeline_plugin" / "config"
+
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
-        with open(path / f"config.{os.environ.get(" ENVIRONMENT ").lower()}.yaml") as f:
+
+        with open(path / f"config.{os.environ.get('ENVIRONMENT').lower()}.yaml") as f:
             self.environment_config = yaml.safe_load(f)
             self.raw_config.update(self.environment_config)
+
+    def is_inside_kubernetes_pod(self):
+        return os.getenv("INSIDE_KUBERNETES_POD") == "TRUE"
 
     def use_kubernetes(self):
         return os.environ.get("ENVIRONMENT") != "LOCAL"
 
     def use_remote_storage(self):
         return os.environ.get("ENVIRONMENT") != "LOCAL"
+
+    def get_remote_data_path(self, relative_path):
+        return os.path.join(Path("data"), relative_path)
 
     def get_local_data_path(self, relative_path):
         if os.environ.get("ENVIRONMENT") == "LOCAL":

@@ -2,7 +2,7 @@
 from google.cloud import storage
 from google.auth.exceptions import DefaultCredentialsError
 
-from pipeline_plugin.utils.config import config
+from pipeline_plugin.config import config as config_new
 
 # gcs_hook = GoogleCloudStorageHook()
 from pathlib import Path
@@ -29,14 +29,14 @@ class GoogleCloudStorageClient:
 client = GoogleCloudStorageClient()
 
 def upload_file(path: Path):
-    bucket = config.get_gcs_bucket_name()
+    bucket = config_new.get_data_bucket_name()
     blob = str(path)
     client.upload_file_to_gcs(bucket_name=bucket, destination_blob=blob, source_filename=str(path))
     # gcs_hook.upload(bucket=bucket, object=object, filename=path)
 
 
 def download_file(path: Path):
-    bucket = config.get_gcs_bucket_name()
+    bucket = config_new.get_data_bucket_name()
     blob = str(path)
     client.download_file_from_gcs(bucket_name=bucket, source_blob=blob, destination_filename=str(path))
     return path
