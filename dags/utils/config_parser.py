@@ -4,21 +4,28 @@ from pathlib import Path
 
 from pycountry import countries
 
+from utils.fallback_dict import FallbackDict
+
 
 class Config:
     def __init__(self, path=None):
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
             self._DATA_FOLDER = Path(self._MAIN_AIRFLOW_FOLDER) / "data"
-
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
             self._DATA_FOLDER = Path("/") / "opt" / "data"
-
         if not path:
             path = self._MAIN_AIRFLOW_FOLDER / "dags" / "config"
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
+        self.country_config = dict()
+        for country_config in os.listdir(path / "countries"):
+            with open(path / "countries" / country_config) as f:
+                self.country_config[country_config.split(".")[0]] = yaml.safe_load(f)
+
+    def _get_country(self, country) -> FallbackDict:
+        return FallbackDict(self.raw_config, self.country_config[self._country_lower(country)])
 
     def name_output_file_generic(self, geo_extent, category, theme, geometry, scale, source, permission,
                                  free_text=None):
@@ -27,15 +34,15 @@ class Config:
             file_name += f"_{free_text}"
         return file_name
 
-    def _get_country_config(self, country: str) -> dict:
-        return self.raw_config['countries'][countries.lookup(country).name.lower()]
+    def _country_lower(self, country: str) -> str:
+        return countries.lookup(country).name.lower()
 
     def _get_adm(self, country: str, adm_number: int):
-        return self._get_country_config(country=country)[f'adm{adm_number}']
+        return self._get_country(country=country)[f'adm{adm_number}']
 
     # HDX COD
-    def _get_hdx(self, country: str, hdx_type) -> dict:
-        return self._get_country_config(country=country)['hdx_cod'][hdx_type]
+    def _get_hdx(self, country: str, hdx_type) -> FallbackDict:
+        return self._get_country(country=country)['hdx_cod'][hdx_type]
 
     def get_hdx_adm_address(self, country: str):
         return self._get_hdx(country=country, hdx_type='adm')['address']
@@ -51,7 +58,7 @@ class Config:
 
     # OSM
     def _get_osm(self, country: str):
-        return self._get_country_config(country=country)['osm']
+        return self._get_country(country=country)['osm']
 
     def get_osm_url(self, country: str):
         return self._get_osm(country=country)['url']
@@ -181,3 +188,6 @@ class Config:
                 'highway': 'fclass'
             }
         return schema_mapping
+
+
+config = Config()

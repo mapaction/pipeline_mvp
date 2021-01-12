@@ -23,7 +23,7 @@ def test_python_operator():
 
 
 def test_k8s_operator(monkeypatch):
-    monkeypatch.setenv("ENVIRONMENT", "GCP")
+    monkeypatch.setenv("GCP", "TRUE")
     reload(plugins.pipeline_plugin.operators.BaseMapActionOperator)
     arguments = {"argument_1": 2, "argument_2": "two"}
     operator = plugins.pipeline_plugin.operators.BaseMapActionOperator.MapActionOperator(task_id="test_mapaction_operator",
