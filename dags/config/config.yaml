@@ -4,10 +4,7 @@ dirs:
   schemas: schemas
 
 constants:
-  ISO3: YEM
-  ISO2: YE
-  crs: EPSG:2090
-  crs_general: EPSG:4326
+  crs: EPSG:4326
   altitude_light_deg: 315.0
   azimuth_light_deg: 45.0
 
