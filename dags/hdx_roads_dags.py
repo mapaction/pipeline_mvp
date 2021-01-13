@@ -23,7 +23,7 @@ def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
             task_id=f"{country}_hdx_roads_transform",
             source=source,
             input_filename=config.get_roads_cod_raw_filename(),
-            output_filename=config.get_roads_cod_processed_filename(),
+            output_filename=config.get_roads_cod_processed_filename(country=country),
             schema_mapping=config.get_roads_schema_mapping(source=source),
             crs=config.get_crs(),
             dag=dag

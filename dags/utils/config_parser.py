@@ -44,6 +44,10 @@ class Config:
         file_name += suffix
         return file_name
 
+    def _get_processed_filename(self, country, filename_field):
+        filename = self._get_name_output_file_generic(country, filename_field)
+        return os.path.join(self._get_processed_data_directory(), filename)
+
     def _country_lower(self, country: str) -> str:
         return countries.lookup(country).name.lower()
 
@@ -82,8 +86,8 @@ class Config:
                             self._get_osm(country=country)['roads']['raw_gpkg'])
 
     def get_osm_roads_processed_filename(self, country: str):
-        return os.path.join(self._get_processed_data_directory(),
-                            self._get_osm(country=country)['roads']['processed'])
+        filename_field = self._get_osm(country=country)['roads']['filename']
+        return self._get_processed_filename(country, filename_field)
 
     def get_osm_roads_tags_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
@@ -102,14 +106,13 @@ class Config:
         return os.path.join(self._get_raw_data_directory(),
                             self._get_country(country=country)['adm_cod_raw'])
 
-    def get_adm0_cod_processed_filename(self, country: str):
+    def get_adm0_cod_processed_filename(self, country: str) -> str:
         filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
-        filename = self._get_name_output_file_generic(country, filename_field)
-        return os.path.join(self._get_processed_data_directory(), filename)
+        return self._get_processed_filename(country, filename_field)
 
-    def get_adm1_cod_processed_filename(self, country: str):
-        return os.path.join(self._get_processed_data_directory(),
-                            self._get_adm(country=country, adm_number=1)['cod']['processed'])
+    def get_adm1_cod_processed_filename(self, country: str) -> str:
+        filename_field = self._get_adm(country=country, adm_number=1)['cod']['filename']
+        return self._get_processed_filename(country, filename_field)
 
     # General
     def get_roads_schema(self):
@@ -123,9 +126,9 @@ class Config:
         return os.path.join(self._get_raw_data_directory(),
                             self._get_roads_cod()['raw'])
 
-    def get_roads_cod_processed_filename(self):
-        return os.path.join(self._get_processed_data_directory(),
-                            self._get_roads_cod()['processed'])
+    def get_roads_cod_processed_filename(self, country: str) -> str:
+        filename_field = self._get_roads_cod()['filename']
+        return self._get_processed_filename(country, filename_field)
 
     def get_crs(self):
         return self.raw_config['constants']['crs']

@@ -6,12 +6,6 @@ dirs:
 constants:
   crs: EPSG:4326
 
-hdx_cod:
-  adm:
-    filename: 'yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip'
-  roads:
-    filename: 'ymn-roads.zip'
-
 adm_cod_raw: cod_adm.zip
 adm0:
   schema: admin0_affected_area_py.yml
@@ -26,7 +20,13 @@ adm0:
 adm1:
   schema: admin1_affected_area_py.yml
   cod:
-    processed: yem_admn_ad1_py_s1_unocha_pp.shp
+    filename:
+      category: admn
+      theme: ad1
+      geometry: py
+      scale: s1
+      source: unocha
+      suffix: shp
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
@@ -34,16 +34,26 @@ osm:
     osm_tags: 'osm_tags_roads.yml'
     raw_osm: osm_roads.xml
     raw_gpkg: osm_roads.gpkg
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
+    filename:
+      category: tran
+      theme: rds
+      geometry: ln
+      scale: s1
+      source: osm
+      suffix: shp
 
 roads:
   schema: roads_affected_area_ln.yml
   cod:
     raw: cod_roads.zip
+    filename:
+      category: tran
+      theme: rds
+      geometry: ln
+      scale: s1
+      source: ocha
+      suffix: shp
     processed: yem_tran_rds_ln_s1_ocha_pp.shp
-  osm:
-    raw: roads_osm.osm
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
 
 srtm:
   altitude_light_deg: 315.0

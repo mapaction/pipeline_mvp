@@ -4,6 +4,8 @@ constants:
 
 hdx_cod:
   adm:
-    address: 'yemen-admin-boundaries'
+    address: yemen-admin-boundaries
+    filename: yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip
   roads:
-    address: 'yemen-roads'
+    address: yemen-roads
+    filename: ymn-roads.zip
