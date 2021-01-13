@@ -16,7 +16,13 @@ adm_cod_raw: cod_adm.zip
 adm0:
   schema: admin0_affected_area_py.yml
   cod:
-    processed: yem_admn_ad0_py_s0_unocha_pp.shp
+    filename:
+      category: admn
+      theme: ad0
+      geometry: py
+      scale: s0
+      source: unocha
+      suffix: shp
 adm1:
   schema: admin1_affected_area_py.yml
   cod:

@@ -29,11 +29,19 @@ class Config:
     def _get_country(self, country) -> FallbackDict:
         return FallbackDict(self.raw_config, self.country_config[self._country_lower(country)])
 
-    def name_output_file_generic(self, geo_extent, category, theme, geometry, scale, source, permission,
-                                 free_text=None):
+    def _get_name_output_file_generic(self, country: str, filename_field: FallbackDict) -> str:
+        geo_extent = self.get_iso3(country).lower()
+        file_name = self._name_output_file_generic(geo_extent, filename_field['category'], filename_field['theme'],
+                                                   filename_field['geometry'], filename_field['scale'],
+                                                   filename_field['source'], filename_field['suffix'])
+        return file_name
+
+    def _name_output_file_generic(self, geo_extent: str, category: str, theme: str, geometry: str, scale: str,
+                                  source: str, suffix: str, permission: str = 'pp', free_text: str = None) -> str:
         file_name = f"{geo_extent}_{category}_{theme}_{geometry}_{scale}_{source}_{permission}"
-        if free_text:
+        if free_text is not None:
             file_name += f"_{free_text}"
+        file_name += suffix
         return file_name
 
     def _country_lower(self, country: str) -> str:
@@ -95,8 +103,9 @@ class Config:
                             self._get_country(country=country)['adm_cod_raw'])
 
     def get_adm0_cod_processed_filename(self, country: str):
-        return os.path.join(self._get_processed_data_directory(),
-                            self._get_adm(country=country, adm_number=0)['cod']['processed'])
+        filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
+        filename = self._get_name_output_file_generic(country, filename_field)
+        return os.path.join(self._get_processed_data_directory(), filename)
 
     def get_adm1_cod_processed_filename(self, country: str):
         return os.path.join(self._get_processed_data_directory(),
