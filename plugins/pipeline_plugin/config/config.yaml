@@ -1,4 +1,5 @@
 googleCloudStorage:
   dataBucketName: europe-west2-mapaction-deve-542e8027-bucket
 docker:
-  imageVersion: v0.10.3
+  imageName: eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image
+  imageVersion: v0.10.7

@@ -42,5 +42,8 @@ class Config:
     def get_data_bucket_name(self):
         return self.raw_config["googleCloudStorage"]["dataBucketName"]
 
+    def get_docker_image(self):
+        return self.raw_config["docker"]["imageName"] + ":" + self.raw_config["docker"]["imageVersion"]
+
 
 config = Config()
