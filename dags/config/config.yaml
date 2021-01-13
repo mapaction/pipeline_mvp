@@ -53,7 +53,6 @@ roads:
       scale: s1
       source: ocha
       suffix: shp
-    processed: yem_tran_rds_ln_s1_ocha_pp.shp
 
 srtm:
   altitude_light_deg: 315.0
