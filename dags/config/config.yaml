@@ -11,6 +11,7 @@ hdx_cod:
   adm:
     address: null
     filename: null
+    file_type: gpkg
   roads:
     address: null
     filename: null
@@ -27,8 +28,8 @@ adm0:
       source: unocha
       suffix: shp
     column_names:
-      name_en: admin0Name_en
-      pcode: pcode
+      name_en: ADM0_EN
+      pcode: ADM0_PCODE
 adm1:
   schema: admin1_affected_area_py.yml
   cod:
@@ -40,9 +41,9 @@ adm1:
       source: unocha
       suffix: shp
     column_names:
-      name_en: admin1Name_en
-      pcode: pcode
-      par_pcode: par_pcode
+      name_en: ADM1_EN
+      pcode: ADM1_PCODE
+      par_pcode: ADM0_PCODE
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'

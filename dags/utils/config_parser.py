@@ -70,6 +70,9 @@ class Config:
     def get_hdx_adm_dataset_name(self, country: str):
         return self._get_hdx(country=country, hdx_type='adm')['filename']
 
+    def get_hdx_adm_dataset_type(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['file_type']
+
     def get_hdx_roads_address(self, country: str):
         return self._get_hdx(country=country, hdx_type='roads')['address']
 

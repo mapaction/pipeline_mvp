@@ -17,7 +17,8 @@ default_args = get_default_arguments()
 schedule_interval = get_schedule_interval()
 catchup = get_catchup()
 
-countries = ["yemen"]
+#countries = ["yemen"]
+countries = ["cameroon"]
 
 hdx_adm0_dag = create_hdx_adm_dag(countries=countries, schedule_interval=schedule_interval, catchup=catchup,
                                   default_args=default_args)
