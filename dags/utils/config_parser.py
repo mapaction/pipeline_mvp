@@ -13,7 +13,7 @@ class Config:
     def __init__(self, path=None):
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
-            self._DATA_FOLDER = Path(self._MAIN_AIRFLOW_FOLDER) / "data"
+            self._DATA_FOLDER = Path("data")
             self._SCHEMAS_FOLDER = Path("/") / "usr" / "src" / "pipeline_plugin" / "schemas"
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())

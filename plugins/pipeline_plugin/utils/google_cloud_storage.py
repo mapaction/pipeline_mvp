@@ -1,7 +1,7 @@
 # from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from google.cloud import storage
 from google.auth.exceptions import DefaultCredentialsError
-
+import os
 from pipeline_plugin.config import config as config_new
 
 # gcs_hook = GoogleCloudStorageHook()
@@ -9,10 +9,9 @@ from pathlib import Path
 
 class GoogleCloudStorageClient:
     def __init__(self):
-        try:
+        if os.environ.get("GCP") == "TRUE":
             self.storage_client = storage.Client()
-        except DefaultCredentialsError:
-            from pathlib import Path
+        else:
             self.storage_client = storage.Client.from_service_account_json(Path(__file__).parent / "keyfile.json")
 
     def download_file_from_gcs(self, bucket_name: str, source_blob: str, destination_filename: str):
