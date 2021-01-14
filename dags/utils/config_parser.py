@@ -51,7 +51,8 @@ class Config:
 
     def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
         return {column_name_map[column_name]: column_name
-                for column_name in column_names}
+                for column_name in column_names
+                if column_name_map[column_name] is not None}
 
     def _country_lower(self, country: str) -> str:
         return countries.lookup(country).name.lower()
@@ -182,12 +183,10 @@ class Config:
     def get_roads_schema_mapping(self, source: str, country: str) -> dict:
         if source == 'osm':
             column_name_map = self._get_osm(country=country)['roads']['column_names']
-            column_names = ['name_en', 'name_loc', 'fclass']
         elif source == 'cod':
             column_name_map = self._get_roads_cod()['column_names']
-            column_names = ['fclass']
         return self._get_schema_mapping(column_name_map=column_name_map,
-                                        column_names=column_names)
+                                        column_names=['name_en', 'name_loc', 'fclass'])
 
 
 config = Config()

@@ -66,6 +66,8 @@ roads:
       source: ocha
       suffix: shp
     column_names:
+      name_en: null
+      name_loc: null
       fclass: TYPE
 
 srtm:
