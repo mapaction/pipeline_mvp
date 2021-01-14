@@ -1,18 +1,13 @@
-# from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from google.cloud import storage
-from google.auth.exceptions import DefaultCredentialsError
-
-from pipeline_plugin.config import config as config_new
-
-# gcs_hook = GoogleCloudStorageHook()
+from pipeline_plugin.config import config
 from pathlib import Path
+
 
 class GoogleCloudStorageClient:
     def __init__(self):
-        try:
+        if config.is_inside_gcp():
             self.storage_client = storage.Client()
-        except DefaultCredentialsError:
-            from pathlib import Path
+        else:
             self.storage_client = storage.Client.from_service_account_json(Path(__file__).parent / "keyfile.json")
 
     def download_file_from_gcs(self, bucket_name: str, source_blob: str, destination_filename: str):
@@ -26,18 +21,18 @@ class GoogleCloudStorageClient:
         blob.upload_from_filename(source_filename)
 
 
-if config_new.use_remote_storage():
+if config.use_remote_storage():
     client = GoogleCloudStorageClient()
 
 
 def upload_file(path: Path):
-    bucket = config_new.get_data_bucket_name()
+    bucket = config.get_data_bucket_name()
     blob = str(path)
     client.upload_file_to_gcs(bucket_name=bucket, destination_blob=blob, source_filename=str(path))
 
 
 def download_file(path: Path):
-    bucket = config_new.get_data_bucket_name()
+    bucket = config.get_data_bucket_name()
     blob = str(path)
     client.download_file_from_gcs(bucket_name=bucket, source_blob=blob, destination_filename=str(path))
     return path
