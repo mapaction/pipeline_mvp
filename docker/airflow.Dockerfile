@@ -1,11 +1,5 @@
 FROM puckel/docker-airflow:1.10.9
 
-# # Install Cubonacci code as python package
-# RUN /usr/venv/bin/pip install /usr/src
-
-# # Install Cubonacci code requirements
-# RUN /usr/venv/bin/pip install -r docker_image/requirements.txt
-
 # Airflow
 ARG AIRFLOW_VERSION=1.10.9
 ARG AIRFLOW_USER_HOME=/usr/local/airflow
@@ -29,6 +23,9 @@ RUN apt-get update -yqq \
     && pip install GDAL==2.4.0
 
 RUN pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION}
+
+ADD requirements-airflow.txt requirements.txt
+RUN pip install -r requirements.txt
 
 RUN mkdir /opt/data
 
