@@ -49,6 +49,10 @@ class Config:
         filename = self._get_name_output_file_generic(country, filename_field)
         return os.path.join(self._get_processed_data_directory(), filename)
 
+    def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
+        return {column_name_map[column_name]: column_name
+                for column_name in column_names}
+
     def _country_lower(self, country: str) -> str:
         return countries.lookup(country).name.lower()
 
@@ -165,44 +169,25 @@ class Config:
         return self._SCHEMAS_FOLDER
 
     # Schema mappings
-    def get_adm0_schema_mapping(self, source: str):
-        schema_mapping = {}
-        if source == 'cod':
-            schema_mapping = {'admin0Name_en': 'name_en'}
-        elif source == 'gadm':
-            schema_mapping = {
-                'NAME_0': 'name_en',
-                'GID_0': 'pcode'
-            }
-        elif source == 'geoboundaries':
-            schema_mapping = {'shapeName': 'name_en'}
-        return schema_mapping
+    def get_adm0_schema_mapping(self, source: str, country: str) -> dict:
+        return self._get_schema_mapping(
+            column_name_map=self._get_adm(country=country, adm_number=0)[source]['column_names'],
+            column_names=['name_en', 'pcode'])
 
-    def get_adm1_schema_mapping(self, source: str):
-        schema_mapping = {}
-        if source == 'cod':
-            schema_mapping = {'admin1Name_en': 'name_en'}
-        elif source == 'gadm':
-            schema_mapping = {
-                'NAME_1': 'name_en',
-                'GID_1': 'pcode',
-                'GID_0': 'par_pcode'
-            }
-        elif source == 'geoboundaries':
-            schema_mapping = {'shapeName': 'name_en'}
-        return schema_mapping
+    def get_adm1_schema_mapping(self, source: str, country: str) -> dict:
+        return self._get_schema_mapping(
+            column_name_map=self._get_adm(country=country, adm_number=1)[source]['column_names'],
+            column_names=['name_en', 'pcode', 'par_pcode'])
 
-    def get_roads_schema_mapping(self, source: str):
-        schema_mapping = {}
-        if source == "hdx" or source == "cod":
-            schema_mapping = {'TYPE': 'fclass'}
-        elif source == "osm":
-            schema_mapping = {
-                'name:en': 'name_en',
-                'name': 'name_loc',
-                'highway': 'fclass'
-            }
-        return schema_mapping
+    def get_roads_schema_mapping(self, source: str, country: str) -> dict:
+        if source == 'osm':
+            column_name_map = self._get_osm(country=country)['roads']['column_names']
+            column_names = ['name_en', 'name_loc', 'fclass']
+        elif source == 'cod':
+            column_name_map = self._get_roads_cod()['column_names']
+            column_names = ['fclass']
+        return self._get_schema_mapping(column_name_map=column_name_map,
+                                        column_names=column_names)
 
 
 config = Config()

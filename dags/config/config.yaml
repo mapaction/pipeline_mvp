@@ -18,12 +18,8 @@ adm0:
       source: unocha
       suffix: shp
     column_names:
-      name:
-        source: admin0Name_en
-        target: name_en
-      pcode:
-        source: pcode
-        target: pcode
+      name_en: admin0Name_en
+      pcode: pcode
 adm1:
   schema: admin1_affected_area_py.yml
   cod:
@@ -35,15 +31,9 @@ adm1:
       source: unocha
       suffix: shp
     column_names:
-      name:
-        source: admin1Name_en
-        target: name_en
-      pcode:
-        source: pcode
-        target: pcode
-      par_pcode:
-        source: par_pcode
-        target: par_pcode
+      name_en: admin1Name_en
+      pcode: pcode
+      par_pcode: par_pcode
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
@@ -58,6 +48,11 @@ osm:
       scale: s1
       source: osm
       suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: highway
+
 
 roads:
   schema: roads_affected_area_ln.yml
@@ -70,6 +65,8 @@ roads:
       scale: s1
       source: ocha
       suffix: shp
+    column_names:
+      fclass: TYPE
 
 srtm:
   altitude_light_deg: 315.0

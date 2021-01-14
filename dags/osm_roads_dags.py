@@ -30,7 +30,7 @@ def create_osm_road_dag(countries, schedule_interval, catchup, default_args):
             input_filename=config.get_osm_roads_raw_gpkg(country=country),
             output_filename=config.get_osm_roads_processed_filename(country=country),
             crs=config.get_crs(),
-            schema_mapping=config.get_roads_schema_mapping(source=source),
+            schema_mapping=config.get_roads_schema_mapping(source=source, country=country),
             dag=dag
         )
 
