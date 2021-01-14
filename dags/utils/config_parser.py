@@ -31,9 +31,10 @@ class Config:
 
     def _get_name_output_file_generic(self, country: str, filename_field: FallbackDict) -> str:
         geo_extent = self.get_iso3(country).lower()
-        file_name = self._name_output_file_generic(geo_extent, filename_field['category'], filename_field['theme'],
-                                                   filename_field['geometry'], filename_field['scale'],
-                                                   filename_field['source'], filename_field['suffix'])
+        file_name = self._name_output_file_generic(geo_extent=geo_extent, category=filename_field['category'],
+                                                   theme=filename_field['theme'], geometry=filename_field['geometry'],
+                                                   scale=filename_field['scale'], source=filename_field['source'],
+                                                   suffix=filename_field['suffix'])
         return file_name
 
     def _name_output_file_generic(self, geo_extent: str, category: str, theme: str, geometry: str, scale: str,
@@ -41,7 +42,7 @@ class Config:
         file_name = f"{geo_extent}_{category}_{theme}_{geometry}_{scale}_{source}_{permission}"
         if free_text is not None:
             file_name += f"_{free_text}"
-        file_name += suffix
+        file_name += f'.{suffix}'
         return file_name
 
     def _get_processed_filename(self, country, filename_field):
