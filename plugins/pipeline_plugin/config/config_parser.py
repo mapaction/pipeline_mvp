@@ -21,6 +21,9 @@ class Config:
             self.environment_config = yaml.safe_load(f)
             self.raw_config.update(self.environment_config)
 
+    def is_inside_gcp(self):
+        return os.environ.get("GCP") == "TRUE"
+
     def is_inside_kubernetes_pod(self):
         return os.getenv("INSIDE_KUBERNETES_POD") == "TRUE"
 
