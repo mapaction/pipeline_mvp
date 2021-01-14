@@ -6,7 +6,16 @@ dirs:
 constants:
   crs: EPSG:4326
 
-adm_cod_raw: cod_adm.zip
+# Adding as empty values for now so that the DAGs don't break
+hdx_cod:
+  adm:
+    address: null
+    filename: null
+  roads:
+    address: null
+    filename: null
+
+adm_cod_raw: '{iso3}_cod_adm.zip'
 adm0:
   schema: admin0_affected_area_py.yml
   cod:
@@ -39,7 +48,7 @@ osm:
   url: 'http://overpass-api.de/api/interpreter?'
   roads:
     osm_tags: 'osm_tags_roads.yml'
-    raw_osm: osm_roads.xml
+    raw_osm: '{iso3}_osm_roads.xml'
     raw_gpkg: osm_roads.gpkg
     filename:
       category: tran
@@ -57,7 +66,7 @@ osm:
 roads:
   schema: roads_affected_area_ln.yml
   cod:
-    raw: cod_roads.zip
+    raw: '{iso3}_cod_roads.zip'
     filename:
       category: tran
       theme: rds

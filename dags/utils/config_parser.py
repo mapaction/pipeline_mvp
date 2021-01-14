@@ -85,7 +85,8 @@ class Config:
 
     def get_osm_roads_raw_osm(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_osm(country=country)['roads']['raw_osm'])
+                            self._get_osm(country=country)['roads']['raw_osm']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_raw_gpkg(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
@@ -110,7 +111,8 @@ class Config:
 
     def get_adm_cod_raw_filename(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_country(country=country)['adm_cod_raw'])
+                            self._get_country(country=country)['adm_cod_raw']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_adm0_cod_processed_filename(self, country: str) -> str:
         filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
@@ -128,9 +130,10 @@ class Config:
     def _get_roads_cod(self):
         return self.raw_config['roads']['cod']
 
-    def get_roads_cod_raw_filename(self):
+    def get_roads_cod_raw_filename(self, country):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_roads_cod()['raw'])
+                            self._get_roads_cod()['raw']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_roads_cod_processed_filename(self, country: str) -> str:
         filename_field = self._get_roads_cod()['filename']
