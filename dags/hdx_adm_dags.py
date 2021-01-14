@@ -29,7 +29,7 @@ def create_hdx_adm_dag(countries, schedule_interval, catchup, default_args):
             output_filename=config.get_adm0_cod_processed_filename(country=country),
             iso3=config.get_iso3(country=country),
             source_geoboundaries=config.get_geoboundaries_adm0_raw(),
-            schema_mapping=config.get_adm0_schema_mapping(source=source),
+            schema_mapping=config.get_adm0_schema_mapping(source=source, country=country),
             crs=config.get_crs(),
             gadm_layer=config.get_gadm_layer_adm0(),
             dag=dag
@@ -44,7 +44,7 @@ def create_hdx_adm_dag(countries, schedule_interval, catchup, default_args):
             output_filename=config.get_adm1_cod_processed_filename(country=country),
             iso3=config.get_iso3(country=country),
             source_geoboundaries=config.get_geoboundaries_adm1_raw(),
-            schema_mapping=config.get_adm1_schema_mapping(source=source),
+            schema_mapping=config.get_adm1_schema_mapping(source=source, country=country),
             crs=config.get_crs(),
             gadm_layer=config.get_gadm_layer_adm1(),
             dag=dag
