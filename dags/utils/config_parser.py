@@ -2,6 +2,8 @@ import os
 import yaml
 from pathlib import Path
 
+from typing import List
+
 from pycountry import countries
 
 from utils.fallback_dict import FallbackDict
@@ -22,9 +24,15 @@ class Config:
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
         self.country_config = dict()
+        self.countries = []
         for country_config in os.listdir(path / "countries"):
             with open(path / "countries" / country_config) as f:
-                self.country_config[country_config.split(".")[0]] = yaml.safe_load(f)
+                country = country_config.split(".")[0]
+                self.country_config[country] = yaml.safe_load(f)
+                self.countries.append(country)
+
+    def get_countries(self) -> List[str]:
+        return self.countries
 
     def _get_country(self, country) -> FallbackDict:
         return FallbackDict(self.raw_config, self.country_config[self._country_lower(country)])
