@@ -4,81 +4,63 @@ dirs:
   schemas: schemas
 
 constants:
-  ISO3: YEM
-  ISO2: YE
-  crs: EPSG:2090
-  crs_general: EPSG:4326
-  altitude_light_deg: 315.0
-  azimuth_light_deg: 45.0
+  crs: EPSG:4326
 
+adm_cod_raw: cod_adm.zip
+adm0:
+  schema: admin0_affected_area_py.yml
+  cod:
+    filename:
+      category: admn
+      theme: ad0
+      geometry: py
+      scale: s0
+      source: unocha
+      suffix: shp
+adm1:
+  schema: admin1_affected_area_py.yml
+  cod:
+    filename:
+      category: admn
+      theme: ad1
+      geometry: py
+      scale: s1
+      source: unocha
+      suffix: shp
 
-# EXTRACT
-world:
-  hdx_cod:
-    global_seaports:
-      address: 'world-port-index'
-      filename: 'world_port_index.zip'
-  gadm:
-    url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_{ISO3}_gpkg.zip'
-  geoboundaries:
-    url: https://www.geoboundaries.org/gbRequest.html?ISO=ALL&ADM=ADM0&TYP=SSCGS
-  ourairports:
-    url: 'https://ourairportapi.com/airports-in/'
-countries:
-  yemen:
-    adm_cod_raw: cod_adm.zip
-    adm0:
-      schema: admin0_affected_area_py.yml
-      cod:
-#        raw: cod_adm.zip
-        processed: yem_admn_ad0_py_s0_unocha_pp.shp
-    adm1:
-      schema: admin1_affected_area_py.yml
-      cod:
-#        raw: cod_adm1.zip
-        processed: yem_admn_ad1_py_s1_unocha_pp.shp
-    hdx_cod:
-      adm:
-        address: 'yemen-admin-boundaries'
-        filename: 'yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip'
-      roads:
-        address: 'yemen-roads'
-        filename: 'ymn-roads.zip'
-      river:
-        address: 'yemen-water-bodies'
-        filename: 'wadies.zip'
-      seaport:
-        address: 'yemen-ports'
-        filename: 'ymn-seaport.zip'
-    osm:
-      url: 'http://overpass-api.de/api/interpreter?'
-      roads:
-        osm_tags: 'osm_tags_roads.yml'
-        raw_osm: osm_roads.xml
-        raw_gpkg: osm_roads.gpkg
-        processed: yem_tran_rds_ln_s1_osm_pp.shp
-#   Can be generated from world:gadm:url
-    gadm:
-      url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
-
-geoboundaries:
-  adm0:
-    raw: 'geobnd_adm0.zip'
-  adm1:
-    raw: 'geobnd_adm1.zip'
+osm:
+  url: 'http://overpass-api.de/api/interpreter?'
+  roads:
+    osm_tags: 'osm_tags_roads.yml'
+    raw_osm: osm_roads.xml
+    raw_gpkg: osm_roads.gpkg
+    filename:
+      category: tran
+      theme: rds
+      geometry: ln
+      scale: s1
+      source: osm
+      suffix: shp
 
 roads:
   schema: roads_affected_area_ln.yml
   cod:
     raw: cod_roads.zip
-    processed: yem_tran_rds_ln_s1_ocha_pp.shp
-  osm:
-    raw: roads_osm.osm
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
-    url: https://overpass-api.de/api/interpreter?data=(area[\"ISO3166-1\"=\"YE\"][\"admin_level\"=\"2\"];)->.a;(way[highway](area.a););(._;>;);out qt;
+    filename:
+      category: tran
+      theme: rds
+      geometry: ln
+      scale: s1
+      source: ocha
+      suffix: shp
 
-#   Todo srtm, ourairports, wfp_airports, osm
-# Todo TRANSFORM
+srtm:
+  altitude_light_deg: 315.0
+  azimuth_light_deg: 45.0
 
-
-
+# TODO: This shouldn't be needed for now
+geoboundaries:
+  adm0:
+    raw: 'geobnd_adm0.zip'
+  adm1:
+    raw: 'geobnd_adm1.zip'

@@ -10,5 +10,5 @@ properties:
     crs:
         items:
             enum:
-                - EPSG:2090
+                - EPSG:4326
         additionalItems: false

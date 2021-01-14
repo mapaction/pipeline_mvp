@@ -1,56 +1,11 @@
 constants:
   ISO3: YEM
   ISO2: YE
-  crs: EPSG:2090
-  crs_general: EPSG:4326
-  altitude_light_deg: 315.0
-  azimuth_light_deg: 45.0
 
-adm_cod_raw: cod_adm.zip
-adm0:
-  schema: admin0_affected_area_py.yml
-  cod:
-    processed: yem_admn_ad0_py_s0_unocha_pp.shp
-adm1:
-  schema: admin1_affected_area_py.yml
-  cod:
-    processed: yem_admn_ad1_py_s1_unocha_pp.shp
 hdx_cod:
   adm:
-    address: 'yemen-admin-boundaries'
-    filename: 'yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip'
+    address: yemen-admin-boundaries
+    filename: yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip
   roads:
-    address: 'yemen-roads'
-    filename: 'ymn-roads.zip'
-  river:
-    address: 'yemen-water-bodies'
-    filename: 'wadies.zip'
-  seaport:
-    address: 'yemen-ports'
-    filename: 'ymn-seaport.zip'
-osm:
-  url: 'http://overpass-api.de/api/interpreter?'
-  roads:
-    osm_tags: 'osm_tags_roads.yml'
-    raw_osm: osm_roads.xml
-    raw_gpkg: osm_roads.gpkg
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
-#   Can be generated from world:gadm:url
-gadm:
-  url: 'https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_YEM_gpkg.zip'
-
-roads:
-  schema: roads_affected_area_ln.yml
-  cod:
-    raw: cod_roads.zip
-    processed: yem_tran_rds_ln_s1_ocha_pp.shp
-  osm:
-    raw: roads_osm.osm
-    processed: yem_tran_rds_ln_s1_osm_pp.shp
-    url: https://overpass-api.de/api/interpreter?data=(area[\"ISO3166-1\"=\"YE\"][\"admin_level\"=\"2\"];)->.a;(way[highway](area.a););(._;>;);out qt;
-
-#   Todo srtm, ourairports, wfp_airports, osm
-# Todo TRANSFORM
-
-
-
+    address: yemen-roads
+    filename: ymn-roads.zip
