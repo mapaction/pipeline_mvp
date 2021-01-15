@@ -4,8 +4,6 @@ from pathlib import Path
 
 from typing import List
 
-from pycountry import countries
-
 from utils.fallback_dict import FallbackDict
 
 
@@ -35,7 +33,7 @@ class Config:
         return self.countries
 
     def _get_country(self, country) -> FallbackDict:
-        return FallbackDict(self.raw_config, self.country_config[self._country_lower(country)])
+        return FallbackDict(self.raw_config, self.country_config[country])
 
     def _get_name_output_file_generic(self, country: str, filename_field: FallbackDict) -> str:
         geo_extent = self.get_iso3(country).lower()
@@ -61,9 +59,6 @@ class Config:
         return {column_name_map[column_name]: column_name
                 for column_name in column_names
                 if column_name_map[column_name] is not None}
-
-    def _country_lower(self, country: str) -> str:
-        return countries.lookup(country).name.lower()
 
     def _get_adm(self, country: str, adm_number: int):
         return self._get_country(country=country)[f'adm{adm_number}']
@@ -168,10 +163,10 @@ class Config:
                             self.raw_config['geoboundaries']['adm1']['raw'])
 
     def get_iso3(self, country: str):
-        return countries.lookup(country).alpha_3
+        return self._get_country(country)['constants']['ISO3']
 
     def get_iso2(self, country: str):
-        return countries.lookup(country).alpha_2
+        return self._get_country(country)['constants']['ISO2']
 
     # Directories
     def _get_raw_data_directory(self):
