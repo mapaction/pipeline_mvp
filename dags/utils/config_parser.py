@@ -96,7 +96,8 @@ class Config:
 
     def get_osm_roads_raw_gpkg(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_osm(country=country)['roads']['raw_gpkg'])
+                            self._get_osm(country=country)['roads']['raw_gpkg']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_processed_filename(self, country: str):
         filename_field = self._get_osm(country=country)['roads']['filename']

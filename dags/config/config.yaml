@@ -50,7 +50,7 @@ osm:
   roads:
     osm_tags: 'osm_tags_roads.yml'
     raw_osm: '{iso3}_osm_roads.xml'
-    raw_gpkg: osm_roads.gpkg
+    raw_gpkg: '{iso3}_osm_roads.gpkg'
     filename:
       category: tran
       theme: rds
