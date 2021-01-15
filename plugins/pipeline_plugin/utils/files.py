@@ -4,8 +4,7 @@ from pathlib import Path
 import time
 
 from pipeline_plugin.utils.google_cloud_storage import upload_file, download_file
-# from pipeline_plugin.utils.config import config
-from pipeline_plugin.config import config as config_new
+from pipeline_plugin.config import config
 
 
 CACHE_INVALID_AFTER_DAYS = 7
@@ -15,20 +14,20 @@ def load_file(relative_source_path):
     if not os.path.exists(Path(relative_source_path).parent):
         os.makedirs(Path(relative_source_path).parent)
 
-    if config_new.use_remote_storage():
+    if config.use_remote_storage():
         filepath = download_file(relative_source_path)
     else:
-        filepath = copy_file(config_new.get_remote_data_path(relative_source_path),
-                             config_new.get_local_data_path(relative_source_path))
+        filepath = copy_file(config.get_remote_data_path(relative_source_path),
+                             config.get_local_data_path(relative_source_path))
     return filepath
 
 
 def save_file(relative_target_path):
-    if config_new.use_remote_storage():
+    if config.use_remote_storage():
         filepath = upload_file(relative_target_path)
     else:
-        filepath = copy_file(config_new.get_local_data_path(relative_target_path),
-                             config_new.get_remote_data_path(relative_target_path))
+        filepath = copy_file(config.get_local_data_path(relative_target_path),
+                             config.get_remote_data_path(relative_target_path))
     return filepath
 
 
