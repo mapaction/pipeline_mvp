@@ -11,7 +11,7 @@ hdx_cod:
   adm:
     address: null
     filename: null
-    file_type: gpkg
+    file_type: shp
   roads:
     address: null
     filename: null

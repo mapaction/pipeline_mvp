@@ -6,7 +6,6 @@ hdx_cod:
   adm:
     address: dominican-republic-administrative-boundaries-levels-0-6
     filename: dom_adm_2020_SHP.zip
-    file_type: shp
 
 adm1:
   cod:
