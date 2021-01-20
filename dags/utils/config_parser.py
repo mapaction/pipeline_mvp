@@ -76,6 +76,12 @@ class Config:
     def get_hdx_adm_dataset_type(self, country: str):
         return self._get_hdx(country=country, hdx_type='adm')['file_type']
 
+    def get_hdx_adm0_dataset_layer_name(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['layer_name']['adm0']
+
+    def get_hdx_adm1_dataset_layer_name(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['layer_name']['adm1']
+
     def get_hdx_roads_address(self, country: str):
         return self._get_hdx(country=country, hdx_type='roads')['address']
 

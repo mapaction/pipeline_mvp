@@ -17,6 +17,7 @@ def transform(source: str,
               adm_level,
               input_filename: Path,
               input_file_type: str,
+              input_layer_name: str,
               schema_filename: str,
               output_filename: Path,
               iso3,
@@ -35,7 +36,7 @@ def transform(source: str,
         if input_file_type == 'gpkg':
             adm_df = transform_cod_gpkg(input_filename, adm_level)
         elif input_file_type == 'shp':
-            adm_df = transform_cod_shp(input_filename, adm_level)
+            adm_df = transform_cod_shp(input_filename, adm_level, layer_name=input_layer_name)
 
     elif source == "gadm":
         adm_df = gpd.read_file(f'zip://{input_filename}!{GADM_FILENAME.format(ISO3=iso3)}',
@@ -68,13 +69,14 @@ def transform_cod_gpkg(input_filename, adm_level) -> gpd.GeoDataFrame:
     return gpd.read_file(f'zip://{input_filename}', layer=adm_name)
 
 
-def transform_cod_shp(input_filename, adm_level) -> gpd.GeoDataFrame:
-    with zipfile.ZipFile(input_filename) as z:
-        for filename in z.namelist():
-            if adm_level in filename.lower() and filename.lower().endswith('.shp'):
-                shapefile = filename
+def transform_cod_shp(input_filename, adm_level, layer_name=None) -> gpd.GeoDataFrame:
+    if layer_name is None:
+        with zipfile.ZipFile(input_filename) as z:
+            for filename in z.namelist():
+                if adm_level in filename.lower() and filename.lower().endswith('.shp'):
+                    layer_name = filename
     # TODO: error for no match
-    return gpd.read_file(f'zip://{input_filename}!{shapefile}')
+    return gpd.read_file(f'zip://{input_filename}!{layer_name}')
 
 
 def transform_geoboundaries(source_geob):

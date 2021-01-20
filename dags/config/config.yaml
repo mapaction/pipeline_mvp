@@ -12,6 +12,9 @@ hdx_cod:
     address: null
     filename: null
     file_type: shp
+    layer_name:
+      adm0: null
+      adm1: null
   roads:
     address: null
     filename: null
