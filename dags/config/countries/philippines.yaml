@@ -1,0 +1,9 @@
+constants:
+  ISO3: PHL
+  ISO2: PH
+
+hdx_cod:
+  adm:
+    address: philippines-administrative-levels-0-to-3
+    filename: phl_adm_psa_namria_20200529_SHP.zip
+    file_type: shp
