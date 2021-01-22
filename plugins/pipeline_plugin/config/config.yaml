@@ -3,4 +3,4 @@ googleCloudStorage:
   dataBucketName: mapaction-pipeline-output-data
 docker:
   imageName: eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image
-  imageVersion: v0.10.27
+  imageVersion: v1.0.1

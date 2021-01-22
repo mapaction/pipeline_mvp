@@ -1,3 +1,7 @@
 constants:
   ISO3: FJI
   ISO2: FJ
+
+hdx_cod:
+  roads:
+    include: false

@@ -6,3 +6,5 @@ hdx_cod:
   adm:
     address: malawi-administrative-level-0-3-boundaries
     filename: mwi_adm_nso_20181016_SHP.zip
+  roads:
+    include: false

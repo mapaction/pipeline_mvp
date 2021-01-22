@@ -82,6 +82,9 @@ class Config:
     def get_hdx_adm1_dataset_layer_name(self, country: str):
         return self._get_hdx(country=country, hdx_type='adm')['layer_name']['adm1']
 
+    def should_process_hdx_roads(self, country: str):
+        return self._get_hdx(country=country, hdx_type="roads")["include"]
+
     def get_hdx_roads_address(self, country: str):
         return self._get_hdx(country=country, hdx_type='roads')['address']
 
