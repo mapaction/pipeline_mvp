@@ -4,8 +4,6 @@ from pathlib import Path
 
 from typing import List
 
-from pycountry import countries
-
 from utils.fallback_dict import FallbackDict
 
 
@@ -35,7 +33,7 @@ class Config:
         return self.countries
 
     def _get_country(self, country) -> FallbackDict:
-        return FallbackDict(self.raw_config, self.country_config[self._country_lower(country)])
+        return FallbackDict(self.raw_config, self.country_config[country])
 
     def _get_name_output_file_generic(self, country: str, filename_field: FallbackDict) -> str:
         geo_extent = self.get_iso3(country).lower()
@@ -62,9 +60,6 @@ class Config:
                 for column_name in column_names
                 if column_name_map[column_name] is not None}
 
-    def _country_lower(self, country: str) -> str:
-        return countries.lookup(country).name.lower()
-
     def _get_adm(self, country: str, adm_number: int):
         return self._get_country(country=country)[f'adm{adm_number}']
 
@@ -77,6 +72,15 @@ class Config:
 
     def get_hdx_adm_dataset_name(self, country: str):
         return self._get_hdx(country=country, hdx_type='adm')['filename']
+
+    def get_hdx_adm_dataset_type(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['file_type']
+
+    def get_hdx_adm0_dataset_layer_name(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['layer_name']['adm0']
+
+    def get_hdx_adm1_dataset_layer_name(self, country: str):
+        return self._get_hdx(country=country, hdx_type='adm')['layer_name']['adm1']
 
     def get_hdx_roads_address(self, country: str):
         return self._get_hdx(country=country, hdx_type='roads')['address']
@@ -93,11 +97,13 @@ class Config:
 
     def get_osm_roads_raw_osm(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_osm(country=country)['roads']['raw_osm'])
+                            self._get_osm(country=country)['roads']['raw_osm']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_raw_gpkg(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_osm(country=country)['roads']['raw_gpkg'])
+                            self._get_osm(country=country)['roads']['raw_gpkg']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_processed_filename(self, country: str):
         filename_field = self._get_osm(country=country)['roads']['filename']
@@ -118,7 +124,8 @@ class Config:
 
     def get_adm_cod_raw_filename(self, country: str):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_country(country=country)['adm_cod_raw'])
+                            self._get_country(country=country)['adm_cod_raw']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_adm0_cod_processed_filename(self, country: str) -> str:
         filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
@@ -136,9 +143,10 @@ class Config:
     def _get_roads_cod(self):
         return self.raw_config['roads']['cod']
 
-    def get_roads_cod_raw_filename(self):
+    def get_roads_cod_raw_filename(self, country):
         return os.path.join(self._get_raw_data_directory(),
-                            self._get_roads_cod()['raw'])
+                            self._get_roads_cod()['raw']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_roads_cod_processed_filename(self, country: str) -> str:
         filename_field = self._get_roads_cod()['filename']
@@ -162,10 +170,10 @@ class Config:
                             self.raw_config['geoboundaries']['adm1']['raw'])
 
     def get_iso3(self, country: str):
-        return countries.lookup(country).alpha_3
+        return self._get_country(country)['constants']['ISO3']
 
     def get_iso2(self, country: str):
-        return countries.lookup(country).alpha_2
+        return self._get_country(country)['constants']['ISO2']
 
     # Directories
     def _get_raw_data_directory(self):

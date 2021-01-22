@@ -15,14 +15,14 @@ def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
             task_id=f"{country}_hdx_roads_extract",
             hdx_address=config.get_hdx_roads_address(country=country),
             hdx_filename=config.get_hdx_roads_dataset_name(country=country),
-            output_filename=config.get_roads_cod_raw_filename(),
+            output_filename=config.get_roads_cod_raw_filename(country=country),
             dag=dag
         )
         source = "cod"
         roads_transform = HDXRoadsTransformOperator(
             task_id=f"{country}_hdx_roads_transform",
             source=source,
-            input_filename=config.get_roads_cod_raw_filename(),
+            input_filename=config.get_roads_cod_raw_filename(country=country),
             output_filename=config.get_roads_cod_processed_filename(country=country),
             schema_mapping=config.get_roads_schema_mapping(source=source, country=country),
             crs=config.get_crs(),

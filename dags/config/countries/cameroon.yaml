@@ -1,0 +1,8 @@
+constants:
+  ISO3: CMR
+  ISO2: CM
+
+hdx_cod:
+  adm:
+    address: cameroon-administrative-boundaries
+    filename: cmr_admbnda_inc_20180104_SHP.zip

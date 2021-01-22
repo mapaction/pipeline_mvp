@@ -1,0 +1,8 @@
+constants:
+  ISO3: PAK
+  ISO2: PK
+
+hdx_cod:
+  adm:
+    address: pakistan-administrative-level-0-1-2-and-3-boundary-polygons-lines-and-central-places
+    filename: pak_adm_ocha_pco_gaul_20181218_SHP.zip

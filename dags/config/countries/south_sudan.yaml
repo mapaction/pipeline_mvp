@@ -1,0 +1,8 @@
+constants:
+  ISO3: SSD
+  ISO2: SS
+
+hdx_cod:
+  adm:
+    address: south-sudan-administrative-boundaries
+    filename: ssd_admbnda_imwg_nbs_SHP.zip
