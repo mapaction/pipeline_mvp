@@ -1,0 +1,14 @@
+steps:
+  - name: 'git'
+    args: ['clone', 'https://github.com/mapaction/pipeline_mvp']
+    id: 'check-out-source-code'
+  - name: 'git'
+    args: ['checkout', '$BRANCH_NAME']
+    id: 'switch-branch'
+  - name: 'docker'
+    args: ['build', 
+           '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$PROJECT_ID',
+           '-f', 'docker/kubernetesPodOperator.Dockerfile']
+    id: 'build-k8s-operator-image'
+images:
+  - 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$PROJECT_ID'
