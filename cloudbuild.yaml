@@ -3,7 +3,7 @@ steps:
     args: ['clone', 'https://github.com/mapaction/pipeline_mvp']
     id: 'check-out-source-code'
   - name: 'gcr.io/cloud-builders/git'
-    args: ['checkout', '$BRANCH_NAME']
+    args: ['checkout', 'remote/$BRANCH_NAME']
     id: 'switch-branch'
   - name: 'docker'
     args: ['build', 
