@@ -1,7 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'set-docker-image-version'
-    args: ['composer environments update mapaction-develop-mvp',
+    args: ['composer',
+           'environments',
+           'update',
+           'mapaction-develop-mvp',
            '--location', 'europe-west2',
            '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
 images:
