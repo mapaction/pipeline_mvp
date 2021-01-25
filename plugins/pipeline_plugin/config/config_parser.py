@@ -48,7 +48,7 @@ class Config:
         return self.raw_config["googleCloudStorage"]["dataBucketName"]
 
     def get_docker_image_version(self):
-        return Variable.get("dockerImageVersion", default_var="latest")
+        return Variable.get("DOCKER_IMAGE_VERSION", default_var="latest")
 
     def get_docker_image(self):
         return self.raw_config["docker"]["imageName"] + ":" + self.get_docker_image_version()

@@ -1,4 +1,11 @@
 steps:
+  - name: 'python:3.7'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install -r requirements.txt
+        python -m pytest .
   - name: 'docker'
     args: ['build', 
            '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA',
