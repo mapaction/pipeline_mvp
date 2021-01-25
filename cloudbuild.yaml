@@ -1,8 +1,8 @@
 steps:
-  - name: 'git'
+  - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/mapaction/pipeline_mvp']
     id: 'check-out-source-code'
-  - name: 'git'
+  - name: 'gcr.io/cloud-builders/git'
     args: ['checkout', '$BRANCH_NAME']
     id: 'switch-branch'
   - name: 'docker'
