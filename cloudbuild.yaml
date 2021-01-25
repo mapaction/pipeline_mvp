@@ -9,16 +9,14 @@ steps:
            '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'sync-dags'
-    args: ['gsutil',
-           '-m',
+    args: ['-m',
            'cp',
            '-r',
            './dags',
            'gs://$_BUCKET']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'sync-plugins'
-    args: ['gsutil',
-           '-m',
+    args: ['-m',
            'cp',
            '-r',
            './plugins',
