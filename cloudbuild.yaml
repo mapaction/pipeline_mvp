@@ -8,10 +8,7 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     id: 'set-docker-image-version'
-    args: ['gcloud',
-           'composer',
-           'environments',
-           'update',
+    args: ['gcloud composer environments update',
            'mapaction-develop-mvp',
            '--location', 'europe-west2',
            '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
