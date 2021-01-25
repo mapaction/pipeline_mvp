@@ -7,6 +7,24 @@ steps:
            'mapaction-develop-mvp',
            '--location', 'europe-west2',
            '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'sync-dags'
+    args: ['gsutil',
+           '-m',
+           'cp',
+           '-r',
+           './dags',
+           'gs://$_BUCKET']
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'sync-plugins'
+    args: ['gsutil',
+           '-m',
+           'cp',
+           '-r',
+           './plugins',
+           'gs://$_BUCKET']
+substitutions:
+  _BUCKET: 'europe-west2-mapaction-deve-542e8027-bucket'
 images:
   - 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA'
 
