@@ -2,9 +2,6 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/mapaction/pipeline_mvp']
     id: 'check-out-source-code'
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['checkout', 'remote/$BRANCH_NAME']
-    id: 'switch-branch'
   - name: 'docker'
     args: ['build', 
            '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$PROJECT_ID',
