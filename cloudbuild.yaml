@@ -5,7 +5,8 @@ steps:
   - name: 'docker'
     args: ['build', 
            '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$PROJECT_ID',
-           '-f', 'docker/kubernetesPodOperator.Dockerfile']
+           '-f', 'docker/kubernetesPodOperator.Dockerfile',
+           '.']
     id: 'build-k8s-operator-image'
 images:
   - 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$PROJECT_ID'
