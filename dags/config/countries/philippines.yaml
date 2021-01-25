@@ -9,3 +9,5 @@ hdx_cod:
     file_type: shp
     layer_name:
       adm0: phl_admbnda_adm0_psa_namria_itos_20200529.shp
+  roads:
+    include: false

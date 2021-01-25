@@ -6,3 +6,5 @@ hdx_cod:
   adm:
     address: dominica-administrative-level-0-national-and-level-1-boundaries-form-gadm
     filename: dma_admbndl_ALL_py_s1_dominode.zip
+  roads:
+    include: false
