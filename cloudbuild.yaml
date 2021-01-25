@@ -1,16 +1,18 @@
 steps:
-  - name: 'docker'
-    args: ['build', 
-           '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA',
-           '-f', 'docker/kubernetesPodOperator.Dockerfile',
-           '.']
-    id: 'build-k8s-operator-image'
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     id: 'set-docker-image-version'
-    args: ['composer environments update',
-           'mapaction-develop-mvp',
+    args: ['gcloud composer environments update mapaction-develop-mvp',
+           '',
            '--location', 'europe-west2',
            '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
 images:
   - 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA'
+
+
+    # - name: 'docker'
+    # args: ['build', 
+    #        '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA',
+    #        '-f', 'docker/kubernetesPodOperator.Dockerfile',
+    #        '.']
+    # id: 'build-k8s-operator-image'
