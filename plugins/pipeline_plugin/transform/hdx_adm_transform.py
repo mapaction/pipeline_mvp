@@ -26,6 +26,7 @@ def transform(source: str,
               crs,
               gadm_layer):
 
+    print("<<< Test >>>")
     print(schema_filename)
 
     input_filename = load_file(input_filename)
