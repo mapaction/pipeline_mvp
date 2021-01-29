@@ -1,26 +1,8 @@
 steps:
-  - name: 'python:3.7'
-    entrypoint: 'bash'
+  - name: "python:3.7"
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         pip install -r requirements.txt
         python -m pytest .
-  - name: 'docker'
-    args: ['build', 
-           '-t', 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA',
-           '-f', 'docker/kubernetesPodOperator.Dockerfile',
-           '.']
-    id: 'build-k8s-operator-image'
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
-    id: 'set-docker-image-version'
-    args: ['gcloud',
-           'composer',
-           'environments',
-           'update',
-           'mapaction-develop-mvp',
-           '--location', 'europe-west2',
-           '--update-env-variables=AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$COMMIT_SHA']
-images:
-  - 'eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image:$COMMIT_SHA'
