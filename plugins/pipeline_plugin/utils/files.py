@@ -2,9 +2,11 @@ import os
 import shutil
 from pathlib import Path
 import time
-
+from typing import Union
 from pipeline_plugin.utils.google_cloud_storage import upload_file, download_file
 from pipeline_plugin.config import config
+import geopandas as gpd
+import tempfile
 
 
 CACHE_INVALID_AFTER_DAYS = 7
@@ -29,6 +31,22 @@ def save_file(relative_target_path):
         filepath = copy_file(config.get_local_data_path(relative_target_path),
                              config.get_remote_data_path(relative_target_path))
     return filepath
+
+
+def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, Path], **kwargs):
+    if isinstance(output_filename, str):
+        output_filename = Path(output_filename)
+
+    # Open temp directory for extraction of shapefiles
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        temp_filename = Path(tmpdirname, output_filename.name)
+        # Extracts multiple files
+        geopandas_df.to_file(temp_filename, **kwargs)
+
+        # For each file, move it to original location and call save_file
+        for file in os.listdir(tmpdirname):
+            shutil.move(src=Path(tmpdirname, file), dst=Path(output_filename.parent, file))
+            save_file(Path(output_filename.parent, file))
 
 
 def copy_file(source_path, target_path):

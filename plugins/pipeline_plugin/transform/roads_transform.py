@@ -2,23 +2,24 @@ import geopandas as gpd
 
 from sqlalchemy.dialects.postgresql import HSTORE
 
-from pipeline_plugin.utils.files import load_file, save_file
+from pipeline_plugin.utils.files import load_file, save_shapefiles, save_file
 
 
 def transform(source: str, input_filename: str, output_filename: str, crs, schema_mapping):
     input_filename = load_file(input_filename)
 
-    df_roads = gpd.GeoDataFrame()
-
     if source == "osm":
         df_roads = transform_osm(input_filename=input_filename, schema_mapping=schema_mapping)
+        df_roads = postprocess(df_roads=df_roads, crs=crs)
+        df_roads.to_file(output_filename)
+
+        save_file(output_filename)
 
     elif source == "cod":
         df_roads = transform_cod(input_filename=input_filename, schema_mapping=schema_mapping)
+        df_roads = postprocess(df_roads=df_roads, crs=crs)
+        save_shapefiles(df_roads, output_filename, encoding='utf8')
 
-    postprocess(df_roads=df_roads, crs=crs, output_filename=output_filename)
-
-    save_file(output_filename)
 
 
 def transform_osm(input_filename, schema_mapping):
@@ -60,15 +61,15 @@ def transform_cod(input_filename, schema_mapping):
     return df_roads
 
 
-def postprocess(df_roads, crs, output_filename):
+def postprocess(df_roads, crs):
     # TODO need to convert from XML to GPKG rather than OSM to GPKG
     # Change CRS
-    df_roads = df_roads.to_crs(crs)
     # Make columns needed for validation
     ### df_roads['geometry_type'] = df_roads['geometry'].apply(lambda x: x.geom_type)
     ### df_roads['crs'] = df_roads.crs
     # Validate
     ### validate(instance=df_roads.to_dict('list'), schema=parse_yaml(schema_filename))
     # Write to output
-    df_roads.to_file(output_filename, encoding='utf8')
+    df_roads = df_roads.to_crs(crs)
+    return df_roads
 
