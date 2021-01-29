@@ -2,12 +2,11 @@ import os
 import zipfile
 import geopandas as gpd
 import fiona
-from pathlib import Path
 from jsonschema import validate
 import zipfile
 
 from pipeline_plugin.utils.yaml_api import parse_yaml
-from pipeline_plugin.utils.files import load_file, save_file
+from pipeline_plugin.utils.files import load_file, save_shapefiles
 
 
 GADM_FILENAME = 'gadm36_{ISO3}.gpkg'
@@ -15,19 +14,16 @@ GADM_FILENAME = 'gadm36_{ISO3}.gpkg'
 
 def transform(source: str,
               adm_level,
-              input_filename: Path,
+              input_filename: str,
               input_file_type: str,
               input_layer_name: str,
               schema_filename: str,
-              output_filename: Path,
+              output_filename: str,
               iso3,
               source_geoboundaries,
               schema_mapping,
               crs,
               gadm_layer):
-
-    print(schema_filename)
-
     input_filename = load_file(input_filename)
 
     adm_df = gpd.GeoDataFrame()
@@ -46,10 +42,7 @@ def transform(source: str,
         adm_df = transform_geoboundaries(source_geoboundaries)
 
     adm_df = postprocess(adm_df=adm_df, schema_mapping=schema_mapping, schema_filename=schema_filename, crs=crs)
-    with open(output_filename, "wb") as f:
-        adm_df.to_file(f)
-
-    save_file(output_filename)
+    save_shapefiles(geopandas_df=adm_df, output_filename=output_filename)
 
 
 def transform_cod_gpkg(input_filename, adm_level) -> gpd.GeoDataFrame:
