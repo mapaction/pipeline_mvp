@@ -28,7 +28,7 @@ def create_osm_road_dag(countries, schedule_interval, catchup, default_args):
             task_id=f"{country}_osm_roads_transform",
             source=source,
             input_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_raw_gpkg(country=country)),
-            output_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_processed_filename(country=country)),
+            output_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_processed_filepath(country=country)),
             crs=config.get_crs(),
             schema_mapping=config.get_roads_schema_mapping(source=source, country=country),
             dag=dag

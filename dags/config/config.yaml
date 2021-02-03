@@ -88,9 +88,17 @@ srtm:
   altitude_light_deg: 315.0
   azimuth_light_deg: 45.0
 
-# TODO: This shouldn't be needed for now
 geoboundaries:
   adm0:
     raw: 'geobnd_adm0.zip'
   adm1:
     raw: 'geobnd_adm1.zip'
+
+cmf:
+  top-level: GIS
+  original:
+    top-level: 1_Original_Data
+  processed:
+    top-level: 2_Active_Data
+    admin: 202_adm
+    roads: 232_tran

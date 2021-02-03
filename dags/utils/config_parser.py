@@ -51,9 +51,15 @@ class Config:
         file_name += f'.{suffix}'
         return file_name
 
-    def _get_processed_filename(self, country, filename_field):
+    def _get_processed_filename(self, country: str, filename_field: FallbackDict) -> Path:
         filename = self._get_name_output_file_generic(country, filename_field)
-        return os.path.join(self._get_processed_data_directory(), filename)
+        return Path(filename)
+
+    def _get_processed_directory(self, country: str, artefact: str) -> Path:
+        return Path(self._get_processed_data_directory()) / \
+               Path(self._get_country(country)['cmf']['top-level']) / \
+               Path(self._get_country(country)['cmf']['processed']['top-level']) / \
+               Path(self._get_country(country)['cmf']['processed'][artefact])
 
     def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
         return {column_name_map[column_name]: column_name
@@ -108,9 +114,11 @@ class Config:
                             self._get_osm(country=country)['roads']['raw_gpkg']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_osm_roads_processed_filename(self, country: str):
+    def get_osm_roads_processed_filepath(self, country: str):
         filename_field = self._get_osm(country=country)['roads']['filename']
-        return self._get_processed_filename(country, filename_field)
+        filename = self._get_processed_filename(country, filename_field)
+        directory = self._get_processed_directory(country, 'roads')
+        return directory / filename
 
     def get_osm_roads_tags_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
@@ -130,13 +138,17 @@ class Config:
                             self._get_country(country=country)['adm_cod_raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_adm0_cod_processed_filename(self, country: str) -> str:
+    def get_adm0_cod_processed_filepath(self, country: str) -> Path:
         filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
-        return self._get_processed_filename(country, filename_field)
+        filename = self._get_processed_filename(country, filename_field)
+        directory = self._get_processed_directory(country=country, artefact='admin')
+        return directory / filename
 
-    def get_adm1_cod_processed_filename(self, country: str) -> str:
+    def get_adm1_cod_processed_filepath(self, country: str) -> Path:
         filename_field = self._get_adm(country=country, adm_number=1)['cod']['filename']
-        return self._get_processed_filename(country, filename_field)
+        filename = self._get_processed_filename(country, filename_field)
+        directory = self._get_processed_directory(country=country, artefact='admin')
+        return directory / filename
 
     # General
     def get_roads_schema(self):
@@ -151,9 +163,11 @@ class Config:
                             self._get_roads_cod()['raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_roads_cod_processed_filename(self, country: str) -> str:
+    def get_roads_cod_processed_filename(self, country: str) -> Path:
         filename_field = self._get_roads_cod()['filename']
-        return self._get_processed_filename(country, filename_field)
+        filename = self._get_processed_filename(country, filename_field)
+        directory = self._get_processed_directory(country, 'roads')
+        return directory / filename
 
     def get_crs(self):
         return self.raw_config['constants']['crs']

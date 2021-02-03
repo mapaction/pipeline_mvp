@@ -37,6 +37,9 @@ def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, 
     if isinstance(output_filename, str):
         output_filename = Path(output_filename)
 
+    # Make output directory if it doesn't exist
+    Path.mkdir(output_filename.parent, parents=True, exist_ok=True)
+
     # Open temp directory for extraction of shapefiles
     with tempfile.TemporaryDirectory() as tmpdirname:
         temp_filename = Path(tmpdirname, output_filename.name)
