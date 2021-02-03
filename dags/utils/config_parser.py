@@ -163,7 +163,7 @@ class Config:
                             self._get_roads_cod()['raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_roads_cod_processed_filename(self, country: str) -> Path:
+    def get_roads_cod_processed_filepath(self, country: str) -> Path:
         filename_field = self._get_roads_cod()['filename']
         filename = self._get_processed_filename(country, filename_field)
         directory = self._get_processed_directory(country, 'roads')
