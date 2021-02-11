@@ -44,7 +44,8 @@ class Config:
         return file_name
 
     def _name_output_file_generic(self, geo_extent: str, category: str, theme: str, geometry: str, scale: str,
-                                  source: str, suffix: str, permission: str = 'pp', free_text: str = None) -> str:
+                                  source: str, suffix: str, permission: str = 'pp',
+                                  free_text: str = 'pipeline_generated') -> str:
         file_name = f"{geo_extent}_{category}_{theme}_{geometry}_{scale}_{source}_{permission}"
         if free_text is not None:
             file_name += f"_{free_text}"
