@@ -13,12 +13,11 @@ def transform(source: str, input_filename: str, output_filename: str, crs, schem
         df_roads = postprocess(df_roads=df_roads, crs=crs)
         df_roads.to_file(output_filename)
 
-        save_file(output_filename)
-
     elif source == "cod":
         df_roads = transform_cod(input_filename=input_filename, schema_mapping=schema_mapping)
         df_roads = postprocess(df_roads=df_roads, crs=crs)
-        save_shapefiles(df_roads, output_filename, encoding='utf8')
+
+    save_shapefiles(df_roads, output_filename, encoding='utf8')
 
 
 
