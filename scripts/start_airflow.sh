@@ -12,4 +12,3 @@ docker run --name local-airflow-server \
            docker-airflow-custom webserver
 
 # Accessible on localhost:8080
-

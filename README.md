@@ -52,6 +52,14 @@ The Airflow server runs in a Docker container, which has the `/dags`, `/plugins`
 
 ### Airflow symbolic links
 
-TODO: Explain symbolic links for IDE development
-TODO: Explain GDAL/OGR
-<!-- To install GDAL/OGR -> https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html -->
+Because of the way the Airflow plugin system works, the code in the DAGs refers to the plugins in a different location. To help the IDE for development, we can use symlinks to symbolically link the files in the `plugins` folder to the Airflow package so that things like autocomplete will work. Run the `airflow_symbolic_links.sh` script from the root to set things up.
+
+## CI / CD
+
+For Google Cloud Composer, a CI/CD pipeline is set up using Google Cloud Build. When a new push is made to master, the `cloudbuild.yaml` file is used for the workflow. The following steps are executed:
+
+- The commit hash is used as version
+- The KubernetesPodOperator image is built and labeled with this version
+- The `dags` folder is synchronized to Cloud Storage, which Cloud Composer synchronizes with
+- The `plugins` folder is synchronized to Cloud Storage, which Cloud Composer synchronizes with
+- The commit hash is set as variable in Cloud Composer so that the Operators use the new Docker image

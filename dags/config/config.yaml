@@ -6,7 +6,21 @@ dirs:
 constants:
   crs: EPSG:4326
 
-adm_cod_raw: cod_adm.zip
+# Adding as empty values for now so that the DAGs don't break
+hdx_cod:
+  adm:
+    address: null
+    filename: null
+    file_type: shp
+    layer_name:
+      adm0: null
+      adm1: null
+  roads:
+    include: true
+    address: null
+    filename: null
+
+adm_cod_raw: '{iso3}_cod_adm.zip'
 adm0:
   schema: admin0_affected_area_py.yml
   cod:
@@ -18,8 +32,8 @@ adm0:
       source: unocha
       suffix: shp
     column_names:
-      name_en: admin0Name_en
-      pcode: pcode
+      name_en: ADM0_EN
+      pcode: ADM0_PCODE
 adm1:
   schema: admin1_affected_area_py.yml
   cod:
@@ -31,16 +45,16 @@ adm1:
       source: unocha
       suffix: shp
     column_names:
-      name_en: admin1Name_en
-      pcode: pcode
-      par_pcode: par_pcode
+      name_en: ADM1_EN
+      pcode: ADM1_PCODE
+      par_pcode: ADM0_PCODE
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
   roads:
     osm_tags: 'osm_tags_roads.yml'
-    raw_osm: osm_roads.xml
-    raw_gpkg: osm_roads.gpkg
+    raw_osm: '{iso3}_osm_roads.xml'
+    raw_gpkg: '{iso3}_osm_roads.gpkg'
     filename:
       category: tran
       theme: rds
@@ -57,7 +71,7 @@ osm:
 roads:
   schema: roads_affected_area_ln.yml
   cod:
-    raw: cod_roads.zip
+    raw: '{iso3}_cod_roads.zip'
     filename:
       category: tran
       theme: rds
@@ -74,9 +88,17 @@ srtm:
   altitude_light_deg: 315.0
   azimuth_light_deg: 45.0
 
-# TODO: This shouldn't be needed for now
 geoboundaries:
   adm0:
     raw: 'geobnd_adm0.zip'
   adm1:
     raw: 'geobnd_adm1.zip'
+
+cmf:
+  top-level: GIS
+  original:
+    top-level: 1_Original_Data
+  processed:
+    top-level: 2_Active_Data
+    admin: 202_adm
+    roads: 232_tran

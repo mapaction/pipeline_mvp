@@ -1,0 +1,10 @@
+constants:
+  ISO3: NPL
+  ISO2: NP
+
+hdx_cod:
+  adm:
+    address: administrative-bounadries-of-nepal
+    filename: npl_admbnda_nd_20201117_SHP.zip
+  roads:
+    include: false

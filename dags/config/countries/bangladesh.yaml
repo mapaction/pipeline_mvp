@@ -1,0 +1,10 @@
+constants:
+  ISO3: BGD
+  ISO2: BD
+
+hdx_cod:
+  adm:
+    address: administrative-boundaries-of-bangladesh-as-of-2015
+    filename: bgd_adm_bbs_20201113_SHP.zip
+  roads:
+    include: false

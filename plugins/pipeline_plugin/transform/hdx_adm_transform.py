@@ -2,11 +2,11 @@ import os
 import zipfile
 import geopandas as gpd
 import fiona
-from pathlib import Path
 from jsonschema import validate
+import zipfile
 
 from pipeline_plugin.utils.yaml_api import parse_yaml
-from pipeline_plugin.utils.files import load_file, save_file
+from pipeline_plugin.utils.files import load_file, save_shapefiles
 
 
 GADM_FILENAME = 'gadm36_{ISO3}.gpkg'
@@ -14,23 +14,25 @@ GADM_FILENAME = 'gadm36_{ISO3}.gpkg'
 
 def transform(source: str,
               adm_level,
-              input_filename: Path,
+              input_filename: str,
+              input_file_type: str,
+              input_layer_name: str,
               schema_filename: str,
-              output_filename: Path,
+              output_filename: str,
               iso3,
               source_geoboundaries,
               schema_mapping,
               crs,
               gadm_layer):
-
-    print(schema_filename)
-
     input_filename = load_file(input_filename)
 
     adm_df = gpd.GeoDataFrame()
 
     if source == "cod":
-        adm_df = transform_cod(input_filename, adm_level)
+        if input_file_type == 'gpkg':
+            adm_df = transform_cod_gpkg(input_filename, adm_level)
+        elif input_file_type == 'shp':
+            adm_df = transform_cod_shp(input_filename, adm_level, layer_name=input_layer_name)
 
     elif source == "gadm":
         adm_df = gpd.read_file(f'zip://{input_filename}!{GADM_FILENAME.format(ISO3=iso3)}',
@@ -40,13 +42,10 @@ def transform(source: str,
         adm_df = transform_geoboundaries(source_geoboundaries)
 
     adm_df = postprocess(adm_df=adm_df, schema_mapping=schema_mapping, schema_filename=schema_filename, crs=crs)
-    with open(output_filename, "wb") as f:
-        adm_df.to_file(f)
-
-    save_file(output_filename)
+    save_shapefiles(geopandas_df=adm_df, output_filename=output_filename)
 
 
-def transform_cod(input_filename, adm_level) -> gpd.GeoDataFrame:
+def transform_cod_gpkg(input_filename, adm_level) -> gpd.GeoDataFrame:
     layerlist = fiona.listlayers(f'zip://{input_filename}')
     search = adm_level
     for sublist in layerlist:
@@ -61,6 +60,16 @@ def transform_cod(input_filename, adm_level) -> gpd.GeoDataFrame:
     adm_name = layerlist[index]
 
     return gpd.read_file(f'zip://{input_filename}', layer=adm_name)
+
+
+def transform_cod_shp(input_filename, adm_level, layer_name=None) -> gpd.GeoDataFrame:
+    if layer_name is None:
+        with zipfile.ZipFile(input_filename) as z:
+            for filename in z.namelist():
+                if adm_level in filename.lower() and filename.lower().endswith('.shp'):
+                    layer_name = filename
+    # TODO: error for no match
+    return gpd.read_file(f'zip://{input_filename}!{layer_name}')
 
 
 def transform_geoboundaries(source_geob):

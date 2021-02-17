@@ -1,0 +1,10 @@
+constants:
+  ISO3: HTI
+  ISO2: HT
+
+hdx_cod:
+  adm:
+    address: hti-polbndl-adm1-cnigs-zip
+    filename: hti_adm_cnigs_20181129.zip
+  roads:
+    include: false

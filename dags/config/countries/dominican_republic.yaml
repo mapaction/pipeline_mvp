@@ -1,0 +1,15 @@
+constants:
+  ISO3: DOM
+  ISO2: DO
+
+hdx_cod:
+  adm:
+    address: dominican-republic-administrative-boundaries-levels-0-6
+    filename: dom_adm_2020_SHP.zip
+  roads:
+    include: false
+
+adm1:
+  cod:
+    column_names:
+      name_en: adm1_es
