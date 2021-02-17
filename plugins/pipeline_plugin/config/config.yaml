@@ -4,3 +4,7 @@ googleCloudStorage:
 docker:
   imageName: eu.gcr.io/datapipeline-295515/mapaction-cloudcomposer-kubernetes-image
   imageVersion: v0.10.27
+RCloneSync:
+  service_account_auth_bucket: pipeline-gcp-to-drive-config.mapaction.org
+  service_account_auth_file: datapipeline-gcp-to-gfs-sync-bot-service-account.json
+  gdrive_folder_id: 0AMRbvzp_sOnxUk9PVA
