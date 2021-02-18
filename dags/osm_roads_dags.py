@@ -1,5 +1,3 @@
-import os
-
 from airflow import DAG
 from airflow.operators import BashOperator
 from datetime import datetime, timedelta
@@ -18,8 +16,8 @@ def create_osm_road_dag(countries, schedule_interval, catchup, default_args):
             osm_url=config.get_osm_url(country=country),
             country_iso2=config.get_iso2(country=country),
             schema_filename=config.get_osm_roads_tags_schema(country=country),
-            osm_output_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_raw_osm(country=country)),
-            gpkg_output_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_raw_gpkg(country=country)),
+            osm_output_filename=config.get_osm_roads_raw_osm(country=country),
+            gpkg_output_filename=config.get_osm_roads_raw_gpkg(country=country),
             dag=dag
         )
 
@@ -27,8 +25,8 @@ def create_osm_road_dag(countries, schedule_interval, catchup, default_args):
         roads_transform = OSMRoadsTransformOperator(
             task_id=f"{country}_osm_roads_transform",
             source=source,
-            input_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_raw_gpkg(country=country)),
-            output_filename=os.path.join(dag.dag_id, country, config.get_osm_roads_processed_filepath(country=country)),
+            input_filename=config.get_osm_roads_raw_gpkg(country=country),
+            output_filename=config.get_osm_roads_processed_filepath(country=country),
             crs=config.get_crs(),
             schema_mapping=config.get_roads_schema_mapping(source=source, country=country),
             dag=dag

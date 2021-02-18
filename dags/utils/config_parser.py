@@ -57,9 +57,7 @@ class Config:
         return Path(filename)
 
     def _get_processed_directory(self, country: str, artefact: str) -> Path:
-        return Path(self._get_processed_data_directory()) / \
-               Path(self._get_country(country)['cmf']['top-level']) / \
-               Path(self._get_country(country)['cmf']['processed']['top-level']) / \
+        return Path(self._get_processed_data_directory(country)) / \
                Path(self._get_country(country)['cmf']['processed'][artefact])
 
     def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
@@ -106,12 +104,12 @@ class Config:
         return self._get_osm(country=country)['url']
 
     def get_osm_roads_raw_osm(self, country: str):
-        return os.path.join(self._get_raw_data_directory(),
+        return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['roads']['raw_osm']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_raw_gpkg(self, country: str):
-        return os.path.join(self._get_raw_data_directory(),
+        return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['roads']['raw_gpkg']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
@@ -135,7 +133,7 @@ class Config:
                             self._get_adm(country=country, adm_number=1)['schema'])
 
     def get_adm_cod_raw_filename(self, country: str):
-        return os.path.join(self._get_raw_data_directory(),
+        return os.path.join(self._get_raw_data_directory(country),
                             self._get_country(country=country)['adm_cod_raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
@@ -160,7 +158,7 @@ class Config:
         return self.raw_config['roads']['cod']
 
     def get_roads_cod_raw_filename(self, country):
-        return os.path.join(self._get_raw_data_directory(),
+        return os.path.join(self._get_raw_data_directory(country),
                             self._get_roads_cod()['raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
@@ -179,12 +177,12 @@ class Config:
     def get_gadm_layer_adm1(self):
         return 'gadm36_{ISO3}_1'
 
-    def get_geoboundaries_adm0_raw(self):
-        return os.path.join(self._get_raw_data_directory(),
+    def get_geoboundaries_adm0_raw(self, country):
+        return os.path.join(self._get_raw_data_directory(country),
                             self.raw_config['geoboundaries']['adm0']['raw'])
 
-    def get_geoboundaries_adm1_raw(self):
-        return os.path.join(self._get_raw_data_directory(),
+    def get_geoboundaries_adm1_raw(self, country):
+        return os.path.join(self._get_raw_data_directory(country),
                             self.raw_config['geoboundaries']['adm1']['raw'])
 
     def get_iso3(self, country: str):
@@ -194,11 +192,15 @@ class Config:
         return self._get_country(country)['constants']['ISO2']
 
     # Directories
-    def _get_raw_data_directory(self):
-        return self._DATA_FOLDER
+    def _get_raw_data_directory(self, country):
+        return self._DATA_FOLDER / country / \
+            Path(self._get_country(country)['cmf']['top-level']) / \
+            Path(self._get_country(country)['cmf']['original']['top-level'])
 
-    def _get_processed_data_directory(self):
-        return self._DATA_FOLDER
+    def _get_processed_data_directory(self, country):
+        return self._DATA_FOLDER / country / \
+           Path(self._get_country(country)['cmf']['top-level']) / \
+           Path(self._get_country(country)['cmf']['processed']['top-level'])
 
     def _get_schema_directory(self):
         return self._SCHEMAS_FOLDER
