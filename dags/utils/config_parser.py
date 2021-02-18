@@ -113,11 +113,11 @@ class Config:
                             self._get_osm(country=country)['roads']['raw_gpkg']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_osm_roads_processed_filepath(self, country: str):
+    def get_osm_roads_processed_filepath(self, country: str) -> str:
         filename_field = self._get_osm(country=country)['roads']['filename']
         filename = self._get_processed_filename(country, filename_field)
         directory = self._get_processed_directory(country, 'roads')
-        return directory / filename
+        return str(directory / filename)
 
     def get_osm_roads_tags_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
@@ -132,22 +132,22 @@ class Config:
         return os.path.join(self._get_schema_directory(),
                             self._get_adm(country=country, adm_number=1)['schema'])
 
-    def get_adm_cod_raw_filename(self, country: str):
+    def get_adm_cod_raw_filename(self, country: str) -> str:
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_country(country=country)['adm_cod_raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_adm0_cod_processed_filepath(self, country: str) -> Path:
+    def get_adm0_cod_processed_filepath(self, country: str) -> str:
         filename_field = self._get_adm(country=country, adm_number=0)['cod']['filename']
         filename = self._get_processed_filename(country, filename_field)
         directory = self._get_processed_directory(country=country, artefact='admin')
-        return directory / filename
+        return str(directory / filename)
 
-    def get_adm1_cod_processed_filepath(self, country: str) -> Path:
+    def get_adm1_cod_processed_filepath(self, country: str) -> str:
         filename_field = self._get_adm(country=country, adm_number=1)['cod']['filename']
         filename = self._get_processed_filename(country, filename_field)
         directory = self._get_processed_directory(country=country, artefact='admin')
-        return directory / filename
+        return str(directory / filename)
 
     # General
     def get_roads_schema(self):
@@ -157,16 +157,16 @@ class Config:
     def _get_roads_cod(self):
         return self.raw_config['roads']['cod']
 
-    def get_roads_cod_raw_filename(self, country):
+    def get_roads_cod_raw_filename(self, country) -> str:
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_roads_cod()['raw']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
-    def get_roads_cod_processed_filepath(self, country: str) -> Path:
+    def get_roads_cod_processed_filepath(self, country: str) -> str:
         filename_field = self._get_roads_cod()['filename']
         filename = self._get_processed_filename(country, filename_field)
         directory = self._get_processed_directory(country, 'roads')
-        return directory / filename
+        return str(directory / filename)
 
     def get_crs(self):
         return self.raw_config['constants']['crs']
