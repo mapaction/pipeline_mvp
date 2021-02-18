@@ -3,8 +3,9 @@ from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 import os
 
-from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0TransformOperator, HDXAdm1TransformOperator, RCloneOperator
+from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0TransformOperator, HDXAdm1TransformOperator
 from config import config
+
 
 def create_hdx_adm_dag(countries, schedule_interval, catchup, default_args):
     dag = DAG(f"hdx_adm", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
@@ -53,10 +54,4 @@ def create_hdx_adm_dag(countries, schedule_interval, catchup, default_args):
             dag=dag
         )
 
-        hdx_extract >> [adm0_transform, adm1_transform]
-
-    sync_operator = RCloneOperator(
-        task_id=f"all_countries_sync_data",
-        dag=dag
-    )
     return dag
