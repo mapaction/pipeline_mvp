@@ -23,11 +23,11 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         rclone_cmd = [f'rclone',
             f'sync',
             f':"google cloud storage":{gcp_path}',
-            f'--gcs-service-account-file = "{service_account_auth_path}"',
+            f'--gcs-service-account-file="{service_account_auth_path}"',
             f':drive:',
             f'--drive-scope = "drive"',
-            f'--drive-service-account-file = "{service_account_auth_path}"',
-            f'--drive-team-drive = {gdrive_folder_id}',
+            f'--drive-service-account-file="{service_account_auth_path}"',
+            f'--drive-team-drive={gdrive_folder_id}',
             f'--drive-auth-owner-only']
 
         subprocess.check_call(rclone_cmd)
