@@ -1,3 +1,4 @@
+import logging
 import os
 import tempfile
 from airflow.utils.decorators import apply_defaults
@@ -7,18 +8,28 @@ from pipeline_plugin.utils.google_cloud_storage import GoogleCloudStorageClient
 from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 import subprocess
 
+logger = logging.getLogger(__name__)
+
 
 def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
     _, service_account_auth_path = tempfile.mkstemp(suffix='.json')
+    logger.info(f'creating temporary service auth file = {service_account_auth_path}')
+    logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
+    logger.info(f'temporary service auth file size (expect zero) = {os.path.getsize(service_account_auth_path)}')
 
     try:
+        logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
+
         gcsc = GoogleCloudStorageClient()
         gcsc.download_file_from_gcs(
             bucket_name=config.get_rclone_service_account_auth_bucket(),
             source_blob=config.get_rclone_service_account_auth_file(),
             destination_filename=service_account_auth_path
         )
+
+        logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
+        logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_account_auth_path)}')
 
         rclone_cmd = [f'rclone',
             f'sync',
