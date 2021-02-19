@@ -32,7 +32,6 @@ def create_sync_dag(schedule_interval, catchup, default_args):
 
     sync_operator = RCloneOperator(
         task_id=f"all_countries_sync_data",
-        dummy_arg='something',
         dag=dag
     )
 

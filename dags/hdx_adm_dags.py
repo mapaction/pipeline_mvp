@@ -54,4 +54,6 @@ def create_hdx_adm_dag(countries, schedule_interval, catchup, default_args):
             dag=dag
         )
 
+        hdx_extract >> [adm0_transform, adm1_transform]
+        
     return dag
