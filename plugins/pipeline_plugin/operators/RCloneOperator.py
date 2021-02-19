@@ -11,9 +11,9 @@ import subprocess
 def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
     _, service_account_auth_path = tempfile.mkstemp(suffix='.json')
-    gcsc = GoogleCloudStorageClient()
 
     try:
+        gcsc = GoogleCloudStorageClient()
         gcsc.download_file_from_gcs(
             bucket_name=config.get_rclone_service_account_auth_bucket(),
             source_blob=config.get_rclone_service_account_auth_file(),
@@ -23,10 +23,10 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         rclone_cmd = [f'rclone',
             f'sync',
             f':"google cloud storage":{gcp_path}',
-            f'--gcs-service-account-file="{service_account_auth_path}"',
+            f'--gcs-service-account-file={service_account_auth_path}',
             f':drive:',
-            f'--drive-scope="drive"',
-            f'--drive-service-account-file="{service_account_auth_path}"',
+            f'--drive-scope=drive',
+            f'--drive-service-account-file={service_account_auth_path}"',
             f'--drive-team-drive={gdrive_folder_id}',
             f'--drive-auth-owner-only']
 
