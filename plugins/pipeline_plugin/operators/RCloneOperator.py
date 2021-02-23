@@ -13,44 +13,55 @@ logger = logging.getLogger(__name__)
 
 
 def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
-
-    _, service_account_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
-    logger.info(f'creating temporary service auth file = {service_account_auth_path}')
-    logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
-    logger.info(f'temporary service auth file size (expect zero) = {os.path.getsize(service_account_auth_path)}')
+    
+    # On GCP `airflow_home` exists and returns a read/writable location
+    # On localhost None will result in a tempdir in /tmp which is a read/writable location 
+    home_dir = os.environ.get('airflow_home', None)
+    
+    # if not home_dir:
+    #    raise RuntimeError('Expected to find value for environment varible `airflow_home`')
+    
+    # _, service_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
 
     try:
+        service_auth_temp_dir = tempfile.TemporaryDirectory(dir=home_dir)
+        service_auth_path = os.path.join(service_auth_temp_dir.name, 'gdrive_auth.json')
+        logger.info(f'creating temporary service auth file = {service_auth_path}')
+        os.mknod(service_auth_path)    
+        logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+        logger.info(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
+
         if config.is_inside_gcp():
             logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
             gcsc = GoogleCloudStorageClient()
             gcsc.download_file_from_gcs(
                 bucket_name=config.get_rclone_service_account_auth_bucket(),
                 source_blob=config.get_rclone_service_account_auth_file(),
-                destination_filename=service_account_auth_path
+                destination_filename=service_auth_path
             )
 
-            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
-            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_account_auth_path)}')
+            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
 
             test_cmd = [f'ls',
                 f'-la',
-                f'{service_account_auth_path}'
+                f'{service_auth_path}'
             ]
-            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
+            logger.info(f'test_cmd =```{(" " .join(test_cmd))}```')
             test_cmd_output = subprocess.check_output(test_cmd)
             logger.info(f'test_cmd_output = {test_cmd_output}')
 
             rclone_cmd = [f'rclone',
                 f'sync',
                 f':"google cloud storage":{gcp_path}',
-                f'--gcs-service-account-file={service_account_auth_path}',
+                f'--gcs-service-account-file={service_auth_path}',
                 f':drive:',
                 f'--drive-scope=drive',
-                f'--drive-service-account-file={service_account_auth_path}',
+                f'--drive-service-account-file={service_auth_path}',
                 f'--drive-team-drive={gdrive_folder_id}',
                 f'--drive-auth-owner-only']
 
-            logger.info(f'rclone_cmd =```{' '.join(rclone_cmd)}```')
+            logger.info(f'rclone_cmd =```{(" ".join(rclone_cmd))}```')
             rclone_output = subprocess.check_output(rclone_cmd)
             logger.info(f'rclone_output = {rclone_output}')
         else:
@@ -58,32 +69,33 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             test_cmd = [f'ls',
                 f'-la',
-                f'{service_account_auth_path}'
+                f'{service_auth_path}'
             ]
 
 
-            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
-            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_account_auth_path)}')
+            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
 
             test_cmd = [f'ls',
                 f'-la',
-                f'{service_account_auth_path}'
+                f'{service_auth_path}'
             ]
-            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
+            logger.info(f'test_cmd =```{(" ".join(test_cmd))}```')
             test_cmd_output = subprocess.check_output(test_cmd)
             logger.info(f'test_cmd_output = {test_cmd_output}')
             logger.info(f'compeleted with real file')
 
-            test_cmd = [f'ls',
-                f'-la',
-                f'{service_account_auth_path}doesnotexist'
-            ]
-            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
-            test_cmd_output = subprocess.check_output(test_cmd)
-            logger.info(f'test_cmd_output = {test_cmd_output}')
-            logger.info(f'compeleted with non existant file')
+            # test_cmd = [f'ls',
+            #     f'-la',
+            #     f'{service_auth_path}doesnotexist'
+            # ]
+            # logger.info(f'test_cmd =```{(" ".join(test_cmd))}```')
+            # test_cmd_output = subprocess.check_output(test_cmd)
+            # logger.info(f'test_cmd_output = {test_cmd_output}')
+            # logger.info(f'compeleted with non existant file')
     finally:
-        os.remove(service_account_auth_path)
+        service_auth_temp_dir.cleanup()
+        # os.remove(service_auth_path)
 
 
 class RCloneOperator(MapActionOperator):
