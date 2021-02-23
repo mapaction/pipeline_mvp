@@ -4,6 +4,7 @@ import tempfile
 from airflow.utils.decorators import apply_defaults
 from pipeline_plugin.config import config
 from pipeline_plugin.utils.google_cloud_storage import GoogleCloudStorageClient
+from pipeline_plugin.utils.files import get_base_path as data_dir
 
 from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 import subprocess
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
-    _, service_account_auth_path = tempfile.mkstemp(dir='/usr/local/airflow/plugins', suffix='.json')
+    _, service_account_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
     logger.info(f'creating temporary service auth file = {service_account_auth_path}')
     logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
     logger.info(f'temporary service auth file size (expect zero) = {os.path.getsize(service_account_auth_path)}')
@@ -31,17 +32,27 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
             logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
             logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_account_auth_path)}')
 
+            test_cmd = [f'ls',
+                f'-la',
+                f'{service_account_auth_path}'
+            ]
+            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
+            test_cmd_output = subprocess.check_output(test_cmd)
+            logger.info(f'test_cmd_output = {test_cmd_output}')
+
             rclone_cmd = [f'rclone',
                 f'sync',
                 f':"google cloud storage":{gcp_path}',
                 f'--gcs-service-account-file={service_account_auth_path}',
                 f':drive:',
                 f'--drive-scope=drive',
-                f'--drive-service-account-file={service_account_auth_path}"',
+                f'--drive-service-account-file={service_account_auth_path}',
                 f'--drive-team-drive={gdrive_folder_id}',
                 f'--drive-auth-owner-only']
 
-            subprocess.check_call(rclone_cmd)
+            logger.info(f'rclone_cmd =```{' '.join(rclone_cmd)}```')
+            rclone_output = subprocess.check_output(rclone_cmd)
+            logger.info(f'rclone_output = {rclone_output}')
         else:
             logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
@@ -50,19 +61,27 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                 f'{service_account_auth_path}'
             ]
 
+
             logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_account_auth_path)}')
             logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_account_auth_path)}')
 
-            subprocess.check_call(test_cmd)          
+            test_cmd = [f'ls',
+                f'-la',
+                f'{service_account_auth_path}'
+            ]
+            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
+            test_cmd_output = subprocess.check_output(test_cmd)
+            logger.info(f'test_cmd_output = {test_cmd_output}')
             logger.info(f'compeleted with real file')
 
             test_cmd = [f'ls',
                 f'-la',
                 f'{service_account_auth_path}doesnotexist'
             ]
-            subprocess.check_call(test_cmd)          
+            logger.info(f'test_cmd =```{' '.join(test_cmd)}```')
+            test_cmd_output = subprocess.check_output(test_cmd)
+            logger.info(f'test_cmd_output = {test_cmd_output}')
             logger.info(f'compeleted with non existant file')
-
     finally:
         os.remove(service_account_auth_path)
 
