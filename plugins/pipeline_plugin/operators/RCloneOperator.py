@@ -52,29 +52,41 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
             logger.info(f'test_cmd_output = {test_cmd_output}')
 
             rclone_gcp_ls_cmd = [f'rclone',
+                f'-vv',
                 f'ls',
                 f':"google cloud storage":{gcp_path}/data',
                 f'--gcs-service-account-file={service_auth_path}'
             ]
 
             rclone_gdrive_ls_cmd = [f'rclone',
+                f'-vv',
                 f'ls',
                 f':drive:data',
                 f'--drive-scope=drive',
                 f'--drive-service-account-file={service_auth_path}',
-                f'--drive-team-drive={gdrive_folder_id}',
-                f'--drive-auth-owner-only'
+                f'--drive-team-drive={gdrive_folder_id}'
             ]
 
             rclone_sync_cmd = [f'rclone',
+                f'-vv',
+                f'check',
+                f':"google cloud storage":{gcp_path}/data',
+                f'--gcs-service-account-file={service_auth_path}',
+                f':drive:data',
+                f'--drive-scope=drive',
+                f'--drive-service-account-file={service_auth_path}',
+                f'--drive-team-drive={gdrive_folder_id}']
+
+            rclone_sync_cmd = [f'rclone',
+                f'-vv',
                 f'sync',
                 f':"google cloud storage":{gcp_path}/data',
                 f'--gcs-service-account-file={service_auth_path}',
                 f':drive:data',
                 f'--drive-scope=drive',
                 f'--drive-service-account-file={service_auth_path}',
-                f'--drive-team-drive={gdrive_folder_id}',
-                f'--drive-auth-owner-only']
+                f'--drive-team-drive={gdrive_folder_id}']
+
 
             for rclone_cmd in [rclone_gcp_ls_cmd, rclone_gdrive_ls_cmd, rclone_sync_cmd]:
                 try:
