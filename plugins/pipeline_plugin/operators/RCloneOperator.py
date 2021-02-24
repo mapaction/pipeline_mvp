@@ -77,9 +77,15 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                 f'--drive-auth-owner-only']
 
             for rclone_cmd in [rclone_gcp_ls_cmd, rclone_gdrive_ls_cmd, rclone_sync_cmd]:
-                logger.info(f'rclone_cmd =```{(" ".join(rclone_cmd))}```')
-                rclone_output = subprocess.check_output(rclone_cmd)
-                logger.info(f'rclone_output = {rclone_output}')
+                try:
+                    logger.info(f'rclone_cmd =```{(" ".join(rclone_cmd))}```')
+                    rclone_output = subprocess.check_output(rclone_cmd)
+                    logger.info(f'rclone_output = {rclone_output}')
+                except subprocess.CalledProcessError as cpe:
+                    logger.error(f'error whilst processing rclone_cmd= {rclone_cmd}')
+                    logger.error(f'   cmd as called = {cpe.cmd}')
+                    logger.error(f'   return code = {cpe.returncode}')
+                    logger.error(f'   output = {cpe.output}')
         else:
             logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
