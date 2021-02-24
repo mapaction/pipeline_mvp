@@ -55,7 +55,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                 f'sync',
                 f':"google cloud storage":{gcp_path}',
                 f'--gcs-service-account-file={service_auth_path}',
-                f':drive:',
+                f':drive:data',
                 f'--drive-scope=drive',
                 f'--drive-service-account-file={service_auth_path}',
                 f'--drive-team-drive={gdrive_folder_id}',
