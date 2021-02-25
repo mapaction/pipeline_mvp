@@ -17,10 +17,13 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
     # On GCP `airflow_home` exists and returns a read/writable location
     # On localhost None will result in a tempdir in /tmp which is a read/writable location 
     home_dir = os.environ.get('airflow_home', None)
+    rclone_log_path = os.path.join(home_dir, 'rclone-gcp-to-gdrive.log')
+
+    if not os.path.exists(rclone_log_path):
+        os.mknod(rclone_log_path)
     
     # if not home_dir:
     #    raise RuntimeError('Expected to find value for environment varible `airflow_home`')
-    
     # _, service_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
 
     try:
@@ -53,6 +56,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             rclone_gcp_ls_cmd = [f'rclone',
                 f'-vv',
+                f'--log-file={rclone_log_path}',
                 f'ls',
                 f':"google cloud storage":{gcp_path}/data',
                 f'--gcs-service-account-file={service_auth_path}'
@@ -60,6 +64,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             rclone_gdrive_ls_cmd = [f'rclone',
                 f'-vv',
+                f'--log-file={rclone_log_path}',
                 f'ls',
                 f':drive:data',
                 f'--drive-scope=drive',
@@ -69,6 +74,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             rclone_sync_cmd = [f'rclone',
                 f'-vv',
+                f'--log-file={rclone_log_path}',
                 f'check',
                 f':"google cloud storage":{gcp_path}/data',
                 f'--gcs-service-account-file={service_auth_path}',
@@ -79,6 +85,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             rclone_sync_cmd = [f'rclone',
                 f'-vv',
+                f'--log-file={rclone_log_path}',
                 f'sync',
                 f':"google cloud storage":{gcp_path}/data',
                 f'--gcs-service-account-file={service_auth_path}',
@@ -98,6 +105,11 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                     logger.error(f'   cmd as called = {cpe.cmd}')
                     logger.error(f'   return code = {cpe.returncode}')
                     logger.error(f'   output = {cpe.output}')
+
+            # Copy the rclone log into this log
+            with open(rclone_log_path, 'r') as rclong_log:
+                for line in rclong_log:
+                    logger.info(line)
         else:
             logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
