@@ -22,10 +22,10 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         output_dir = tempfile.gettempdir()
     
     rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
-    logging.info(f'rclone log file path = {rclone_log_path}')
+    logging.error(f'rclone log file path = {rclone_log_path}')
 
     if not os.path.exists(rclone_log_path):
-        logging.info(f'rclone log file path does not exist - creating')
+        logging.error(f'rclone log file path does not exist - creating')
         # os.open(rclone_log_path).close()
     
     # if not home_dir:
@@ -35,13 +35,13 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
     try:
         service_auth_temp_dir = tempfile.TemporaryDirectory(None)
         service_auth_path = os.path.join(service_auth_temp_dir.name, 'gdrive_auth.json')
-        logger.info(f'creating temporary service auth file = {service_auth_path}')
+        logger.error(f'creating temporary service auth file = {service_auth_path}')
         os.mknod(service_auth_path)    
-        logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
-        logger.info(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
+        logger.error(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+        logger.error(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
 
         if config.is_inside_gcp():
-            logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
+            logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
             gcsc = GoogleCloudStorageClient()
             gcsc.download_file_from_gcs(
                 bucket_name=config.get_rclone_service_account_auth_bucket(),
@@ -49,16 +49,16 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                 destination_filename=service_auth_path
             )
 
-            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
-            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
+            logger.error(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+            logger.error(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
 
             test_cmd = [f'ls',
                 f'-la',
                 f'{service_auth_path}'
             ]
-            logger.info(f'test_cmd =```{(" " .join(test_cmd))}```')
+            logger.error(f'test_cmd =```{(" " .join(test_cmd))}```')
             test_cmd_output = subprocess.check_output(test_cmd)
-            logger.info(f'test_cmd_output = {test_cmd_output}')
+            logger.error(f'test_cmd_output = {test_cmd_output}')
 
             rclone_gcp_ls_cmd = [f'rclone',
                 f'-vv',
@@ -103,9 +103,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
             for rclone_cmd in [rclone_gcp_ls_cmd, rclone_gdrive_ls_cmd, rclone_sync_cmd]:
                 try:
-                    logger.info(f'rclone_cmd =```{(" ".join(rclone_cmd))}```')
+                    logger.error(f'rclone_cmd =```{(" ".join(rclone_cmd))}```')
                     rclone_output = subprocess.check_output(rclone_cmd)
-                    logger.info(f'rclone_output = {rclone_output}')
+                    logger.error(f'rclone_output = {rclone_output}')
                 except subprocess.CalledProcessError as cpe:
                     logger.error(f'error whilst processing rclone_cmd= {rclone_cmd}')
                     logger.error(f'   cmd as called = {cpe.cmd}')
@@ -115,9 +115,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
             # Copy the rclone log into this log
             with open(rclone_log_path, 'r') as rclong_log:
                 for line in rclong_log:
-                    logger.info(line)
+                    logger.error(line)
         else:
-            logger.info(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
+            logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
             test_cmd = [f'ls',
                 f'-la',
@@ -125,26 +125,26 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
             ]
 
 
-            logger.info(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
-            logger.info(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
+            logger.error(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
+            logger.error(f'temporary service auth file size (expect non-zero) = {os.path.getsize(service_auth_path)}')
 
             test_cmd = [f'ls',
                 f'-la',
                 f'{service_auth_path}'
             ]
-            logger.info(f'test_cmd =```{(" ".join(test_cmd))}```')
+            logger.error(f'test_cmd =```{(" ".join(test_cmd))}```')
             test_cmd_output = subprocess.check_output(test_cmd)
-            logger.info(f'test_cmd_output = {test_cmd_output}')
-            logger.info(f'compeleted with real file')
+            logger.error(f'test_cmd_output = {test_cmd_output}')
+            logger.error(f'compeleted with real file')
 
             # test_cmd = [f'ls',
             #     f'-la',
             #     f'{service_auth_path}doesnotexist'
             # ]
-            # logger.info(f'test_cmd =```{(" ".join(test_cmd))}```')
+            # logger.error(f'test_cmd =```{(" ".join(test_cmd))}```')
             # test_cmd_output = subprocess.check_output(test_cmd)
-            # logger.info(f'test_cmd_output = {test_cmd_output}')
-            # logger.info(f'compeleted with non existant file')
+            # logger.error(f'test_cmd_output = {test_cmd_output}')
+            # logger.error(f'compeleted with non existant file')
     finally:
         service_auth_temp_dir.cleanup()
         # os.remove(service_auth_path)
