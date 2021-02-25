@@ -120,7 +120,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                 logger.error(f'Attempting to upload rclone log file to auth_bucket')
                 gcsc.upload_file_to_gcs(
                     bucket_name=config.get_rclone_service_account_auth_bucket(),
-                    source_blob='lastest-rclone-log',
+                    destination_blob='lastest-rclone-log',
                     source_filename=rclone_log_path
                 )
                 logger.error(f'Uploaded rclone log file to auth_bucket')
