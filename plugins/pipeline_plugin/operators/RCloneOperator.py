@@ -20,8 +20,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         output_dir = '/home/airflow/gcs'
     else:
         output_dir = tempfile.gettempdir()
-    
-    rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
+        
+   
+    rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log')
     logging.error(f'rclone log file path = {rclone_log_path}')
 
     if not os.path.exists(rclone_log_path):
@@ -41,7 +42,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         logger.error(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
         rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
         logging.error(f'rclone log file path = {rclone_log_path}')
-        os.mknod(rclone_log_path)    
+        os.mknod(rclone_log_path)   
 
         if config.is_inside_gcp():
             logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
