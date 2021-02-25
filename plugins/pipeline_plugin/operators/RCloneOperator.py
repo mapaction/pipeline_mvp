@@ -22,11 +22,11 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         output_dir = tempfile.gettempdir()
         
    
-    rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log')
-    logging.error(f'rclone log file path = {rclone_log_path}')
+    # rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log')
+    # logging.error(f'rclone log file path = {rclone_log_path}')
 
-    if not os.path.exists(rclone_log_path):
-        logging.error(f'rclone log file path does not exist - creating')
+    # if not os.path.exists(rclone_log_path):
+    #     logging.error(f'rclone log file path does not exist - creating')
         # os.open(rclone_log_path).close()
     
     # if not home_dir:
@@ -40,9 +40,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         os.mknod(service_auth_path)    
         logger.error(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
         logger.error(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
-        rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
+        rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive-file.log')
         logging.error(f'rclone log file path = {rclone_log_path}')
-        os.mknod(rclone_log_path)   
+        os.mknod(rclone_log_path)
 
         if config.is_inside_gcp():
             logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
