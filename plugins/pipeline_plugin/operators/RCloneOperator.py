@@ -115,10 +115,27 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                     logger.error(f'   return code = {cpe.returncode}')
                     logger.error(f'   output = {cpe.output}')
 
-            # Copy the rclone log into this log
-            with open(rclone_log_path, 'r') as rclong_log:
-                for line in rclong_log:
-                    logger.error(line)
+            try:
+                logger.error(f'Attempting to upload rclone log file to auth_bucket')
+                gcsc.upload_file_to_gcs(
+                    bucket_name=config.get_rclone_service_account_auth_bucket(),
+                    source_blob='lastest-rclone-log',
+                    source_filename=rclone_log_path
+                )
+                logger.error(f'Uploaded rclone log file to auth_bucket')
+            except:
+                logger.error(f'Failed to uploaded rclone log file to auth_bucket')
+
+            try:
+                logger.error(f'Attempting to insert rclone log file to this log')
+                # Copy the rclone log into this log
+                with open(rclone_log_path, 'r') as rclong_log:
+                    for line in rclong_log:
+                        logger.error(line)
+                logger.error(f'End of inserted rclone log file.')
+            except:
+                logger.error(f'Failed to insert rclone log file to this log')
+
         else:
             logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
