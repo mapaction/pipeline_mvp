@@ -26,7 +26,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
 
     if not os.path.exists(rclone_log_path):
         logging.info(f'rclone log file path does not exist - creating')
-        os.mknod(rclone_log_path)
+        # os.open(rclone_log_path).close()
     
     # if not home_dir:
     #    raise RuntimeError('Expected to find value for environment varible `airflow_home`')
