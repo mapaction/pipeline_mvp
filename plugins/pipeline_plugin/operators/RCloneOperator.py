@@ -15,9 +15,13 @@ logger = logging.getLogger(__name__)
 def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
     
     # On GCP `airflow_home` exists and returns a read/writable location
-    # On localhost None will result in a tempdir in /tmp which is a read/writable location 
-    home_dir = os.environ.get('airflow_home', None)
-    rclone_log_path = os.path.join(home_dir, 'rclone-gcp-to-gdrive.log')
+    # On localhost None will result in a tempdir in /tmp which is a read/writable location
+    if config.is_inside_gcp():
+        output_dir = '/home/airflow/gcs'
+    else:
+        output_dir = tempfile.gettempdir()
+    
+    rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
 
     if not os.path.exists(rclone_log_path):
         os.mknod(rclone_log_path)
@@ -27,7 +31,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
     # _, service_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
 
     try:
-        service_auth_temp_dir = tempfile.TemporaryDirectory(dir=home_dir)
+        service_auth_temp_dir = tempfile.TemporaryDirectory(dir=output_dir)
         service_auth_path = os.path.join(service_auth_temp_dir.name, 'gdrive_auth.json')
         logger.info(f'creating temporary service auth file = {service_auth_path}')
         os.mknod(service_auth_path)    
