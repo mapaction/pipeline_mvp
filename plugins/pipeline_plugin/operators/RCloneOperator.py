@@ -22,8 +22,10 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         output_dir = tempfile.gettempdir()
     
     rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
+    logging.info(f'rclone log file path = {rclone_log_path}')
 
     if not os.path.exists(rclone_log_path):
+        logging.info(f'rclone log file path does not exist - creating')
         os.mknod(rclone_log_path)
     
     # if not home_dir:
