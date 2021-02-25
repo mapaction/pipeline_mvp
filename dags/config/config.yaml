@@ -18,8 +18,23 @@ adm0:
       source: unocha
       suffix: shp
     column_names:
+      # key=target attributte name
+      # value=source attribute name
       name_en: admin0Name_en
       pcode: pcode
+  gadm:
+    filename:
+      category: admn
+      theme: ad0
+      geometry: py
+      scale: s0
+      source: gadm
+      suffix: shp
+    column_names:
+      # key=target attributte name
+      # value=source attribute name
+      name_en: who_knows1
+      pcode: who_knows2
 adm1:
   schema: admin1_affected_area_py.yml
   cod:

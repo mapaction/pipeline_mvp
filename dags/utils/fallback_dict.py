@@ -2,6 +2,13 @@ from typing import Optional
 
 
 class FallbackDict:
+    """
+    TODO:
+    Would be nice if this subclassed `dict` or something.
+
+    The current implenmentation ensures that both the default and country specfic values 
+    are available.
+    """
     def __init__(self, default_values: Optional[dict], custom_values: Optional[dict]):
         self.default_values = default_values
         self.custom_values = custom_values

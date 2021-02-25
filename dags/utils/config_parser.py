@@ -58,6 +58,12 @@ class Config:
         return os.path.join(self._get_processed_data_directory(), filename)
 
     def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
+        """
+        Does two things:
+        * Convert from FallbackDict to dict
+        * And swaps key and values (whilst handling possible `None` values)
+        Doesn't not explictly handle the case where two keys have the same value.
+        """
         return {column_name_map[column_name]: column_name
                 for column_name in column_names
                 if column_name_map[column_name] is not None}
@@ -179,6 +185,11 @@ class Config:
 
     # Schema mappings
     def get_adm0_schema_mapping(self, source: str, country: str) -> dict:
+        """
+        The `column_names` param used here is the hard coded target attribute names.
+        This must be changed *in addition to* the config.yaml in order to change the output
+        shapefiles.
+        """
         return self._get_schema_mapping(
             column_name_map=self._get_adm(country=country, adm_number=0)[source]['column_names'],
             column_names=['name_en', 'pcode'])
