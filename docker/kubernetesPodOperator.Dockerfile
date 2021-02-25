@@ -7,6 +7,7 @@ RUN apt-get update -yqq \
     && add-apt-repository ppa:ubuntugis/ppa \
     && apt-get install gdal-bin -yqq \
     && apt-get install libgdal-dev -yqq \
+    && apt-get install rclone \    
     && export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
     && ogrinfo --version \

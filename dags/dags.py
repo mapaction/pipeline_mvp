@@ -3,7 +3,7 @@ from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 
 from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0TransformOperator, HDXAdm1TransformOperator, \
-    HDXRoadsTransformOperator, OSMExtractOperator
+    HDXRoadsTransformOperator, OSMExtractOperator, RCloneOperator
 
 from config import config
 from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
@@ -26,3 +26,15 @@ hdx_road_dag = create_hdx_road_dag(countries=countries, schedule_interval=schedu
                                    default_args=default_args)
 osm_road_dag = create_osm_road_dag(countries=countries, schedule_interval=schedule_interval, catchup=catchup,
                                    default_args=default_args)
+
+def create_sync_dag(schedule_interval, catchup, default_args):
+    dag = DAG(f"sync", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+
+    sync_operator = RCloneOperator(
+        task_id=f"all_countries_sync_data",
+        dag=dag
+    )
+
+    return dag
+
+sync_dag = create_sync_dag(schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)

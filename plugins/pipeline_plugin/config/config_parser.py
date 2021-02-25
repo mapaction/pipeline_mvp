@@ -53,5 +53,13 @@ class Config:
     def get_docker_image(self):
         return self.raw_config["docker"]["imageName"] + ":" + self.get_docker_image_version()
 
+    def get_google_drive_output_folder_id(self):
+        return self.raw_config["RCloneSync"]["gdrive_folder_id"]
+
+    def get_rclone_service_account_auth_bucket(self):
+        return self.raw_config["RCloneSync"]["service_account_auth_bucket"]
+
+    def get_rclone_service_account_auth_file(self):
+        return self.raw_config["RCloneSync"]["service_account_auth_file"]
 
 config = Config()
