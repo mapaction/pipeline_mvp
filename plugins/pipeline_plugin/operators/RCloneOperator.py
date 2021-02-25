@@ -39,6 +39,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
         os.mknod(service_auth_path)    
         logger.error(f'temporary service auth file exists (expect true) = {os.path.exists(service_auth_path)}')
         logger.error(f'temporary service auth file size (expect zero) = {os.path.getsize(service_auth_path)}')
+        rclone_log_path = os.path.join(output_dir, 'rclone-gcp-to-gdrive.log',)
+        logging.error(f'rclone log file path = {rclone_log_path}')
+        os.mknod(rclone_log_path)    
 
         if config.is_inside_gcp():
             logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
@@ -113,9 +116,9 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
                     logger.error(f'   output = {cpe.output}')
 
             # Copy the rclone log into this log
-            # with open(rclone_log_path, 'r') as rclong_log:
-            #     for line in rclong_log:
-            #         logger.error(line)
+            with open(rclone_log_path, 'r') as rclong_log:
+                for line in rclong_log:
+                    logger.error(line)
         else:
             logger.error(f'Attempting to update temporary service auth file from GoogleCloudStorageClient')
 
