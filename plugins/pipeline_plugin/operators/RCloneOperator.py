@@ -33,7 +33,7 @@ def sync_from_gcp_to_gdrive(gcp_path: str, gdrive_folder_id: str):
     # _, service_auth_path = tempfile.mkstemp(dir=data_dir(), suffix='.json')
 
     try:
-        service_auth_temp_dir = tempfile.TemporaryDirectory(dir=output_dir)
+        service_auth_temp_dir = tempfile.TemporaryDirectory(None)
         service_auth_path = os.path.join(service_auth_temp_dir.name, 'gdrive_auth.json')
         logger.info(f'creating temporary service auth file = {service_auth_path}')
         os.mknod(service_auth_path)    
