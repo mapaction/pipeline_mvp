@@ -1,10 +1,15 @@
 import os
 import yaml
 from pathlib import Path
+import json
 
 from typing import List
 
 from utils.fallback_dict import FallbackDict
+
+CMF_LOC = Path("default-crash-move-folder/20YYiso3nn/GIS")
+CMF_SCHEMA_LOC = CMF_LOC / "5_Data_schemas"
+CMF_LAYER_PROPERTIES_FILE = CMF_LOC / "3_Mapping/31_Resources/316_Automation/layerProperties.json"
 
 
 class Config:
@@ -12,15 +17,19 @@ class Config:
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
             self._DATA_FOLDER = Path("data")
-            self._SCHEMAS_FOLDER = Path("/") / "usr" / "src" / "pipeline_plugin" / "schemas"
+            self._SCHEMAS_FOLDER = Path("/") / "usr" / "src" / "pipeline_plugin" / CMF_SCHEMA_LOC
+            layer_properties_file = Path("/") / "usr" / "src" / "pipeline_plugin" / CMF_LAYER_PROPERTIES_FILE
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
             self._DATA_FOLDER = Path("/") / "opt" / "data"
-            self._SCHEMAS_FOLDER = self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / "schemas"
+            self._SCHEMAS_FOLDER = self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / CMF_SCHEMA_LOC
+            layer_properties_file = self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / CMF_LAYER_PROPERTIES_FILE
         if not path:
             path = self._MAIN_AIRFLOW_FOLDER / "dags" / "config"
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
+        with open(layer_properties_file) as f:
+            self.layer_properties = json.load(f)
         self.country_config = dict()
         self.countries = []
         for country_config in os.listdir(path / "countries"):
