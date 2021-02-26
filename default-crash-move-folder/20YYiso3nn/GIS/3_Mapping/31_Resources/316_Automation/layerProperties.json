@@ -1,0 +1,260 @@
+{
+	"layerProperties": [
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-tran-por-pt-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_tran_sea_pt_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-tran-air-pt-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_tran_air_pt_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [
+				{
+					"sql_query": "(\"fclass\" = 'national_capital')",
+					"class_name": "National Capital",
+					"expression": "[name]",
+					"show_class_labels": true
+				},
+				{
+					"sql_query": "(\"fclass\" = 'town')",
+					"class_name": "Admin 1 Capital",
+					"expression": "[name]",
+					"show_class_labels": true
+				}
+			],
+			"name": "mainmap-stle-stl-pt-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_stle_stl_pt_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-elev-cst-ln-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_elev_cst_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad0-ln-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad0_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-tran-rds-ln-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_tran_rds_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad1-ln-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad1_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-tran-rrd-ln-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_tran_rrd_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-phys-riv-ln-s0-reference",
+			"reg_exp": "^[a-z]{3}_phys_riv_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad2-ln-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad2_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad0-ln-s0-surroundingcountries",
+			"reg_exp": "^[a-z]{3}_admn_ad0_ln_(.*?)_(.*?)_([phm][phm])_surroundingcountries.shp$"
+		},
+		{
+			"display": false,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad1-py-s1-ddpadmin1",
+			"reg_exp": "^[a-z]{3}_admn_ad1_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": false,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "\"adm_0\" = '{COUNTRY_NAME}'",
+			"label_classes": [],
+			"name": "mainmap-admn-ad0-py-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad0_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-elev-hsh-ras-s0-reference",
+			"reg_exp": "^[a-z]{3}_elev_hsh_ras_(.*?)_(.*?)_([phm][phm])(.*?).(tif|img)$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-elev-dem-ras-s0-reference",
+			"reg_exp": "^[a-z]{3}_elev_dem_ras_(.*?)_(.*?)_([phm][phm])(.*?).(tif|img)$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "admin1_reference.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad1-py-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad1_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": true,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad2-py-s0-reference",
+			"reg_exp": "^[a-z]{3}_admn_ad2_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-carto-fea-py-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_carto_fea_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-phys-wat-py-s0-allmaps",
+			"reg_exp": "^[a-z]{3}_phys_wat_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": false,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "\"adm_0\" <> '{COUNTRY_NAME}'",
+			"label_classes": [],
+			"name": "mainmap-admn-ad0-py-s0-surroundingcountries",
+			"reg_exp": "^[a-z]{3}_admn_ad0_py_(.*?)_(.*?)_([phm][phm])_surroundingcountries.shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "mainmap-admn-ad1-py-s0-scaling",
+			"reg_exp": "^[a-z]{3}_admn_ad1_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "locationmap-carto-fea-py-s0-locationmaps",
+			"reg_exp": "^[a-z]{3}_carto_fea_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "locationmap-elev-cst-ln-s0-locationmaps",
+			"reg_exp": "^[a-z]{3}_elev_cst_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "\"adm_0\" <> '{COUNTRY_NAME}'",
+			"label_classes": [],
+			"name": "locationmap-admn-ad0-ln-s0-surroundingcountries",
+			"reg_exp": "^[a-z]{3}_admn_ad0_ln_(.*?)_(.*?)_([phm][phm])_surroundingcountries.shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "locationmap-admn-ad0-ln-s0-locationmaps",
+			"reg_exp": "^[a-z]{3}_admn_ad0_ln_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "",
+			"label_classes": [],
+			"name": "locationmap-admn-ad1-py-s0-locationmaps",
+			"reg_exp": "^[a-z]{3}_admn_ad1_py_(.*?)_(.*?)_([phm][phm])(.*?).shp$"
+		},
+		{
+			"display": true,
+			"add_to_legend": false,
+			"schema_definition": "null-schema.yml",
+			"definition_query": "\"adm_0\" <> '{COUNTRY_NAME}'",
+			"label_classes": [],
+			"name": "locationmap-admn-ad0-py-s0-surroundingcountries",
+			"reg_exp": "^[a-z]{3}_admn_ad0_py_(.*?)_(.*?)_([phm][phm])_surroundingcountries.shp$"
+		}
+	]
+}
