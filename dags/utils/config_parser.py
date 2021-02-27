@@ -2,6 +2,7 @@ import os
 import yaml
 from pathlib import Path
 import json
+import logging
 
 from typing import List
 
@@ -10,6 +11,8 @@ from utils.fallback_dict import FallbackDict
 CMF_LOC = Path("default-crash-move-folder/20YYiso3nn/GIS")
 CMF_SCHEMA_LOC = CMF_LOC / "5_Data_schemas"
 CMF_LAYER_PROPERTIES_FILE = CMF_LOC / "3_Mapping/31_Resources/316_Automation/layerProperties.json"
+
+logger = logging.getLogger(__name__)
 
 
 class Config:
@@ -29,7 +32,7 @@ class Config:
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
         with open(layer_properties_file) as f:
-            self.layer_properties = json.load(f)
+            self.layer_properties = json.load(f)['layerProperties']
         self.country_config = dict()
         self.countries = []
         for country_config in os.listdir(path / "countries"):
@@ -73,6 +76,19 @@ class Config:
         return {column_name_map[column_name]: column_name
                 for column_name in column_names
                 if column_name_map[column_name] is not None}
+
+    def _get_layer_property(self, filename_dict):
+        matching_items = [item for item in self.layer_properties if
+                          f"{filename_dict['category']}-{filename_dict['theme']}-" \
+                          f"{filename_dict['geometry']}-{filename_dict['scale']}"
+                          in item['name']]
+        if len(matching_items) > 1:
+            logger.warning(f"Multiple matching items in layer property for {filename_dict}: {matching_items}."
+                           f"Taking the first one")
+        return matching_items[0]
+
+    def _get_schema_filename(self, filename_dict):
+        return self._get_layer_property(filename_dict)["schema_definition"]
 
     def _get_adm(self, country: str, adm_number: int):
         return self._get_country(country=country)[f'adm{adm_number}']
@@ -129,17 +145,20 @@ class Config:
         return str(directory / filename)
 
     def get_osm_roads_tags_schema(self, country: str):
+        # TODO: Not sure what this is
         return os.path.join(self._get_schema_directory(),
                             self._get_osm(country=country)['roads']['osm_tags'])
 
     # adm
     def get_adm0_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
-                            self._get_adm(country=country, adm_number=0)['schema'])
+                            self._get_schema_filename(
+                                filename_dict=self._get_adm(country=country, adm_number=0)['cod']['filename']))
 
     def get_adm1_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
-                            self._get_adm(country=country, adm_number=1)['schema'])
+                            self._get_schema_filename(
+                                filename_dict=self._get_adm(country=country, adm_number=1)['cod']['filename']))
 
     def get_adm_cod_raw_filename(self, country: str) -> str:
         return os.path.join(self._get_raw_data_directory(country),
@@ -160,8 +179,9 @@ class Config:
 
     # General
     def get_roads_schema(self):
+        # TODO: This method is for roads in general but currently uses road COD filename
         return os.path.join(self._get_schema_directory(),
-                            self.raw_config['roads']['schema'])
+                            self._get_schema_filename(self._get_roads_cod()['filename']))
 
     def _get_roads_cod(self):
         return self.raw_config['roads']['cod']
