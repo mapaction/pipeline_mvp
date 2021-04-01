@@ -31,6 +31,9 @@ Python packages that need to be available in the Airflow server. These significa
 
 ## Local development
 
+The instructions below have been tested for setting up a local development environment on Ubuntu 20.04.
+There are seperate instructions on developing on Windows Subsystem for Linux (WSL) https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows.
+
 ### Requirements
 
 Docker is a dependency for running a local version of Airflow.
@@ -47,7 +50,7 @@ When you add new dependencies, rerun this command to install the new dependencie
 
 To start the Airflow server, run the following from the root folder:
 
-`sh ./start_airflow.sh`
+`sh ./scripts/start_airflow.sh`
 
 The Airflow server runs in a Docker container, which has the `/dags`, `/plugins` and `/data` folders mounted in there, together with the `requirements-airflow.txt` file. When starting the container, these requirements are installed. The `/data` folder is accessible from `/opt/data` folder inside the Airflow server/worker. The `/dags` folder contains all the dags and is automatically synchronized, while the `/plugins` folder contains the plugins including all the processing logic. This is also automatically synchronized but still a bit shaky, so if things are not working, restart the Docker container.
 
