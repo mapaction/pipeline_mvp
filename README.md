@@ -2,6 +2,22 @@
 
 MVP project for Airflow-based scheduling of data pipeline processing for MapAction. This repository is used for local development and for running in GCP.
 
+# Background and History
+
+This project is one is a series of projects outlines in our ["Moonshoot" initative](https://mapaction.org/mapactions-moonshot-origins-and-ambitions). 
+This seeks to automate many of the tasks in pre-emergency data preparedness and the initial tasks in map production.map production.
+
+In 2020 we ran two projects exploring how we could automate the acquisition of data.
+
+First was the "Slow Data Scramble". For this we focused on just one country - Yemen. We identified 22 commonly required data artefacts. For each artefact and data source combination, we defined the acquisition and transformation necessary.
+
+* There is a [blog post describing this project](https://mapaction.org/moonshot-part-2-the-slow-data-scramble)
+* The code is here https://github.com/mapaction/datasources-etl
+
+The second was our "Pipeline MVP" project. This took many of the concepts from the Slow Data Scramble. This generalised to multiple countries 13 countries. Additionally, it migrated the code so that it could be hosted in Google Cloud Platform using Airflow.
+
+* This code is here https://github.com/mapaction/pipeline_mvp
+
 
 ## Structure
 
