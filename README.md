@@ -5,7 +5,7 @@ MVP project for Airflow-based scheduling of data pipeline processing for MapActi
 # Background and History
 
 This project is one is a series of projects outlines in our ["Moonshoot" initative](https://mapaction.org/mapactions-moonshot-origins-and-ambitions). 
-This seeks to automate many of the tasks in pre-emergency data preparedness and the initial tasks in map production.map production.
+This seeks to automate many of the tasks in pre-emergency data preparedness and the initial tasks in map production.
 
 In 2020 we ran two projects exploring how we could automate the acquisition of data.
 
