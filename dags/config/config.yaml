@@ -66,6 +66,21 @@ osm:
       name_en: 'name:en'
       name_loc: name
       fclass: highway
+  rail:
+    osm_tags: 'osm_tags_rail.yml'
+    raw_osm: '{iso3}_osm_rail.xml'
+    raw_gpkg: '{iso3}_osm_rail.gpkg'
+    filename:
+      category: tran
+      theme: rrd
+      geometry: ln
+      scale: s1
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: railway
 
 
 roads:
@@ -102,3 +117,4 @@ cmf:
     top-level: 2_Active_Data
     admin: 202_adm
     roads: 232_tran
+    rail: 242_tran  # may not fit into naming convention!!!
