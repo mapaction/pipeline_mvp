@@ -1,0 +1,15 @@
+osm_types: 
+  - relation
+  - way
+geom_type:
+  lines
+tags:
+  - railway:
+    - rail
+    - light_rail
+    - subway
+    - tram
+    - monorail
+    - narrow_gauge
+    - funicular
+    - rack
