@@ -149,6 +149,10 @@ dmypy.json
 !.vscode/extensions.json
 *.code-workspace
 
+.venv/*
+
+.idea/*
+
 # Data files
 *.gpkg
 

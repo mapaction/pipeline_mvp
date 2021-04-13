@@ -107,10 +107,19 @@ class Config:
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['roads']['raw_osm']
                             .format(iso3=self.get_iso3(country=country).lower()))
+    def get_osm_rail_raw_osm(self, country: str):
+        return os.path.join(self._get_raw_data_directory(country),
+                            self._get_osm(country=country)['rail']['raw_osm']
+                            .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_raw_gpkg(self, country: str):
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['roads']['raw_gpkg']
+                            .format(iso3=self.get_iso3(country=country).lower()))
+
+    def get_osm_rail_raw_gpkg(self, country: str):
+        return os.path.join(self._get_raw_data_directory(country),
+                            self._get_osm(country=country)['rail']['raw_gpkg']
                             .format(iso3=self.get_iso3(country=country).lower()))
 
     def get_osm_roads_processed_filepath(self, country: str) -> str:
@@ -119,9 +128,19 @@ class Config:
         directory = self._get_processed_directory(country, 'roads')
         return str(directory / filename)
 
+    def get_osm_rail_processed_filepath(self, country: str) -> str:
+        filename_field = self._get_osm(country=country)['rail']['filename']
+        filename = self._get_processed_filename(country, filename_field)
+        directory = self._get_processed_directory(country, 'rail')
+        return str(directory / filename)
+
     def get_osm_roads_tags_schema(self, country: str):
         return os.path.join(self._get_schema_directory(),
                             self._get_osm(country=country)['roads']['osm_tags'])
+
+    def get_osm_rail_tags_schema(self, country: str):
+        return os.path.join(self._get_schema_directory(),
+                            self._get_osm(country=country)['rail']['osm_tags'])
 
     # adm
     def get_adm0_schema(self, country: str):
@@ -224,5 +243,11 @@ class Config:
         return self._get_schema_mapping(column_name_map=column_name_map,
                                         column_names=['name_en', 'name_loc', 'fclass'])
 
+    def get_rail_schema_mapping(self, source: str, country: str) -> dict:
+        if source == 'osm':
+            column_name_map = self._get_osm(country=country)['rail']['column_names']
+
+        return self._get_schema_mapping(column_name_map=column_name_map,
+                                        column_names=['name_en', 'name_loc', 'fclass'])
 
 config = Config()
