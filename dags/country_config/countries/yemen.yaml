@@ -14,11 +14,11 @@ hdx_cod:
 adm0:
   cod:
     column_names:
-      name_en: admin0Name_en
-      pcode: pcode
+      NAME_EN: admin0Name_en
+      PCODE: pcode
 adm1:
   cod:
     column_names:
-      name_en: admin1Name_en
-      pcode: pcode
+      NAME_EN: admin1Name_en
+      PCODE: pcode
       par_pcode: par_pcode

@@ -12,4 +12,4 @@ hdx_cod:
 adm1:
   cod:
     column_names:
-      name_en: adm1_es
+      NAME_EN: adm1_es
