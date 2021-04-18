@@ -9,10 +9,10 @@ class Config:
     def __init__(self, path=None):
         if path is None:
             if os.environ.get("ENVIRONMENT") == "LOCAL":
-                path = Path(os.getcwd()) / "plugins" / "pipeline_plugin" / "config"
+                path = Path(os.getcwd()) / "plugins" / "pipeline_plugin" / "pipeline_config"
             else:
                 if self.is_inside_kubernetes_pod():
-                    path = Path("/") / "usr" / "src" / "pipeline_plugin" / "config"
+                    path = Path("/") / "usr" / "src" / "pipeline_plugin" / "pipeline_config"
                 else:
                     path = Path("/") / "home" / "airflow" / "gcs" / "plugins" / "pipeline_plugin" / "config"
 

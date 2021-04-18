@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 
-from config import config
+from country_config import config
 
 from airflow.operators.pipeline_plugin import OSMExtractOperator, OSMRoadsTransformOperator
 

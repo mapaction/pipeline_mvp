@@ -18,7 +18,7 @@ class Config:
             self._DATA_FOLDER = Path("/") / "opt" / "data"
             self._SCHEMAS_FOLDER = self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / "schemas"
         if not path:
-            path = self._MAIN_AIRFLOW_FOLDER / "dags" / "config"
+            path = self._MAIN_AIRFLOW_FOLDER / "dags" / "country_config"
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
         self.country_config = dict()

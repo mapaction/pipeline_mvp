@@ -2,7 +2,7 @@ import json
 from typing import Callable
 
 from pipeline_plugin.utils.deep_inspection import get_function_information
-from pipeline_plugin.config import config
+from pipeline_plugin.pipeline_config import config
 
 from airflow.operators.python_operator import PythonOperator
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
