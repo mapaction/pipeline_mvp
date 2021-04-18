@@ -1,0 +1,22 @@
+---
+version: "3.9"
+
+services:
+  airflow:
+    build:
+      context: .
+      args:
+        AIRFLOW_DEPS: kubernetes,gcp
+    image: "mapaction-pipeline-airflow-local:latest"
+    command: "webserver"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./plugins/:/home/airflow/gcs/plugins
+      - ./data/:/opt/data
+      - ./dags/:/home/airflow/gcs/dags
+      - ./test:/home/airflow/gcs/test
+    environment:
+      AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE: "True"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
+      ENVIRONMENT: "LOCAL"
