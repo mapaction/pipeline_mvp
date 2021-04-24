@@ -1,5 +1,5 @@
 from google.cloud import storage
-from pipeline_plugin.config import config
+from pipeline_plugin.pipeline_config import config
 from pathlib import Path
 
 

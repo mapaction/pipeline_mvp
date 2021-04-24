@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXAdm0TransformOperator, HDXAdm1TransformOperator, \
     HDXRoadsTransformOperator, OSMRailTransformOperator, OSMExtractOperator
 
-from config import config
+from country_config import config
 from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
 
 from hdx_adm_dags import create_hdx_adm_dag

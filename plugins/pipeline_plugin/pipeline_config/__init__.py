@@ -1,0 +1,1 @@
+from pipeline_plugin.pipeline_config.config_parser import config
