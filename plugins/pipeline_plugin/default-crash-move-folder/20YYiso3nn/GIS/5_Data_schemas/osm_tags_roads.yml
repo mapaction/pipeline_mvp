@@ -1,4 +1,4 @@
-osm_types: 
+osm_types:
   - way
 geom_type:
   lines
