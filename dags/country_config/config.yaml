@@ -32,7 +32,7 @@ adm0:
       source: unocha
       suffix: shp
     column_names:
-      NAME_EN: ADM0_EN
+      ADM0_EN: ADM0_EN
       PCODE: ADM0_PCODE
 adm1:
   schema: admin1_affected_area_py.yml
@@ -45,8 +45,8 @@ adm1:
       source: unocha
       suffix: shp
     column_names:
-      NAME_EN: ADM1_EN
-      PCODE: ADM1_PCODE
+      ADM1_EN: ADM1_EN
+      ADM1_PCODE: ADM1_PCODE
       par_pcode: ADM0_PCODE
 
 osm:
