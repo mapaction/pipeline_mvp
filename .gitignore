@@ -150,7 +150,11 @@ dmypy.json
 *.code-workspace
 
 # PyCharm
-.idea
+.idea/*
+
+# Venv
+.venv/*
+
 
 # Data files
 *.gpkg

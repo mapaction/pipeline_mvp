@@ -6,12 +6,13 @@ from pipeline_plugin.operators.HDXAdm1TransformOperator import HDXAdm1TransformO
 from pipeline_plugin.operators.HDXRoadsTransformOperator import HDXRoadsTransformOperator
 from pipeline_plugin.operators.OSMExtractOperator import OSMExtractOperator
 from pipeline_plugin.operators.OSMRoadsTransformOperator import OSMRoadsTransformOperator
+from pipeline_plugin.operators.OSMRailTransformOperator import OSMRailTransformOperator
 
 
 class PipelinePlugin(AirflowPlugin):
     name = "pipeline_plugin"  # does not need to match the package name
     operators = [HDXExtractOperator, HDXAdm0TransformOperator, HDXAdm1TransformOperator, HDXRoadsTransformOperator,
-                 OSMExtractOperator, OSMRoadsTransformOperator]
+                 OSMExtractOperator, OSMRoadsTransformOperator, OSMRailTransformOperator]
     sensors = []
     hooks = []
     executors = []
