@@ -10,6 +10,7 @@ def extract_osm_query(osm_url,
                       schema_filename,
                       osm_output_filename,
                       gpkg_output_filename):
+
     osm_schema = parse_yaml(schema_filename)
     geom_type = osm_schema['geom_type']
 
