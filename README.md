@@ -96,6 +96,17 @@ To stop the Airflow server:
 $ docker-compose down
 ```
 
+## Contribution workflow
+
+1. create a task in the [Data Pipeline Development](https://mapaction.atlassian.net/browse/DATAPIPE) Jira project (Internal, MapAction)
+1. create a local Git branch, make changes and push branch to GitHub
+1. create a pull request from your branch targetting the `master` branch
+1. move the Jira task to 'in review' and add a link to the GitHub PR 
+1. notify other project members of your branch in the [#topic-automation](https://mapaction.slack.com/archives/CKF3LQGGL) Slack channel (Internal, MapAction) with a link to the GitHub PR for review
+1. all reviews and comments should be captured in the PR
+1. once review is complete, merge PR and remove merged branch
+7. move the Jira task to 'done'
+
 ## CI / CD
 
 For Google Cloud Composer, a CI/CD pipeline is set up using Google Cloud Build. When a new push is made to master, the 
