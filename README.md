@@ -25,6 +25,10 @@ Platform using Airflow.
 
 ## Structure
 
+`/.github`
+
+GitLab Actions configuration files (see [Continuous Deployment](#continuous-deployment)).
+
 `/dags`
 
 Folder with the DAG scripts, every DAG instance in the global namespace will be available inside Airflow.
@@ -107,16 +111,30 @@ $ docker-compose down
 1. once review is complete, merge PR and remove merged branch
 7. move the Jira task to 'done'
 
-## CI / CD
+## Continuous Deployment
 
-For Google Cloud Composer, a CI/CD pipeline is set up using Google Cloud Build. When a new push is made to master, the 
-`cloudbuild.yaml` file is used for the workflow. The following steps are executed:
+GitHub Actions is used for Continuous Deployment.
 
-- The commit hash is used as version
-- The KubernetesPodOperator image is built and labeled with this version
-- The `dags` folder is synchronized to Cloud Storage, which Cloud Composer synchronizes with
-- The `plugins` folder is synchronized to Cloud Storage, which Cloud Composer synchronizes with
-- The commit hash is set as variable in Cloud Composer so that the Operators use the new Docker image
+When triggered (by editing relevant files) these actions will:
+
+* rebuild the container used for Airflow tasks (i.e. the execution environment)
+* copy Airflow DAGs and plugins to a storage bucket
+
+See the GitHub Actions configuration files in `/.github/workflows/` for details on the exact steps taken.
+
+### Initial setup
+
+1. in Google Cloud, create a service user (`pipeline-gh-actions-bot`) with these permissions:
+  * *Storage Admin* role for the Google Cloud Registry bucket (`eu.artifacts.datapipeline-xxx.appspot.com`)
+  * *Storage Admin* role for the DAGs/plugins Google Cloud bucket (`europe-west2-mapaction-xxx-bucket`)
+  * `composer.environments.update` for the Google Cloud Composer environment (`mapaction-xxx`)
+2. in Google Cloud, create a key (encoded as a JSON file), if needed, remove whitespace from this file (one line)
+3. in the GitHub project, create new secrets (Settings -> Secrets) with these names:
+  * `GCLOUD_BUCKET_PATH`: name of the DAGs/plugins Google Cloud bucket (`europe-west2-mapaction-xxx-bucket`)
+  * `GCLOUD_IMAGE_NAME`: namme of the Google Cloud Registry image (`eu.gcr.io/datapipeline-xxx/mapaction-cloudcomposer-kubernetes-image`)
+  * `GCLOUD_COMPOSER_ENVIRONMENT`: name of the Google Cloud Composer environment (`mapaction-xxx`)
+  * `GCLOUD_PROJECT`: ID of the Google Cloud Platform project (`datapipeline-xxx`)
+  * `GCLOUD_SERVICE_KEY`: JSON service account key as a string (do not remove whitespace)
 
 ## Tests
 
