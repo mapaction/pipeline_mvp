@@ -1,0 +1,35 @@
+---
+
+name: Container
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Dockerfile
+      - requirements.txt
+
+jobs:
+  update-container:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup Google Cloud Utilities
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+        project_id: ${{ secrets.GCS_PROJECT }}
+        export_default_credentials: true
+    - name: Build image reference
+      id: image
+      run: echo "::set-output name=image_ref::${{ secrets.GCLOUD_IMAGE_NAME }}:$(date +'%Y-%m-%d')"
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ${{ steps.image.outputs.image_ref }}
+    - name: Login to Docker registry
+      run: echo '${{ secrets.GCLOUD_SERVICE_KEY }}' | docker login -u _json_key --password-stdin https://eu.gcr.io
+    - name: Push Docker image
+      run: docker push ${{ steps.image.outputs.image_ref }}
+    - name: Use Docker image in Google Composer
+      run: gcloud composer environments update ${{ secrets.GCLOUD_COMPOSER_ENVIRONMENT }} --location europe-west2 --update-env-variables 'AIRFLOW_VAR_DOCKER_IMAGE_VERSION=$(date +'%Y-%m-%d')'
