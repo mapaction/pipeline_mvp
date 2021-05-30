@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - configs/**
+      - dags/**
       - plugins/**
 
 jobs:
