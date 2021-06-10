@@ -124,7 +124,7 @@ See the GitHub Actions configuration files in `/.github/workflows/` for details 
 
 ### Initial setup
 
-1. in Google Cloud, create a service user (`pipeline-gh-actions-bot`) with these permissions:
+1. in Google Cloud, create a Service Account (`pipeline-gh-actions-bot`) with these permissions:
   * *Storage Admin* role for the Google Cloud Registry bucket (`eu.artifacts.datapipeline-xxx.appspot.com`)
   * *Storage Admin* role for the DAGs/plugins Google Cloud bucket (`europe-west2-mapaction-xxx-bucket`)
   * `composer.environments.update` for the Google Cloud Composer environment (`mapaction-xxx`)
@@ -135,6 +135,10 @@ See the GitHub Actions configuration files in `/.github/workflows/` for details 
   * `GCLOUD_COMPOSER_ENVIRONMENT`: name of the Google Cloud Composer environment (`mapaction-xxx`)
   * `GCLOUD_PROJECT`: ID of the Google Cloud Platform project (`datapipeline-xxx`)
   * `GCLOUD_SERVICE_KEY`: JSON service account key as a string (do not remove whitespace)
+
+**Note:** As currently deployed, the Service Account used for this project has an email address that relates to a legacy
+testing account. This is recognised as being sub-optimal and will be changed in the future when additional environments
+are added (see )
 
 ## Tests
 
