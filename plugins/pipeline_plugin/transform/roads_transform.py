@@ -70,4 +70,3 @@ def postprocess(df_roads, crs):
     # Write to output
     df_roads = df_roads.to_crs(crs)
     return df_roads
-

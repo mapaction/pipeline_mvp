@@ -51,4 +51,3 @@ def postprocess(df_rail, crs):
     # TODO need to convert from XML to GPKG rather than OSM to GPKG
     df_rail = df_rail.to_crs(crs)
     return df_rail
-

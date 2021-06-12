@@ -8,7 +8,7 @@ from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXRoadsTransf
 
 def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
     dag = DAG(f"hdx_road", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
-    
+
     for country in countries:
         if config.should_process_hdx_roads(country):
             hdx_roads_extract = HDXExtractOperator(

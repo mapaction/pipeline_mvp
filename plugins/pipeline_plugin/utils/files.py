@@ -80,7 +80,7 @@ def get_file_age_in_days(filename):
 def check_if_valid_cache(filename):
     environment = get_current_environment()
     if environment != "local":
-        return False    
+        return False
     if not check_if_file_exists(filename):
         return False
     return get_file_age_in_days(filename) < CACHE_INVALID_AFTER_DAYS
