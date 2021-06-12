@@ -65,11 +65,13 @@ There are seperate instructions on developing on Windows Subsystem for Linux (WS
 
 https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows
 
-### Requirements
+### Local requirements
 
-Docker and Docker compose are required dependencies for running a local version of the Pipeline.
+1. [Docker](https://www.docker.com) and [Docker compose](https://docs.docker.com/compose/)
+    - Docker for Windows/macOS is recommended on these platforms
+1. [Python](https://python.org) and the [pre-commit](https://pre-commit.com/#install) package
 
-### Initial setup
+### Local setup
 
 Build a local Docker image using Docker Compose:
 
@@ -79,7 +81,7 @@ $ docker-compose build airflow
 
 **Note:** This image is ~2GB.
 
-### Development
+### Local usage
 
 To start the Airflow server:
 
@@ -98,6 +100,21 @@ To stop the Airflow server:
 
 ```shell
 $ docker-compose down
+```
+
+## Code standards
+
+### Pre-commit hooks
+
+This project has adopted a number of code standards to ensure there is consistency across different contributors, and
+best practices are followed. To that end, some of these code standards are intentionally opinionated.
+
+The [pre-commit](https://pre-commit.com) package (and its config file `.pre-commit-config.yaml`) is used to define,
+and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit. It can be
+manually run using:
+
+```
+$ pre-commit run --all-files
 ```
 
 ## Contribution workflow
