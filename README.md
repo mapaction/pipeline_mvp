@@ -104,6 +104,11 @@ $ docker-compose down
 
 ## Code standards
 
+### EditorConfig
+
+An `.editorconfig` file is included to configure compatible editors to automatically comply with code standards adopted
+for this project.
+
 ### Pre-commit hooks
 
 This project has adopted a number of code standards to ensure there is consistency across different contributors, and
