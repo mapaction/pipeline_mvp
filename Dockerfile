@@ -27,6 +27,9 @@ RUN pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFL
 ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+ADD requirements-dev.txt requirements-dev.txt
+RUN pip install -r requirements-dev.txt
+
 # Required to workaround https://github.com/apache/airflow/issues/12924
 RUN pip install attrs==20.3.0
 

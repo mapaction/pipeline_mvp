@@ -46,6 +46,10 @@ the local environment.
 
 Required Python packages.
 
+`/requirements-dev.txt`
+
+Required Python packages for development, only installed within local container.
+
 `/docker-compose.yml`
 
 Configuration file for running Airflow locally using Docker containers
@@ -115,11 +119,23 @@ This project has adopted a number of code standards to ensure there is consisten
 best practices are followed. To that end, some of these code standards are intentionally opinionated.
 
 The [pre-commit](https://pre-commit.com) package (and its config file `.pre-commit-config.yaml`) is used to define,
-and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit. It can be
-manually run using:
+and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit.
+
+To run manually:
 
 ```
 $ pre-commit run --all-files
+```
+
+### Flake8
+
+The [Flake8](https://flake8.pycqa.org/) package (and its config file `.flake8`) is used to define, and enforce, Python
+specific code standards for this project.
+
+To run manually:
+
+```
+$ docker compose run airflow flake8 dags plugins test
 ```
 
 ## Contribution workflow

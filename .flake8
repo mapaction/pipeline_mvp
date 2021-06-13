@@ -1,0 +1,6 @@
+[flake8]
+# C: McCabe (code complexity)
+# E,W: PyCodeStyle (Pep8 warnings/errors)
+# F: PyFlakes (invalid Python code)
+select = C,E,F,W
+max-complexity = 10
