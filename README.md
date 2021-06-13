@@ -71,25 +71,36 @@ https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows
 
 ### Local requirements
 
+1. [Git](https://git-scm.com/)
 1. [Docker](https://www.docker.com) and [Docker compose](https://docs.docker.com/compose/)
     - Docker for Windows/macOS is recommended on these platforms
 1. [Python](https://python.org) and the [pre-commit](https://pre-commit.com/#install) package
 
+To install for macOS using brew:
+
+```
+$ brew install git pre-commit
+$ brew install --cask docker
+```
+
 ### Local setup
 
-Build a local Docker image using Docker Compose:
+Clone the project repository and build a local Docker image using Docker Compose:
 
 ```shell
+$ git clone https://github.com/mapaction/pipeline_mvp.git
+$ cd pipeline_mvp/
 $ docker compose build airflow
 ```
 
-**Note:** This image is ~2GB.
+**Note:** This image is approx ~2GB in size.
 
 ### Local usage
 
 To start the Airflow server:
 
 ```shell
+$ cd pipeline_mvp/
 $ docker compose up
 ```
 
