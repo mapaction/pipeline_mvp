@@ -80,7 +80,7 @@ https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows
 Build a local Docker image using Docker Compose:
 
 ```shell
-$ docker-compose build airflow
+$ docker compose build airflow
 ```
 
 **Note:** This image is ~2GB.
@@ -90,7 +90,7 @@ $ docker-compose build airflow
 To start the Airflow server:
 
 ```shell
-$ docker-compose up
+$ docker compose up
 ```
 
 The Airflow server runs in a Docker container, which as a number of directories (such as `/dags` and `/data`) mounted
@@ -103,15 +103,15 @@ without needing to update or recreate the container).
 To stop the Airflow server:
 
 ```shell
-$ docker-compose down
+$ docker compose down
 ```
 
 ## Code standards
 
 ### EditorConfig
 
-An `.editorconfig` file is included to configure compatible editors to automatically comply with code standards adopted
-for this project.
+An [`.editorconfig`](https://editorconfig.org/) file is included to configure compatible editors to automatically
+comply with code standards adopted for this project.
 
 ### Pre-commit hooks
 
@@ -135,7 +135,7 @@ specific code standards for this project.
 To run manually:
 
 ```
-$ docker compose run airflow flake8 dags plugins test
+$ docker compose run airflow flake8 dags plugins tests
 ```
 
 ## Contribution workflow
@@ -180,9 +180,9 @@ are added (see )
 
 ## Tests
 
-To run the (limited) project tests locally:
+To run project tests locally:
 
 ```
-$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/test airflow
+$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/tests airflow
 $ python -m pytest .
 ```
