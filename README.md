@@ -135,7 +135,18 @@ specific code standards for this project.
 To run manually:
 
 ```
-$ docker compose run airflow flake8 dags plugins tests
+$ docker compose run airflow flake8 dags/ plugins/ tests/
+```
+
+### Black
+
+The [Black](https://black.readthedocs.io/en/stable/) package is used to define, and enforce, Python code style rules for
+this project.
+
+To run manually:
+
+```
+$ docker compose run airflow black dags/ plugins/ tests/
 ```
 
 ## Contribution workflow

@@ -1,8 +1,15 @@
 from airflow import DAG
 
-from airflow.operators.pipeline_plugin import OSMExtractOperator, OSMRailTransformOperator
+from airflow.operators.pipeline_plugin import (
+    OSMExtractOperator,
+    OSMRailTransformOperator,
+)
 from utils.config_parser import config
-from utils.dag_configuration import get_catchup, get_default_arguments, get_schedule_interval
+from utils.dag_configuration import (
+    get_catchup,
+    get_default_arguments,
+    get_schedule_interval,
+)
 
 countries = config.get_countries()
 
@@ -11,7 +18,12 @@ default_args = get_default_arguments()
 schedule_interval = get_schedule_interval()
 catchup = get_catchup()
 
-with DAG('osm_rail', schedule_interval=schedule_interval, catchup=catchup, default_args=default_args) as dag:
+with DAG(
+    "osm_rail",
+    schedule_interval=schedule_interval,
+    catchup=catchup,
+    default_args=default_args,
+) as dag:
     for country in countries:
         osm_rail_extract = OSMExtractOperator(
             task_id=f"{country}_osm_rail_extract",
@@ -20,7 +32,7 @@ with DAG('osm_rail', schedule_interval=schedule_interval, catchup=catchup, defau
             schema_filename=config.get_osm_rail_tags_schema(country=country),
             osm_output_filename=config.get_osm_rail_raw_osm(country=country),
             gpkg_output_filename=config.get_osm_rail_raw_gpkg(country=country),
-            dag=dag
+            dag=dag,
         )
 
         source = "osm"
@@ -30,8 +42,10 @@ with DAG('osm_rail', schedule_interval=schedule_interval, catchup=catchup, defau
             input_filename=config.get_osm_rail_raw_gpkg(country=country),
             output_filename=config.get_osm_rail_processed_filepath(country=country),
             crs=config.get_crs(),
-            schema_mapping=config.get_rail_schema_mapping(source=source, country=country),
-            dag=dag
+            schema_mapping=config.get_rail_schema_mapping(
+                source=source, country=country
+            ),
+            dag=dag,
         )
 
         osm_rail_extract >> rail_transform

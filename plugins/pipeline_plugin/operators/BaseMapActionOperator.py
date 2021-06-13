@@ -14,27 +14,28 @@ class MapActionKubernetesPodOperator(KubernetesPodOperator):
     def __init__(self, method: Callable, arguments: dict, *args, **kwargs):
         function_name, function_module = get_function_information(method, **kwargs)
         arguments_json = json.dumps(arguments)
-        environment_variables = {"FUNCTION_NAME": function_name,
-                                 "FUNCTION_MODULE": function_module,
-                                 "FUNCTION_ARGUMENTS": arguments_json,
-                                 "GCP": "TRUE",
-                                 "INSIDE_KUBERNETES_POD": "TRUE",
-                                 "ENVIRONMENT": "PRODUCTION"}
-        super().__init__(namespace="default",
-                         image=config.get_docker_image(),
-                         name=kwargs["task_id"],
-                         env_vars=environment_variables,
-                         *args,
-                         **kwargs)
+        environment_variables = {
+            "FUNCTION_NAME": function_name,
+            "FUNCTION_MODULE": function_module,
+            "FUNCTION_ARGUMENTS": arguments_json,
+            "GCP": "TRUE",
+            "INSIDE_KUBERNETES_POD": "TRUE",
+            "ENVIRONMENT": "PRODUCTION",
+        }
+        super().__init__(
+            namespace="default",
+            image=config.get_docker_image(),
+            name=kwargs["task_id"],
+            env_vars=environment_variables,
+            *args,
+            **kwargs
+        )
 
 
 class MapActionPythonOperator(PythonOperator):
     @apply_defaults
     def __init__(self, method: Callable, arguments: dict, *args, **kwargs):
-        super().__init__(python_callable=method,
-                         op_kwargs=arguments,
-                         *args,
-                         **kwargs)
+        super().__init__(python_callable=method, op_kwargs=arguments, *args, **kwargs)
 
 
 if config.use_kubernetes():

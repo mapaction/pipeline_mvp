@@ -21,8 +21,10 @@ def load_file(relative_source_path):
     if config.use_remote_storage():
         filepath = download_file(relative_source_path)
     else:
-        filepath = copy_file(config.get_remote_data_path(relative_source_path),
-                             config.get_local_data_path(relative_source_path))
+        filepath = copy_file(
+            config.get_remote_data_path(relative_source_path),
+            config.get_local_data_path(relative_source_path),
+        )
     return filepath
 
 
@@ -30,12 +32,16 @@ def save_file(relative_target_path):
     if config.use_remote_storage():
         filepath = upload_file(relative_target_path)
     else:
-        filepath = copy_file(config.get_local_data_path(relative_target_path),
-                             config.get_remote_data_path(relative_target_path))
+        filepath = copy_file(
+            config.get_local_data_path(relative_target_path),
+            config.get_remote_data_path(relative_target_path),
+        )
     return filepath
 
 
-def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, Path], **kwargs):
+def save_shapefiles(
+    geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, Path], **kwargs
+):
     if isinstance(output_filename, str):
         output_filename = Path(output_filename)
 
@@ -50,7 +56,9 @@ def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, 
 
         # For each file, move it to original location and call save_file
         for file in os.listdir(tmpdirname):
-            shutil.move(src=Path(tmpdirname, file), dst=Path(output_filename.parent, file))
+            shutil.move(
+                src=Path(tmpdirname, file), dst=Path(output_filename.parent, file)
+            )
             save_file(Path(output_filename.parent, file))
 
 
