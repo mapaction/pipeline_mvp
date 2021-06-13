@@ -1,13 +1,13 @@
 [flake8]
 # General settings
 
-# B: Fake8-BugBear (additional bugs / design issues)
+# B,B9: Fake8-BugBear (additional bugs / design issues)
 # C: McCabe (code complexity)
 # E,W: PyCodeStyle (Pep8 warnings/errors)
 # F: PyFlakes (invalid Python code)
 # I: Flake8-Import-Order (import ordering)
 # S: Bandit (security footguns etc.)
-select = B,C,E,F,I,W,S
+select = B,B9,C,E,F,I,W,S
 
 # E501: Pep8 80 character line length - replaced by BugBear check
 ignore = E501
