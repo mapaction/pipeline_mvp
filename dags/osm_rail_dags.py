@@ -1,9 +1,8 @@
 from airflow import DAG
 
-from utils.config_parser import config
-from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
 from airflow.operators.pipeline_plugin import OSMExtractOperator, OSMRailTransformOperator
-
+from utils.config_parser import config
+from utils.dag_configuration import get_catchup, get_default_arguments, get_schedule_interval
 
 countries = config.get_countries()
 

@@ -1,5 +1,4 @@
 import geopandas as gpd
-
 from sqlalchemy.dialects.postgresql import HSTORE
 
 from pipeline_plugin.utils.files import load_file, save_shapefiles

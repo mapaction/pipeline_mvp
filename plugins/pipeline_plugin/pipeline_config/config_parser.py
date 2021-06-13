@@ -1,8 +1,8 @@
 import os
-import yaml
 from pathlib import Path
 
 from airflow.models import Variable
+import yaml
 
 
 class Config:

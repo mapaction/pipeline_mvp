@@ -1,8 +1,7 @@
-from pipeline_plugin.utils.yaml_api import parse_yaml
+from pipeline_plugin.utils.files import create_download_folder, save_file
 from pipeline_plugin.utils.osm import convert_osm2gpkg
 from pipeline_plugin.utils.requests_api import download_url
-
-from pipeline_plugin.utils.files import save_file, create_download_folder
+from pipeline_plugin.utils.yaml_api import parse_yaml
 
 
 def extract_osm_query(osm_url,

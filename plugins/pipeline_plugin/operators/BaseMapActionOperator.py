@@ -1,13 +1,12 @@
 import json
 from typing import Callable
 
-from pipeline_plugin.utils.deep_inspection import get_function_information
-from pipeline_plugin.pipeline_config.config_parser import config
-
-from airflow.operators.python_operator import PythonOperator
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
-
+from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
+
+from pipeline_plugin.pipeline_config.config_parser import config
+from pipeline_plugin.utils.deep_inspection import get_function_information
 
 
 class MapActionKubernetesPodOperator(KubernetesPodOperator):

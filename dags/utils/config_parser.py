@@ -1,8 +1,8 @@
 import os
-import yaml
 from pathlib import Path
-
 from typing import List
+
+import yaml
 
 from utils.fallback_dict import FallbackDict
 
