@@ -1,12 +1,18 @@
 from airflow import DAG
-from country_config import config
 
+from utils.config_parser import config
+from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
 from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXRoadsTransformOperator
 
 
-def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
-    dag = DAG("hdx_road", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+countries = config.get_countries()
 
+# Defaults which can be overridden if needed
+default_args = get_default_arguments()
+schedule_interval = get_schedule_interval()
+catchup = get_catchup()
+
+with DAG('hdx_road', schedule_interval=schedule_interval, catchup=catchup, default_args=default_args) as dag:
     for country in countries:
         if config.should_process_hdx_roads(country):
             hdx_roads_extract = HDXExtractOperator(
@@ -28,4 +34,3 @@ def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
             )
 
             hdx_roads_extract >> roads_transform
-    return dag

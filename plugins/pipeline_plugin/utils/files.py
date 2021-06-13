@@ -4,7 +4,7 @@ from pathlib import Path
 import time
 from typing import Union
 from pipeline_plugin.utils.google_cloud_storage import upload_file, download_file
-from pipeline_plugin.pipeline_config import config
+from pipeline_plugin.pipeline_config.config_parser import config
 import geopandas as gpd
 import tempfile
 

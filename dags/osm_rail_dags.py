@@ -1,12 +1,18 @@
 from airflow import DAG
 
-from country_config import config
-
+from utils.config_parser import config
+from utils.dag_configuration import get_default_arguments, get_schedule_interval, get_catchup
 from airflow.operators.pipeline_plugin import OSMExtractOperator, OSMRailTransformOperator
 
 
-def create_osm_rail_dag(countries, schedule_interval, catchup, default_args):
-    dag = DAG("osm_rail", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+countries = config.get_countries()
+
+# Defaults which can be overridden if needed
+default_args = get_default_arguments()
+schedule_interval = get_schedule_interval()
+catchup = get_catchup()
+
+with DAG('osm_rail', schedule_interval=schedule_interval, catchup=catchup, default_args=default_args) as dag:
     for country in countries:
         osm_rail_extract = OSMExtractOperator(
             task_id=f"{country}_osm_rail_extract",
@@ -30,4 +36,3 @@ def create_osm_rail_dag(countries, schedule_interval, catchup, default_args):
         )
 
         osm_rail_extract >> rail_transform
-    return dag
