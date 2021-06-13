@@ -3,7 +3,6 @@ import zipfile
 import geopandas as gpd
 import fiona
 from jsonschema import validate
-import zipfile
 
 from pipeline_plugin.utils.yaml_api import parse_yaml
 from pipeline_plugin.utils.files import load_file, save_shapefiles
