@@ -58,7 +58,7 @@ class Config:
 
     def _get_processed_directory(self, country: str, artefact: str) -> Path:
         return Path(self._get_processed_data_directory(country)) / \
-               Path(self._get_country(country)['cmf']['processed'][artefact])
+            Path(self._get_country(country)['cmf']['processed'][artefact])
 
     def _get_schema_mapping(self, column_name_map: FallbackDict, column_names: list) -> dict:
         return {column_name_map[column_name]: column_name
@@ -107,6 +107,7 @@ class Config:
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['roads']['raw_osm']
                             .format(iso3=self.get_iso3(country=country).lower()))
+
     def get_osm_rail_raw_osm(self, country: str):
         return os.path.join(self._get_raw_data_directory(country),
                             self._get_osm(country=country)['rail']['raw_osm']
@@ -218,8 +219,8 @@ class Config:
 
     def _get_processed_data_directory(self, country):
         return self._DATA_FOLDER / country / \
-           Path(self._get_country(country)['cmf']['top-level']) / \
-           Path(self._get_country(country)['cmf']['processed']['top-level'])
+            Path(self._get_country(country)['cmf']['top-level']) / \
+            Path(self._get_country(country)['cmf']['processed']['top-level'])
 
     def _get_schema_directory(self):
         return self._SCHEMAS_FOLDER
@@ -249,5 +250,6 @@ class Config:
 
         return self._get_schema_mapping(column_name_map=column_name_map,
                                         column_names=['name_en', 'name_loc', 'fclass'])
+
 
 config = Config()

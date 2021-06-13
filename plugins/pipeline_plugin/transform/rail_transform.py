@@ -2,7 +2,7 @@ import geopandas as gpd
 
 from sqlalchemy.dialects.postgresql import HSTORE
 
-from pipeline_plugin.utils.files import load_file, save_shapefiles, save_file
+from pipeline_plugin.utils.files import load_file, save_shapefiles
 
 
 def transform(source: str, input_filename: str, output_filename: str, crs, schema_mapping):
@@ -16,7 +16,6 @@ def transform(source: str, input_filename: str, output_filename: str, crs, schem
         df_rail = postprocess(df_rail=df_rail, crs=crs)
 
     save_shapefiles(df_rail, output_filename, encoding='utf8')
-
 
 
 def transform_osm(input_filename, schema_mapping):

@@ -1,6 +1,4 @@
 from airflow import DAG
-from airflow.operators import BashOperator
-from datetime import datetime, timedelta
 
 from country_config import config
 
@@ -8,7 +6,7 @@ from airflow.operators.pipeline_plugin import OSMExtractOperator, OSMRailTransfo
 
 
 def create_osm_rail_dag(countries, schedule_interval, catchup, default_args):
-    dag = DAG(f"osm_rail", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+    dag = DAG("osm_rail", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
     for country in countries:
         osm_rail_extract = OSMExtractOperator(
             task_id=f"{country}_osm_rail_extract",

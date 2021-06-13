@@ -55,7 +55,7 @@ def osm_query(osm_yml: dict, iso2_country: str):
                             main_query += f'{osm_type}[{tag}={tag_value}](area.a); \n'
                     elif type(value) == str:
                         main_query += f'{osm_type}[{tag}={value}](area.a); \n'
-                    elif value == None:
+                    elif value is None:
                         main_query += f'{osm_type}[{tag}](area.a); \n'
         elif type(osm_yml['tags']) == dict:
             for tag, value in osm_yml['tags'].items():
@@ -64,7 +64,7 @@ def osm_query(osm_yml: dict, iso2_country: str):
                         main_query += f'{osm_type}[{tag}={tag_value}](area.a); \n'
                 elif type(value) == str:
                     main_query += f'{osm_type}[{tag}={value}](area.a); \n'
-                elif value == None:
+                elif value is None:
                     main_query += f'{osm_type}[{tag}](area.a); \n'
     main_query += '); \n'
     # Check geom_type output in osm_yml (will be used to create temp shapefile)
@@ -84,8 +84,7 @@ def osm_query(osm_yml: dict, iso2_country: str):
             '(._;>;); \n'
             'out body qt;')
     # Combine all parts of query into full query to send to Overpass
-    final_query = (area_filter
-                   + main_query + recurse_out)
+    final_query = (area_filter + main_query + recurse_out)
     return final_query
 
 

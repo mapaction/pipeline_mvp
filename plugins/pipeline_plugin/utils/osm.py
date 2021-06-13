@@ -4,7 +4,6 @@ import geopandas as gpd
 from sqlalchemy.dialects.postgresql import HSTORE
 
 
-
 def convert_osm_to_gpkg(input_filename: str, tmp_filename: str, layer_name: str):
     tmp_filename = os.path.join('/', 'tmp', tmp_filename)
     command = "ogr2ogr -f gpkg {output} --config OSM_USE_CUSTOM_INDEXING NO {input}"

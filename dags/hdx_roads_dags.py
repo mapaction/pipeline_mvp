@@ -1,13 +1,11 @@
 from airflow import DAG
-from airflow.operators import BashOperator
-from datetime import datetime, timedelta
 from country_config import config
 
 from airflow.operators.pipeline_plugin import HDXExtractOperator, HDXRoadsTransformOperator
 
 
 def create_hdx_road_dag(countries, schedule_interval, catchup, default_args):
-    dag = DAG(f"hdx_road", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
+    dag = DAG("hdx_road", schedule_interval=schedule_interval, catchup=catchup, default_args=default_args)
 
     for country in countries:
         if config.should_process_hdx_roads(country):

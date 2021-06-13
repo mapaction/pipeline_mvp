@@ -1,4 +1,3 @@
-from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 
 from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
