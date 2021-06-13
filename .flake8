@@ -3,4 +3,6 @@
 # E,W: PyCodeStyle (Pep8 warnings/errors)
 # F: PyFlakes (invalid Python code)
 select = C,E,F,W
+# E501: Pep8 80 character line length
+ignore = E501
 max-complexity = 10
