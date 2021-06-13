@@ -149,6 +149,18 @@ To run manually:
 $ docker compose run airflow black dags/ plugins/ tests/
 ```
 
+## Package security
+
+The [Safety](https://github.com/pyupio/safety-db) package is used to check for vulnerable Python packages used in this
+project.
+
+To run manually:
+
+```
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements.txt --full-report
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements-dev.txt --full-report
+```
+
 ## Contribution workflow
 
 1. create a task in the [Data Pipeline Development](https://mapaction.atlassian.net/browse/DATAPIPE) Jira project (Internal, MapAction)
