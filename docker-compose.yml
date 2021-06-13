@@ -16,6 +16,7 @@ services:
       - ./data/:/opt/data
       - ./dags/:/home/airflow/gcs/dags
       - ./test:/home/airflow/gcs/test
+      - ./.flake8:/home/airflow/gcs/.flake8
     environment:
       AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE: "True"
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
