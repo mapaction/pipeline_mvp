@@ -130,7 +130,8 @@ $ pre-commit run --all-files
 ### Flake8
 
 The [Flake8](https://flake8.pycqa.org/) package (and its config file `.flake8`) is used to define, and enforce, Python
-specific code standards for this project.
+specific code standards for this project. Flake8 checks will be automatically run as part of the
+[Pre-commit hook](#pre-commit-hooks).
 
 To run manually:
 
@@ -141,7 +142,7 @@ $ docker compose run airflow flake8 dags/ plugins/ tests/
 ### Black
 
 The [Black](https://black.readthedocs.io/en/stable/) package is used to define, and enforce, Python code style rules for
-this project.
+this project. Black formatting will automatically be checked as part of the [Flake8](#flake8) checks.
 
 To run manually:
 

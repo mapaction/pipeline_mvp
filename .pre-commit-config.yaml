@@ -12,3 +12,14 @@ repos:
     -   id: mixed-line-ending
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
+
+-   repo: local
+    hooks:
+    -   id: docker-python-flake8
+        name: Python Flake8 (Docker)
+        language: docker_image
+        files: ^dags\/|plugins\/|tests\/
+        types:
+        -   file
+        -   python
+        entry: mapaction-pipeline-airflow-local:latest flake8 dags/ plugins/ tests/
