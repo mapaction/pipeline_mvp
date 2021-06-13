@@ -2,15 +2,18 @@
 # General settings
 
 # B,B9: Fake8-BugBear (additional bugs / design issues)
+# BLK: Black (code formatting)
 # C: McCabe (code complexity)
 # E,W: PyCodeStyle (Pep8 warnings/errors)
 # F: PyFlakes (invalid Python code)
 # I: Flake8-Import-Order (import ordering)
 # S: Bandit (security footguns etc.)
-select = B,B9,C,E,F,I,W,S
+select = B,B9,BLK,C,E,F,I,W,S
 
-# E501: Pep8 80 character line length - replaced by BugBear check
-ignore = E501
+# E203: Pep8 (whitespace before ':') - incompatible with Black
+# E501: Pep8 (80 character line length) - replaced by BugBear check
+# W503: Pep8 (Line break before binary operator) - incompatible with Black
+ignore = E203,E501,W503
 
 # S101: Use of assert - ignored in tests due to PyTest
 per-file-ignores = tests/*:S101
