@@ -1,21 +1,26 @@
 [flake8]
 # General settings
 
+# B: Fake8-BugBear (additional bugs / design issues)
 # C: McCabe (code complexity)
 # E,W: PyCodeStyle (Pep8 warnings/errors)
 # F: PyFlakes (invalid Python code)
 # I: Flake8-Import-Order (import ordering)
-select = C,E,F,I,W
+select = B,C,E,F,I,W
 
-# E501: Pep8 80 character line length
+# E501: Pep8 80 character line length - replaced by BugBear check
 ignore = E501
 
-# PyCodeStyle settings
+# Flake8-Bugbear
 
-max-complexity = 10
+max-line-length = 120
 
 # Flake8-Import-Order settings
 
 # See https://mapaction.atlassian.net/browse/DATAPIPE-84 for discussion over these names
 application-import-names = utils,pipeline_plugin,airflow.operators.pipeline_plugin,tests
 import-order-style = google
+
+# PyCodeStyle settings
+
+max-complexity = 10
