@@ -33,7 +33,7 @@ adm0:
       suffix: shp
     column_names:
       ADM0_EN: ADM0_EN
-      PCODE: ADM0_PCODE
+      ADM0_PCODE: ADM0_PCODE
 adm1:
   schema: admin1_affected_area_py.yml
   cod:
