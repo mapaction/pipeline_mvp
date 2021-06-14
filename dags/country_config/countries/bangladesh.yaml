@@ -8,3 +8,9 @@ hdx_cod:
     filename: bgd_adm_bbs_20201113_SHP.zip
   roads:
     include: false
+
+adm0:
+  cod:
+    column_names:
+      ADM0_EN: admin0Name_en
+      ADM0_PCODE: pcode
