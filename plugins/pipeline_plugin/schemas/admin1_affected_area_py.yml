@@ -1,5 +1,5 @@
 required:
-    - name_en
+    - ADM1_EN
 properties:
     geometry_type:
         items:
