@@ -297,7 +297,7 @@ class Config:
             column_name_map=self._get_adm(country=country, adm_number=0)[source][
                 "column_names"
             ],
-            column_names=["name_en", "pcode"],
+            column_names=["ADM0_EN", "ADM0_PCODE"],
         )
 
     def get_adm1_schema_mapping(self, source: str, country: str) -> dict:
@@ -305,7 +305,7 @@ class Config:
             column_name_map=self._get_adm(country=country, adm_number=1)[source][
                 "column_names"
             ],
-            column_names=["name_en", "pcode", "par_pcode"],
+            column_names=["ADM1_EN", "ADM1_PCODE", "par_pcode"],
         )
 
     def get_roads_schema_mapping(self, source: str, country: str) -> dict:
