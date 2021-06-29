@@ -7,17 +7,24 @@ from pipeline_plugin.transform.roads_transform import transform
 class OSMRoadsTransformOperator(MapActionOperator):
     @apply_defaults
     def __init__(
-            self,
-            source,
-            input_filename,
-            output_filename,
-            crs,
-            schema_mapping,
-            *args, **kwargs) -> None:
-        super().__init__(method=transform,
-                         arguments={"source": source,
-                                    "input_filename": input_filename,
-                                    "output_filename": output_filename,
-                                    "crs": crs,
-                                    "schema_mapping": schema_mapping},
-                         *args, **kwargs)
+        self,
+        source,
+        input_filename,
+        output_filename,
+        crs,
+        schema_mapping,
+        *args,
+        **kwargs
+    ) -> None:
+        super().__init__(
+            method=transform,
+            arguments={
+                "source": source,
+                "input_filename": input_filename,
+                "output_filename": output_filename,
+                "crs": crs,
+                "schema_mapping": schema_mapping,
+            },
+            *args,
+            **kwargs
+        )

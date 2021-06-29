@@ -1,12 +1,14 @@
 import os
-import shutil
 from pathlib import Path
+import shutil
+import tempfile
 import time
 from typing import Union
-from pipeline_plugin.utils.google_cloud_storage import upload_file, download_file
-from pipeline_plugin.pipeline_config import config
+
 import geopandas as gpd
-import tempfile
+
+from pipeline_plugin.pipeline_config.config_parser import config
+from pipeline_plugin.utils.google_cloud_storage import download_file, upload_file
 
 
 CACHE_INVALID_AFTER_DAYS = 7
@@ -19,8 +21,10 @@ def load_file(relative_source_path):
     if config.use_remote_storage():
         filepath = download_file(relative_source_path)
     else:
-        filepath = copy_file(config.get_remote_data_path(relative_source_path),
-                             config.get_local_data_path(relative_source_path))
+        filepath = copy_file(
+            config.get_remote_data_path(relative_source_path),
+            config.get_local_data_path(relative_source_path),
+        )
     return filepath
 
 
@@ -28,12 +32,16 @@ def save_file(relative_target_path):
     if config.use_remote_storage():
         filepath = upload_file(relative_target_path)
     else:
-        filepath = copy_file(config.get_local_data_path(relative_target_path),
-                             config.get_remote_data_path(relative_target_path))
+        filepath = copy_file(
+            config.get_local_data_path(relative_target_path),
+            config.get_remote_data_path(relative_target_path),
+        )
     return filepath
 
 
-def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, Path], **kwargs):
+def save_shapefiles(
+    geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, Path], **kwargs
+):
     if isinstance(output_filename, str):
         output_filename = Path(output_filename)
 
@@ -48,7 +56,9 @@ def save_shapefiles(geopandas_df: gpd.GeoDataFrame, output_filename: Union[str, 
 
         # For each file, move it to original location and call save_file
         for file in os.listdir(tmpdirname):
-            shutil.move(src=Path(tmpdirname, file), dst=Path(output_filename.parent, file))
+            shutil.move(
+                src=Path(tmpdirname, file), dst=Path(output_filename.parent, file)
+            )
             save_file(Path(output_filename.parent, file))
 
 
@@ -78,9 +88,11 @@ def get_file_age_in_days(filename):
 
 
 def check_if_valid_cache(filename):
-    environment = get_current_environment()
+    environment = (
+        get_current_environment()  # noqa: F821 - see Jira issue DATAPIPE-89 for more information
+    )
     if environment != "local":
-        return False    
+        return False
     if not check_if_file_exists(filename):
         return False
     return get_file_age_in_days(filename) < CACHE_INVALID_AFTER_DAYS

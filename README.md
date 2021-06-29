@@ -46,6 +46,10 @@ the local environment.
 
 Required Python packages.
 
+`/requirements-dev.txt`
+
+Required Python packages for development, only installed within local container.
+
 `/docker-compose.yml`
 
 Configuration file for running Airflow locally using Docker containers
@@ -65,26 +69,39 @@ There are seperate instructions on developing on Windows Subsystem for Linux (WS
 
 https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows
 
-### Requirements
+### Local requirements
 
-Docker and Docker compose are required dependencies for running a local version of the Pipeline.
+1. [Git](https://git-scm.com/)
+1. [Docker](https://www.docker.com) and [Docker compose](https://docs.docker.com/compose/)
+    - Docker for Windows/macOS is recommended on these platforms
+1. [Python](https://python.org) and the [pre-commit](https://pre-commit.com/#install) package
 
-### Initial setup
+To install for macOS using brew:
 
-Build a local Docker image using Docker Compose:
-
-```shell
-$ docker-compose build airflow
+```
+$ brew install git pre-commit
+$ brew install --cask docker
 ```
 
-**Note:** This image is ~2GB.
+### Local setup
 
-### Development
+Clone the project repository and build a local Docker image using Docker Compose:
+
+```shell
+$ git clone https://github.com/mapaction/pipeline_mvp.git
+$ cd pipeline_mvp/
+$ docker compose build airflow
+```
+
+**Note:** This image is approx ~2GB in size.
+
+### Local usage
 
 To start the Airflow server:
 
 ```shell
-$ docker-compose up
+$ cd pipeline_mvp/
+$ docker compose up
 ```
 
 The Airflow server runs in a Docker container, which as a number of directories (such as `/dags` and `/data`) mounted
@@ -97,7 +114,69 @@ without needing to update or recreate the container).
 To stop the Airflow server:
 
 ```shell
-$ docker-compose down
+$ docker compose down
+```
+
+## Code standards
+
+### EditorConfig
+
+An [`.editorconfig`](https://editorconfig.org/) file is included to configure compatible editors to automatically
+comply with code standards adopted for this project.
+
+### Pre-commit hooks
+
+This project has adopted a number of code standards to ensure there is consistency across different contributors, and
+best practices are followed. To that end, some of these code standards are intentionally opinionated.
+
+The [pre-commit](https://pre-commit.com) package (and its config file `.pre-commit-config.yaml`) is used to define,
+and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit.
+
+To run manually:
+
+```
+$ pre-commit run --all-files
+```
+
+To install so that `pre-commit` will run automatically on each Git commit enter this command:
+
+```
+pre-commit install
+```
+
+### Flake8
+
+The [Flake8](https://flake8.pycqa.org/) package (and its config file `.flake8`) is used to define, and enforce, Python
+specific code standards for this project. Flake8 checks will be automatically run as part of the
+[Pre-commit hook](#pre-commit-hooks).
+
+To run manually:
+
+```
+$ docker compose run airflow flake8 dags/ plugins/ tests/
+```
+
+### Black
+
+The [Black](https://black.readthedocs.io/en/stable/) package is used to define, and enforce, Python code style rules for
+this project. Black formatting will automatically be checked as part of the [Flake8](#flake8) checks.
+
+To run manually:
+
+```
+$ docker compose run airflow black dags/ plugins/ tests/
+```
+
+## Package security
+
+The [Safety](https://github.com/pyupio/safety-db) package is used to check for vulnerable Python packages used in this
+project.
+
+To run manually:
+
+```
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements.txt --full-report
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements-dev.txt --full-report
 ```
 
 ## Contribution workflow
@@ -142,9 +221,9 @@ are added (see )
 
 ## Tests
 
-To run the (limited) project tests locally:
+To run project tests locally:
 
 ```
-$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/test airflow
+$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/tests airflow
 $ python -m pytest .
 ```

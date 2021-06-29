@@ -1,4 +1,3 @@
 googleCloudStorage:
 #  dataBucketName: europe-west2-mapaction-deve-542e8027-bucket
   dataBucketName: mapaction-pipeline-output-data
-

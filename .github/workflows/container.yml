@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - Dockerfile
+      - kubernetes-pod-operator.Dockerfile
       - requirements.txt
       - plugins/**
 
