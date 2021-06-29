@@ -138,6 +138,12 @@ To run manually:
 $ pre-commit run --all-files
 ```
 
+To install so that `pre-commit` will run automatically on each Git commit enter this command:
+
+```
+pre-commit install
+```
+
 ### Flake8
 
 The [Flake8](https://flake8.pycqa.org/) package (and its config file `.flake8`) is used to define, and enforce, Python
