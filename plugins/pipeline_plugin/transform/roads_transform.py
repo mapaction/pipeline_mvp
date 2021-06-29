@@ -40,7 +40,7 @@ def transform_osm(input_filename, schema_mapping):
         try:
             # rename column if exists.
             df_roads = df_roads.rename(columns=temp_schema_dict, errors="raise")
-        except:
+        except:  # noqa: E722, B001 - see Jira issue DATAPIPE-89 for more information
             # as error raised, input attribute is not present.
             # now make sure output attribute is NOT present.  If not pull from 'other_tags'
             if value not in df_roads.columns:

@@ -88,7 +88,9 @@ def get_file_age_in_days(filename):
 
 
 def check_if_valid_cache(filename):
-    environment = get_current_environment()
+    environment = (
+        get_current_environment()  # noqa: F821 - see Jira issue DATAPIPE-89 for more information
+    )
     if environment != "local":
         return False
     if not check_if_file_exists(filename):

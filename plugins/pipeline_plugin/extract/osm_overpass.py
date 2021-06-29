@@ -19,7 +19,9 @@ def extract_osm_query(
     save_file(gpkg_output_filename)
 
 
-def osm_query(osm_yml: dict, iso2_country: str):
+def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
+    osm_yml: dict, iso2_country: str
+):
     """Country based query using Overpass Query Language.  Using key value pairs,
     contructs a simple OSM query on relations, ways & nodes.
 

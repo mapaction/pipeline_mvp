@@ -91,7 +91,11 @@ def transform_geoboundaries(source_geob):
     geobndzip.close()
     # Find geojson
     geojson = []
-    for root, dirs, files in os.walk(unzipped):
+    for (
+        root,
+        dirs,  # noqa: B007 - see Jira issue DATAPIPE-89 for more information
+        files,
+    ) in os.walk(unzipped):
         for filename in files:
             if filename.endswith(".geojson"):
                 geojson.append(os.path.join(root, filename))
