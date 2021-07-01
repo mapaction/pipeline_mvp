@@ -182,7 +182,10 @@ $ docker compose run airflow safety check --file=/usr/local/airflow/requirements
 ## Contribution workflow
 
 1. create a task in the [Data Pipeline Development](https://mapaction.atlassian.net/browse/DATAPIPE) Jira project (Internal, MapAction)
-1. create a local Git branch, make changes and push branch to GitHub
+1. create a local Git branch.
+1. make changes until you are satisfied.
+1. update the CHANGELOG.md as appropriate.
+1. commit and push branch to GitHub
 1. create a pull request from your branch targetting the `master` branch
 1. move the Jira task to 'in review' and add a link to the GitHub PR
 1. notify other project members of your branch in the [#topic-automation](https://mapaction.slack.com/archives/CKF3LQGGL) Slack channel (Internal, MapAction) with a link to the GitHub PR for review
