@@ -23,6 +23,6 @@ jobs:
           project_id: ${{ secrets.GCS_PROJECT }}
           export_default_credentials: true
       - name: Copy DAGs
-        run: gsutil cp -r ./dags gs://${{ secrets.GCLOUD_BUCKET_PATH }}/
+        run: gsutil rsync -d -r ./dags gs://${{ secrets.GCLOUD_BUCKET_PATH }}/
       - name: Copy plugins
-        run: gsutil cp -r ./plugins gs://${{ secrets.GCLOUD_BUCKET_PATH }}/
+        run: gsutil rsync -d -r ./plugins gs://${{ secrets.GCLOUD_BUCKET_PATH }}/
