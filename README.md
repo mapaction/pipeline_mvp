@@ -95,6 +95,7 @@ $ docker compose build airflow
 
 **Note:** This image is approx ~2GB in size.
 
+**Note:** Instead of `docker compose` you can alternatively run `docker-compose` using the docker-compose binary.
 ### Local usage
 
 To start the Airflow server:
