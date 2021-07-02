@@ -32,7 +32,7 @@ class Config:
                         / "gcs"
                         / "plugins"
                         / "pipeline_plugin"
-                        / "config"
+                        / "pipeline_config"
                     )
 
         with open(path / "config.yaml") as f:
