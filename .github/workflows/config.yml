@@ -9,6 +9,7 @@ on:
     paths:
       - dags/**
       - plugins/**
+      - .github/workflows/config.yml
 
 jobs:
   copy-configs:
