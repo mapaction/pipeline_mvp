@@ -10,6 +10,7 @@ on:
       - kubernetes-pod-operator.Dockerfile
       - requirements.txt
       - plugins/**
+      - .github/workflows/container.yml
 
 jobs:
   update-container:
