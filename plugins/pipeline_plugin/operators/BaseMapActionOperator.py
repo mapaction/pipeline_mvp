@@ -1,7 +1,8 @@
 import json
 from typing import Callable
 
-from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+from airflow.contrib.operators.kubernetes_pod_operator import \
+    KubernetesPodOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.decorators import apply_defaults
 

@@ -1,8 +1,9 @@
 import os
 import subprocess  # noqa: S404 - see Jira issue DATAPIPE-89 for more information
 
-import geopandas as gpd
 from sqlalchemy.dialects.postgresql import HSTORE
+
+import geopandas as gpd
 
 
 def convert_osm_to_gpkg(input_filename: str, tmp_filename: str, layer_name: str):

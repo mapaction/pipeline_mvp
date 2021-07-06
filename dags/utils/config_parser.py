@@ -298,7 +298,7 @@ class Config:
             self._get_osm(country=country)["rail"]["osm_tags"],
         )
 
-    def get_places_rail_tags_schema(self, country: str):
+    def get_osm_places_tags_schema(self, country: str):
         return os.path.join(
             self._get_schema_directory(),
             self._get_osm(country=country)["places"]["osm_tags"],

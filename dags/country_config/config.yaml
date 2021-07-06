@@ -110,7 +110,7 @@ osm:
     column_names:
       name_en: 'name:en'
       name_loc: name
-      fclass:
+      fclass: port:type # no fclass???
   lakes:
     osm_tags: 'osm_tags_lakes.yml'
     raw_osm: osm_lakes.xml
@@ -141,6 +141,21 @@ osm:
       name_en: 'name:en'
       name_loc: name
       fclass: waterway
+  places:
+    osm_tags: 'osm_tags_places.yml'
+    raw_osm: osm_places.xml
+    raw_gpkg: osm_places.gpkg
+    filename:
+      category: stle
+      theme: stl
+      geometry: pt
+      scale: s0
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: place
 
 
 

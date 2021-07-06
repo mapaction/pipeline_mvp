@@ -1,8 +1,11 @@
+from pipeline_plugin.transform.general_transformers.cod_transform import \
+    transform_cod
+from pipeline_plugin.transform.general_transformers.osm_transform import \
+    transform_osm
+from pipeline_plugin.transform.general_transformers.postprocess import \
+    postprocess
 from pipeline_plugin.utils.files import load_file, save_shapefiles
 
-from pipeline_plugin.transform.general_transformers.osm_transform import transform_osm
-from pipeline_plugin.transform.general_transformers.cod_transform import transform_cod
-from pipeline_plugin.transform.general_transformers.postprocess import postprocess
 
 def transform(
     source: str, input_filename: str, output_filename: str, crs, schema_mapping

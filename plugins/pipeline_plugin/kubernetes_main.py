@@ -2,7 +2,6 @@ import importlib
 import json
 import os
 
-
 if __name__ == "__main__":
     function_arguments = json.loads(os.getenv("FUNCTION_ARGUMENTS"))
 
