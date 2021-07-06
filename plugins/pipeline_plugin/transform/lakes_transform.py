@@ -1,7 +1,5 @@
-from pipeline_plugin.transform.general_transformers.osm_transform import \
-    transform_osm
-from pipeline_plugin.transform.general_transformers.postprocess import \
-    postprocess
+from pipeline_plugin.transform.general_transformers.osm_transform import transform_osm
+from pipeline_plugin.transform.general_transformers.postprocess import postprocess
 from pipeline_plugin.utils.files import load_file, save_shapefiles
 
 

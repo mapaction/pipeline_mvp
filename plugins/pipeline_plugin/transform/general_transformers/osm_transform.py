@@ -1,6 +1,5 @@
-from sqlalchemy.dialects.postgresql import HSTORE
-
 import geopandas as gpd
+from sqlalchemy.dialects.postgresql import HSTORE
 
 
 def transform_osm(input_filename, schema_mapping):

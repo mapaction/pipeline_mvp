@@ -1,11 +1,16 @@
 from airflow import DAG
 
-from airflow.operators.pipeline_plugin import (HDXAdm0TransformOperator,
-                                               HDXAdm1TransformOperator,
-                                               HDXExtractOperator)
+from airflow.operators.pipeline_plugin import (
+    HDXAdm0TransformOperator,
+    HDXAdm1TransformOperator,
+    HDXExtractOperator,
+)
 from utils.config_parser import config
-from utils.dag_configuration import (get_catchup, get_default_arguments,
-                                     get_schedule_interval)
+from utils.dag_configuration import (
+    get_catchup,
+    get_default_arguments,
+    get_schedule_interval,
+)
 
 countries = config.get_countries()
 
