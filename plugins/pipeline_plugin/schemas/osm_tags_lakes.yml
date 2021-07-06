@@ -1,0 +1,13 @@
+osm_types:
+  - relation
+  - way
+geom_type:
+  multipolygons
+tags:
+  - water:
+  - natural:
+    - water
+  - landuse:
+    - reservoir
+  - waterway:
+    - riverbank

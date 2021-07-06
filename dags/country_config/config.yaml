@@ -81,6 +81,67 @@ osm:
       name_en: 'name:en'
       name_loc: name
       fclass: railway
+  airports:
+    osm_tags: 'osm_tags_airports.yml'
+    raw_osm: osm_airports.xml
+    raw_gpkg: osm_airports.gpkg
+    filename:
+      category: tran
+      theme: air
+      geometry: pt
+      scale: s1
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: aerodrome:type
+  seaports:
+    osm_tags: 'osm_tags_seaports.yml'
+    raw_osm: osm_seaports.xml
+    raw_gpkg: osm_seaports.gpkg
+    filename:
+      category: tran
+      theme: por
+      geometry: pt
+      scale: s1
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass:
+  lakes:
+    osm_tags: 'osm_tags_lakes.yml'
+    raw_osm: osm_lakes.xml
+    raw_gpkg: osm_lakes.gpkg
+    filename:
+      category: phys
+      theme: lak
+      geometry: py
+      scale: s1
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: water
+  rivers:
+    osm_tags: 'osm_tags_rivers.yml'
+    raw_osm: osm_rivers.xml
+    raw_gpkg: osm_rivers.gpkg
+    filename:
+      category: phys
+      theme: riv
+      geometry: ln
+      scale: s1
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: waterway
+
 
 
 roads:
@@ -118,3 +179,8 @@ cmf:
     admin: 202_adm
     roads: 232_tran
     rail: 232_tran
+    airports: 232_tran
+    seaports: 232_tran
+    places: 229_stle
+    rivers: 221_phys
+    lakes: 221_phys

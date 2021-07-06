@@ -1,0 +1,15 @@
+osm_types:
+  - node
+  - way
+  - relation
+geom_type:
+  points
+tags:
+  - amenity:
+    - airport
+  - aeroway:
+    - aerodrome
+    - airfield
+    - helipad
+  - military:
+    - airfield

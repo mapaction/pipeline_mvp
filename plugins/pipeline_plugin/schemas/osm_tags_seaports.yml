@@ -1,0 +1,7 @@
+osm_types:
+  - nodes
+  - relation
+  - way
+geom_type:
+  points
+tags:

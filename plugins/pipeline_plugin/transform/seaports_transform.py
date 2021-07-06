@@ -13,9 +13,9 @@ def transform(
     input_filename = load_file(input_filename)
 
     if source == "osm":
-        df_rail = transform_osm(
+        df_seaports = transform_osm(
             input_filename=input_filename, schema_mapping=schema_mapping
         )
-        df_rail = postprocess(df=df_rail, crs=crs)
+        df_seaports = postprocess(df=df_seaports, crs=crs)
 
-    save_shapefiles(df_rail, output_filename, encoding="utf8")
+    save_shapefiles(df_seaports, output_filename, encoding="utf8")
