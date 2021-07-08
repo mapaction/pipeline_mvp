@@ -10,6 +10,7 @@ on:
       - dags/**
       - plugins/**
       - .github/workflows/config.yml
+  workflow_dispatch:
 
 jobs:
   copy-configs:
