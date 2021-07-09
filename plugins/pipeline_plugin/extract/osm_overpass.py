@@ -5,9 +5,13 @@ from pipeline_plugin.utils.yaml_api import parse_yaml
 
 
 def extract_osm_query(
-    osm_url, country_iso2, schema_filename, osm_output_filename, gpkg_output_filename
+    osm_url,
+    country_iso2,
+    overpass_query_schema_filename,
+    osm_output_filename,
+    gpkg_output_filename,
 ):
-    osm_schema = parse_yaml(schema_filename)
+    osm_schema = parse_yaml(overpass_query_schema_filename)
     geom_type = osm_schema["geom_type"]
 
     create_download_folder(osm_output_filename, gpkg_output_filename)

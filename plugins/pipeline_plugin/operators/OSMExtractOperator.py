@@ -10,7 +10,7 @@ class OSMExtractOperator(MapActionOperator):
         self,
         osm_url,
         country_iso2,
-        schema_filename,
+        overpass_query_schema_filename,
         osm_output_filename,
         gpkg_output_filename,
         *args,
@@ -21,7 +21,7 @@ class OSMExtractOperator(MapActionOperator):
             arguments={
                 "osm_url": osm_url,
                 "country_iso2": country_iso2,
-                "schema_filename": schema_filename,
+                "overpass_query_schema_filename": overpass_query_schema_filename,
                 "osm_output_filename": osm_output_filename,
                 "gpkg_output_filename": gpkg_output_filename,
             },

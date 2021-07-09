@@ -286,45 +286,45 @@ class Config:
         directory = self._get_processed_directory(country, "lakes")
         return str(directory / filename)
 
-    def get_osm_roads_tags_schema(self, country: str):
+    def get_osm_roads_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["roads"]["osm_tags"],
         )
 
-    def get_osm_rail_tags_schema(self, country: str):
+    def get_osm_rail_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["rail"]["osm_tags"],
         )
 
-    def get_osm_places_tags_schema(self, country: str):
+    def get_osm_places_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["places"]["osm_tags"],
         )
 
-    def get_osm_airports_tags_schema(self, country: str):
+    def get_osm_airports_query_schema(self, country: str):
         return os.path.join(
             self._get_schema_directory(),
             self._get_osm(country=country)["airports"]["osm_tags"],
         )
 
-    def get_osm_seaports_tags_schema(self, country: str):
+    def get_osm_seaports_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["seaports"]["osm_tags"],
         )
 
-    def get_osm_lakes_tags_schema(self, country: str):
+    def get_osm_lakes_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["lakes"]["osm_tags"],
         )
 
-    def get_osm_rivers_tags_schema(self, country: str):
+    def get_osm_rivers_query_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_overpass_query_schema_directory(),
             self._get_osm(country=country)["rivers"]["osm_tags"],
         )
 
@@ -433,6 +433,9 @@ class Config:
 
     def _get_hdx_output_schema_directory(self):
         return self._get_schema_directory() / "hdx_output_format"
+
+    def _get_overpass_query_schema_directory(self):
+        return self._get_schema_directory() / "overpass_queries"
 
     # Schema mappings
     def get_adm0_schema_mapping(self, source: str, country: str) -> dict:

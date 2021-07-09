@@ -29,7 +29,9 @@ with DAG(
             task_id=f"{country}_osm_seaports_extract",
             osm_url=config.get_osm_url(country=country),
             country_iso2=config.get_iso2(country=country),
-            schema_filename=config.get_osm_seaports_tags_schema(country=country),
+            overpass_query_schema_filename=config.get_osm_seaports_query_schema(
+                country=country
+            ),
             osm_output_filename=config.get_osm_seaports_raw_osm(country=country),
             gpkg_output_filename=config.get_osm_seaports_raw_gpkg(country=country),
             dag=dag,
