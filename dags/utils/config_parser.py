@@ -329,15 +329,15 @@ class Config:
         )
 
     # adm
-    def get_adm0_schema(self, country: str):
+    def get_adm0_hdx_output_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_hdx_output_schema_directory(),
             self._get_adm(country=country, adm_number=0)["schema"],
         )
 
-    def get_adm1_schema(self, country: str):
+    def get_adm1_hdx_output_schema(self, country: str):
         return os.path.join(
-            self._get_schema_directory(),
+            self._get_hdx_output_schema_directory(),
             self._get_adm(country=country, adm_number=1)["schema"],
         )
 
@@ -430,6 +430,9 @@ class Config:
 
     def _get_schema_directory(self):
         return self._SCHEMAS_FOLDER
+
+    def _get_hdx_output_schema_directory(self):
+        return self._get_schema_directory() / "hdx_output_format"
 
     # Schema mappings
     def get_adm0_schema_mapping(self, source: str, country: str) -> dict:

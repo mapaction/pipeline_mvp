@@ -18,7 +18,7 @@ def transform(
     input_filename: str,
     input_file_type: str,
     input_layer_name: str,
-    schema_filename: str,
+    output_schema_filename: str,
     output_filename: str,
     iso3,
     source_geoboundaries,
@@ -50,7 +50,7 @@ def transform(
     adm_df = postprocess(
         adm_df=adm_df,
         schema_mapping=schema_mapping,
-        schema_filename=schema_filename,
+        output_schema_filename=output_schema_filename,
         crs=crs,
     )
     save_shapefiles(geopandas_df=adm_df, output_filename=output_filename)
@@ -107,7 +107,7 @@ def transform_geoboundaries(source_geob):
     return gpd.read_file(geojson[0])
 
 
-def postprocess(adm_df: gpd.GeoDataFrame, schema_mapping, schema_filename, crs):
+def postprocess(adm_df: gpd.GeoDataFrame, schema_mapping, output_schema_filename, crs):
     # Change CRS
     adm_df = adm_df.to_crs(crs=crs)
     # Modify the column names to suit the schema
@@ -116,7 +116,7 @@ def postprocess(adm_df: gpd.GeoDataFrame, schema_mapping, schema_filename, crs):
     adm_df["geometry_type"] = adm_df["geometry"].apply(lambda x: x.geom_type)
     adm_df["crs"] = adm_df.crs
     # Validate
-    validate(instance=adm_df.to_dict("list"), schema=parse_yaml(schema_filename))
+    validate(instance=adm_df.to_dict("list"), schema=parse_yaml(output_schema_filename))
     # Write to outpu
     # with open("/opt/data/")
     return adm_df
