@@ -132,200 +132,33 @@ class Config:
     def get_osm_url(self, country: str):
         return self._get_osm(country=country)["url"]
 
-    def get_osm_roads_raw_osm(self, country: str):
+    def get_raw_osm_data_path(
+        self, country: str, dataset_name: str, format: str = "raw_osm"
+    ):
+        """
+        Get filename of osm raw datafile.
+        :param country: desired country.
+        :param dataset_name: desired data artefact: 'rail', 'roads', 'seaports', etc.
+        :param format: 'raw_osm' or 'raw_gpkg'
+        :return:
+        """
         return os.path.join(
             self._get_raw_data_directory(country),
-            self._get_osm(country=country)["roads"]["raw_osm"].format(
+            self._get_osm(country=country)[dataset_name][format].format(
                 iso3=self.get_iso3(country=country).lower()
             ),
         )
 
-    def get_osm_rail_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["rail"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_places_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["places"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_airports_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["airports"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_seaports_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["seaports"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_rivers_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["rivers"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_lakes_raw_osm(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["lakes"]["raw_osm"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_roads_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["roads"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_rail_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["rail"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_places_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["places"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_airports_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["airports"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_seaports_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["seaports"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_lakes_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["lakes"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_rivers_raw_gpkg(self, country: str):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_osm(country=country)["rivers"]["raw_gpkg"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_osm_roads_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["roads"]["filename"]
+    def get_osm_processed_filepath(self, country: str, dataset_name: str) -> str:
+        filename_field = self._get_osm(country=country)[dataset_name]["filename"]
         filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "roads")
+        directory = self._get_processed_directory(country, dataset_name)
         return str(directory / filename)
 
-    def get_osm_rail_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["rail"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "rail")
-        return str(directory / filename)
-
-    def get_osm_places_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["places"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "places")
-        return str(directory / filename)
-
-    def get_osm_airports_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["airports"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "airports")
-        return str(directory / filename)
-
-    def get_osm_seaports_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["seaports"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "seaports")
-        return str(directory / filename)
-
-    def get_osm_rivers_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["rivers"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "rivers")
-        return str(directory / filename)
-
-    def get_osm_lakes_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_osm(country=country)["lakes"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "lakes")
-        return str(directory / filename)
-
-    def get_osm_roads_query_schema(self, country: str):
+    def get_osm_query_schema(self, country: str, dataset_name: str):
         return os.path.join(
             self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["roads"]["osm_tags"],
-        )
-
-    def get_osm_rail_query_schema(self, country: str):
-        return os.path.join(
-            self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["rail"]["osm_tags"],
-        )
-
-    def get_osm_places_query_schema(self, country: str):
-        return os.path.join(
-            self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["places"]["osm_tags"],
-        )
-
-    def get_osm_airports_query_schema(self, country: str):
-        return os.path.join(
-            self._get_schema_directory(),
-            self._get_osm(country=country)["airports"]["osm_tags"],
-        )
-
-    def get_osm_seaports_query_schema(self, country: str):
-        return os.path.join(
-            self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["seaports"]["osm_tags"],
-        )
-
-    def get_osm_lakes_query_schema(self, country: str):
-        return os.path.join(
-            self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["lakes"]["osm_tags"],
-        )
-
-    def get_osm_rivers_query_schema(self, country: str):
-        return os.path.join(
-            self._get_overpass_query_schema_directory(),
-            self._get_osm(country=country)["rivers"]["osm_tags"],
+            self._get_osm(country=country)[dataset_name]["osm_tags"],
         )
 
     # adm
@@ -454,65 +287,13 @@ class Config:
             column_names=["ADM1_EN", "ADM1_PCODE", "par_pcode"],
         )
 
-    def get_roads_schema_mapping(self, source: str, country: str) -> dict:
+    def get_schema_mapping(self, source: str, country: str, dataset_name: str) -> dict:
         if source == "osm":
-            column_name_map = self._get_osm(country=country)["roads"]["column_names"]
-        elif source == "cod":
+            column_name_map = self._get_osm(country=country)[dataset_name][
+                "column_names"
+            ]
+        elif source == "cod" and dataset_name in ("roads",):
             column_name_map = self._get_roads_cod()["column_names"]
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_rail_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["rail"]["column_names"]
-
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_places_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["places"]["column_names"]
-
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_airports_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["airports"]["column_names"]
-
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_seaports_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["seaports"]["column_names"]
-
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_lakes_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["lakes"]["column_names"]
-
-        return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
-        )
-
-    def get_rivers_schema_mapping(self, source: str, country: str) -> dict:
-        if source == "osm":
-            column_name_map = self._get_osm(country=country)["rivers"]["column_names"]
-
         return self._get_schema_mapping(
             column_name_map=column_name_map,
             column_names=["name_en", "name_loc", "fclass"],

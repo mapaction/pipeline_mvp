@@ -29,11 +29,15 @@ with DAG(
             task_id=f"{country}_osm_rail_extract",
             osm_url=config.get_osm_url(country=country),
             country_iso2=config.get_iso2(country=country),
-            overpass_query_schema_filename=config.get_osm_rail_query_schema(
-                country=country
+            overpass_query_schema_filename=config.get_osm_query_schema(
+                country=country, dataset_name="rail"
             ),
-            osm_output_filename=config.get_osm_rail_raw_osm(country=country),
-            gpkg_output_filename=config.get_osm_rail_raw_gpkg(country=country),
+            osm_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="rail", format="raw_osm"
+            ),
+            gpkg_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="rail", format="raw_gpkg"
+            ),
             dag=dag,
         )
 
@@ -41,11 +45,15 @@ with DAG(
         rail_transform = OSMRailTransformOperator(
             task_id=f"{country}_osm_rail_transform",
             source=source,
-            input_filename=config.get_osm_rail_raw_gpkg(country=country),
-            output_filename=config.get_osm_rail_processed_filepath(country=country),
+            input_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="rail", format="raw_gpkg"
+            ),
+            output_filename=config.get_osm_processed_filepath(
+                country=country, dataset_name="rail"
+            ),
             crs=config.get_crs(),
-            schema_mapping=config.get_rail_schema_mapping(
-                source=source, country=country
+            schema_mapping=config.get_schema_mapping(
+                source=source, country=country, dataset_name="rail"
             ),
             dag=dag,
         )

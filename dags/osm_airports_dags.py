@@ -29,11 +29,15 @@ with DAG(
             task_id=f"{country}_osm_airports_extract",
             osm_url=config.get_osm_url(country=country),
             country_iso2=config.get_iso2(country=country),
-            overpass_query_schema_filename=config.get_osm_airports_query_schema(
-                country=country
+            overpass_query_schema_filename=config.get_osm_query_schema(
+                country=country, dataset_name="airports"
             ),
-            osm_output_filename=config.get_osm_airports_raw_osm(country=country),
-            gpkg_output_filename=config.get_osm_airports_raw_gpkg(country=country),
+            osm_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="airports", format="raw_osm"
+            ),
+            gpkg_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="airports", format="raw_gpkg"
+            ),
             dag=dag,
         )
 
@@ -41,11 +45,15 @@ with DAG(
         airports_transform = OSMAirportsTransformOperator(
             task_id=f"{country}_osm_airports_transform",
             source=source,
-            input_filename=config.get_osm_airports_raw_gpkg(country=country),
-            output_filename=config.get_osm_airports_processed_filepath(country=country),
+            input_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="airports", format="raw_gpkg"
+            ),
+            output_filename=config.get_osm_processed_filepath(
+                country=country, dataset_name="airports"
+            ),
             crs=config.get_crs(),
-            schema_mapping=config.get_airports_schema_mapping(
-                source=source, country=country
+            schema_mapping=config.get_schema_mapping(
+                source=source, country=country, dataset_name="airports"
             ),
             dag=dag,
         )

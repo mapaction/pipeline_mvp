@@ -29,11 +29,15 @@ with DAG(
             task_id=f"{country}_osm_lakes_extract",
             osm_url=config.get_osm_url(country=country),
             country_iso2=config.get_iso2(country=country),
-            overpass_query_schema_filename=config.get_osm_lakes_query_schema(
-                country=country
+            overpass_query_schema_filename=config.get_osm_query_schema(
+                country=country, dataset_name="lakes"
             ),
-            osm_output_filename=config.get_osm_lakes_raw_osm(country=country),
-            gpkg_output_filename=config.get_osm_lakes_raw_gpkg(country=country),
+            osm_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="lakes", format="raw_osm"
+            ),
+            gpkg_output_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="lakes", format="raw_gpkg"
+            ),
             dag=dag,
         )
 
@@ -41,11 +45,15 @@ with DAG(
         lakes_transform = OSMLakesTransformOperator(
             task_id=f"{country}_osm_lakes_transform",
             source=source,
-            input_filename=config.get_osm_lakes_raw_gpkg(country=country),
-            output_filename=config.get_osm_lakes_processed_filepath(country=country),
+            input_filename=config.get_raw_osm_data_path(
+                country=country, dataset_name="lakes", format="raw_gpkg"
+            ),
+            output_filename=config.get_osm_processed_filepath(
+                country=country, dataset_name="lakes"
+            ),
             crs=config.get_crs(),
-            schema_mapping=config.get_lakes_schema_mapping(
-                source=source, country=country
+            schema_mapping=config.get_schema_mapping(
+                source=source, country=country, dataset_name="lakes"
             ),
             dag=dag,
         )
