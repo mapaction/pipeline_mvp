@@ -28,9 +28,11 @@ with DAG(
     for country in countries:
         hdx_extract = HDXExtractOperator(
             task_id=f"{country}_hdx_adm_extract",
-            hdx_address=config.get_hdx_adm_address(country=country),
-            hdx_filename=config.get_hdx_adm_dataset_name(country=country),
-            output_filename=config.get_adm_cod_raw_filename(country=country),
+            hdx_address=config.get_hdx_address(country=country, hdx_type="adm"),
+            hdx_filename=config.get_hdx_dataset_name(country=country, hdx_type="adm"),
+            output_filename=config.get_cod_raw_filename(
+                country=country, datatype="adm_cod_raw"
+            ),
             dag=dag,
         )
 
@@ -39,18 +41,30 @@ with DAG(
             task_id=f"{country}_hdx_adm0_transform",
             source=source,
             adm_level="adm0",
-            input_filename=config.get_adm_cod_raw_filename(country=country),
-            input_file_type=config.get_hdx_adm_dataset_type(country=country),
-            input_layer_name=config.get_hdx_adm0_dataset_layer_name(country=country),
-            output_schema_filename=config.get_adm0_hdx_output_schema(country=country),
-            output_filename=config.get_adm0_cod_processed_filepath(country=country),
+            input_filename=config.get_cod_raw_filename(
+                country=country, datatype="adm_cod_raw"
+            ),
+            input_file_type=config.get_hdx_dataset_type(
+                country=country, hdx_type="adm"
+            ),
+            input_layer_name=config.get_hdx_adm_dataset_layer_name(
+                country=country, adm_level="adm0"
+            ),
+            output_schema_filename=config.get_hdx_output_schema(
+                country=country, datatype="adm0"
+            ),
+            output_filename=config.get_cod_processed_filepath(
+                country=country, datatype="adm0"
+            ),
             iso3=config.get_iso3(country=country),
-            source_geoboundaries=config.get_geoboundaries_adm0_raw(country=country),
-            schema_mapping=config.get_adm0_schema_mapping(
-                source=source, country=country
+            source_geoboundaries=config.get_geoboundaries_raw(
+                country=country, datatype="adm0"
+            ),
+            schema_mapping=config.get_schema_mapping(
+                source=source, country=country, dataset_name="adm0"
             ),
             crs=config.get_crs(),
-            gadm_layer=config.get_gadm_layer_adm0(),
+            gadm_layer=config.get_gadm_layer(datatype="adm0"),
             dag=dag,
         )
 
@@ -58,18 +72,30 @@ with DAG(
             task_id=f"{country}_hdx_adm1_transform",
             source=source,
             adm_level="adm1",
-            input_filename=config.get_adm_cod_raw_filename(country=country),
-            input_file_type=config.get_hdx_adm_dataset_type(country=country),
-            input_layer_name=config.get_hdx_adm1_dataset_layer_name(country=country),
-            output_schema_filename=config.get_adm1_hdx_output_schema(country=country),
-            output_filename=config.get_adm1_cod_processed_filepath(country=country),
+            input_filename=config.get_cod_raw_filename(
+                country=country, datatype="adm_cod_raw"
+            ),
+            input_file_type=config.get_hdx_dataset_type(
+                country=country, hdx_type="adm"
+            ),
+            input_layer_name=config.get_hdx_adm_dataset_layer_name(
+                country=country, adm_level="adm1"
+            ),
+            output_schema_filename=config.get_hdx_output_schema(
+                country=country, datatype="adm0"
+            ),
+            output_filename=config.get_cod_processed_filepath(
+                country=country, datatype="adm1"
+            ),
             iso3=config.get_iso3(country=country),
-            source_geoboundaries=config.get_geoboundaries_adm1_raw(country=country),
-            schema_mapping=config.get_adm1_schema_mapping(
-                source=source, country=country
+            source_geoboundaries=config.get_geoboundaries_raw(
+                country=country, datatype="adm1"
+            ),
+            schema_mapping=config.get_schema_mapping(
+                source=source, country=country, dataset_name="adm1"
             ),
             crs=config.get_crs(),
-            gadm_layer=config.get_gadm_layer_adm1(),
+            gadm_layer=config.get_gadm_layer(datatype="adm1"),
             dag=dag,
         )
 

@@ -47,7 +47,7 @@ adm1:
     column_names:
       ADM1_EN: ADM1_EN
       ADM1_PCODE: ADM1_PCODE
-      par_pcode: ADM0_PCODE
+      par_pcode: ADM0_PCODE # parent pcode for adm1 is adm0
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
@@ -158,11 +158,11 @@ osm:
       fclass: place
 
 
-
+roads_cod_raw: '{iso3}_cod_roads.zip'
 roads:
   schema: roads_affected_area_ln.yml
   cod:
-    raw: '{iso3}_cod_roads.zip'
+    # raw: '{iso3}_cod_roads.zip'
     filename:
       category: tran
       theme: rds
@@ -185,13 +185,18 @@ geoboundaries:
   adm1:
     raw: 'geobnd_adm1.zip'
 
+gadm_layer:
+  adm0: "gadm36_{ISO3}_0"
+  adm1: "gadm36_{ISO3}_1"
+
 cmf:
   top-level: GIS
   original:
     top-level: 1_Original_Data
   processed:
     top-level: 2_Active_Data
-    admin: 202_adm
+    adm0: 202_adm
+    adm1: 202_adm
     roads: 232_tran
     rail: 232_tran
     airports: 232_tran

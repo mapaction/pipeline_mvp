@@ -94,36 +94,32 @@ class Config:
             if column_name_map[column_name] is not None
         }
 
-    def _get_adm(self, country: str, adm_number: int):
-        return self._get_country(country=country)[f"adm{adm_number}"]
-
     # HDX COD
     def _get_hdx(self, country: str, hdx_type) -> FallbackDict:
         return self._get_country(country=country)["hdx_cod"][hdx_type]
 
-    def get_hdx_adm_address(self, country: str):
-        return self._get_hdx(country=country, hdx_type="adm")["address"]
+    def get_hdx_address(self, country: str, hdx_type: str):
+        return self._get_hdx(country=country, hdx_type=hdx_type)["address"]
 
-    def get_hdx_adm_dataset_name(self, country: str):
-        return self._get_hdx(country=country, hdx_type="adm")["filename"]
+    def get_hdx_dataset_name(self, country: str, hdx_type: str):
+        return self._get_hdx(country=country, hdx_type=hdx_type)["filename"]
 
-    def get_hdx_adm_dataset_type(self, country: str):
-        return self._get_hdx(country=country, hdx_type="adm")["file_type"]
+    def get_hdx_dataset_type(self, country: str, hdx_type: str):
+        return self._get_hdx(country=country, hdx_type=hdx_type)["file_type"]
 
-    def get_hdx_adm0_dataset_layer_name(self, country: str):
-        return self._get_hdx(country=country, hdx_type="adm")["layer_name"]["adm0"]
-
-    def get_hdx_adm1_dataset_layer_name(self, country: str):
-        return self._get_hdx(country=country, hdx_type="adm")["layer_name"]["adm1"]
+    def get_hdx_adm_dataset_layer_name(self, country: str, adm_level: str):
+        return self._get_hdx(country=country, hdx_type="adm")["layer_name"][adm_level]
 
     def should_process_hdx_roads(self, country: str):
         return self._get_hdx(country=country, hdx_type="roads")["include"]
 
-    def get_hdx_roads_address(self, country: str):
-        return self._get_hdx(country=country, hdx_type="roads")["address"]
-
-    def get_hdx_roads_dataset_name(self, country: str):
-        return self._get_hdx(country=country, hdx_type="roads")["filename"]
+    def get_cod_raw_filename(self, country: str, datatype: str) -> str:
+        return os.path.join(
+            self._get_raw_data_directory(country),
+            self._get_country(country=country)[datatype].format(
+                iso3=self.get_iso3(country=country).lower()
+            ),
+        )
 
     # OSM
     def _get_osm(self, country: str):
@@ -162,36 +158,16 @@ class Config:
         )
 
     # adm
-    def get_adm0_hdx_output_schema(self, country: str):
+    def get_hdx_output_schema(self, country: str, datatype: str):
         return os.path.join(
             self._get_hdx_output_schema_directory(),
-            self._get_adm(country=country, adm_number=0)["schema"],
+            self._get_country(country=country)[datatype]["schema"],
         )
 
-    def get_adm1_hdx_output_schema(self, country: str):
-        return os.path.join(
-            self._get_hdx_output_schema_directory(),
-            self._get_adm(country=country, adm_number=1)["schema"],
-        )
-
-    def get_adm_cod_raw_filename(self, country: str) -> str:
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_country(country=country)["adm_cod_raw"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_adm0_cod_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_adm(country=country, adm_number=0)["cod"]["filename"]
+    def get_cod_processed_filepath(self, country: str, datatype: str) -> str:
+        filename_field = self._get_country(country=country)[datatype]["cod"]["filename"]
         filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country=country, artefact="admin")
-        return str(directory / filename)
-
-    def get_adm1_cod_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_adm(country=country, adm_number=1)["cod"]["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country=country, artefact="admin")
+        directory = self._get_processed_directory(country=country, artefact=datatype)
         return str(directory / filename)
 
     # General
@@ -200,42 +176,19 @@ class Config:
             self._get_schema_directory(), self.raw_config["roads"]["schema"]
         )
 
-    def _get_roads_cod(self):
-        return self.raw_config["roads"]["cod"]
-
-    def get_roads_cod_raw_filename(self, country) -> str:
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self._get_roads_cod()["raw"].format(
-                iso3=self.get_iso3(country=country).lower()
-            ),
-        )
-
-    def get_roads_cod_processed_filepath(self, country: str) -> str:
-        filename_field = self._get_roads_cod()["filename"]
-        filename = self._get_processed_filename(country, filename_field)
-        directory = self._get_processed_directory(country, "roads")
-        return str(directory / filename)
+    # def _get_roads_cod(self):
+    #     return self.raw_config["roads"]["cod"]
 
     def get_crs(self):
         return self.raw_config["constants"]["crs"]
 
-    def get_gadm_layer_adm0(self):
-        return "gadm36_{ISO3}_0"
+    def get_gadm_layer(self, datatype: str):
+        return self.raw_config["gadm_layer"][datatype]
 
-    def get_gadm_layer_adm1(self):
-        return "gadm36_{ISO3}_1"
-
-    def get_geoboundaries_adm0_raw(self, country):
+    def get_geoboundaries_raw(self, country: str, datatype: str):
         return os.path.join(
             self._get_raw_data_directory(country),
-            self.raw_config["geoboundaries"]["adm0"]["raw"],
-        )
-
-    def get_geoboundaries_adm1_raw(self, country):
-        return os.path.join(
-            self._get_raw_data_directory(country),
-            self.raw_config["geoboundaries"]["adm1"]["raw"],
+            self.raw_config["geoboundaries"][datatype]["raw"],
         )
 
     def get_iso3(self, country: str):
@@ -271,32 +224,29 @@ class Config:
         return self._get_schema_directory() / "overpass_queries"
 
     # Schema mappings
-    def get_adm0_schema_mapping(self, source: str, country: str) -> dict:
-        return self._get_schema_mapping(
-            column_name_map=self._get_adm(country=country, adm_number=0)[source][
-                "column_names"
-            ],
-            column_names=["ADM0_EN", "ADM0_PCODE"],
-        )
-
-    def get_adm1_schema_mapping(self, source: str, country: str) -> dict:
-        return self._get_schema_mapping(
-            column_name_map=self._get_adm(country=country, adm_number=1)[source][
-                "column_names"
-            ],
-            column_names=["ADM1_EN", "ADM1_PCODE", "par_pcode"],
-        )
-
     def get_schema_mapping(self, source: str, country: str, dataset_name: str) -> dict:
         if source == "osm":
             column_name_map = self._get_osm(country=country)[dataset_name][
                 "column_names"
             ]
-        elif source == "cod" and dataset_name in ("roads",):
-            column_name_map = self._get_roads_cod()["column_names"]
+            column_names = ["name_en", "name_loc", "fclass"]
+        elif source == "cod":
+            if dataset_name in ("roads",):
+                column_name_map = self.raw_config[dataset_name]["cod"]["column_names"]
+                column_names = ["name_en", "name_loc", "fclass"]
+            elif dataset_name == "adm0":
+                column_name_map = (
+                    self._get_country(country=country)["adm0"][source]["column_names"],
+                )
+                column_names = (["ADM0_EN", "ADM0_PCODE"],)
+            elif dataset_name == "adm1":
+                column_name_map = (
+                    self._get_country(country=country)["adm1"][source]["column_names"],
+                )
+                column_names = ["ADM1_EN", "ADM1_PCODE", "par_pcode"]
         return self._get_schema_mapping(
             column_name_map=column_name_map,
-            column_names=["name_en", "name_loc", "fclass"],
+            column_names=column_names,
         )
 
 

@@ -28,21 +28,27 @@ with DAG(
         if config.should_process_hdx_roads(country):
             hdx_roads_extract = HDXExtractOperator(
                 task_id=f"{country}_hdx_roads_extract",
-                hdx_address=config.get_hdx_roads_address(country=country),
-                hdx_filename=config.get_hdx_roads_dataset_name(country=country),
-                output_filename=config.get_roads_cod_raw_filename(country=country),
+                hdx_address=config.get_hdx_address(country=country, hdx_type="roads"),
+                hdx_filename=config.get_hdx_dataset_name(
+                    country=country, hdx_type="roads"
+                ),
+                output_filename=config.get_cod_raw_filename(
+                    country=country, datatype="roads_cod_raw"
+                ),
                 dag=dag,
             )
             source = "cod"
             roads_transform = HDXRoadsTransformOperator(
                 task_id=f"{country}_hdx_roads_transform",
                 source=source,
-                input_filename=config.get_roads_cod_raw_filename(country=country),
-                output_filename=config.get_roads_cod_processed_filepath(
-                    country=country
+                input_filename=config.get_cod_raw_filename(
+                    country=country, datatype="roads_cod_raw"
                 ),
-                schema_mapping=config.get_roads_schema_mapping(
-                    source=source, country=country
+                output_filename=config.get_cod_processed_filepath(
+                    country=country, datatype="roads"
+                ),
+                schema_mapping=config.get_schema_mapping(
+                    source=source, country=country, dataset_name="roads"
                 ),
                 crs=config.get_crs(),
                 dag=dag,
