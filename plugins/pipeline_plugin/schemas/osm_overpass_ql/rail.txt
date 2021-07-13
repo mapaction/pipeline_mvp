@@ -1,0 +1,33 @@
+/*
+Overpass QL query.  For more examples go to https://overpass-turbo.eu/
+
+Note: data are of types: node (point), way (linestring or if closed polygon), 
+relation (multi-geometries).  Coordinates only stored at node level.  
+Higher level must recurse down to node to retreive coordinates.
+*/
+
+// Define filter by area using country codes
+(area["ISO3166-1"="YE"]["admin_level"="2"];)->.a; 
+// Main query using geometry type (relation) and tags
+( 
+	relation[railway=rail](area.a); 
+	relation[railway=light_rail](area.a); 
+	relation[railway=subway](area.a); 
+	relation[railway=tram](area.a); 
+	relation[railway=monorail](area.a); 
+	relation[railway=narrow_gauge](area.a); 
+	relation[railway=funicular](area.a); 
+	relation[railway=rack](area.a); 
+	way[railway=rail](area.a); 
+	way[railway=light_rail](area.a); 
+	way[railway=subway](area.a); 
+	way[railway=tram](area.a); 
+	way[railway=monorail](area.a); 
+	way[railway=narrow_gauge](area.a); 
+	way[railway=funicular](area.a); 
+	way[railway=rack](area.a); 
+); 
+// Recursively grab geometry (nodes)
+(._;>;); 
+// Output by quadtile index (faster)
+out body qt;

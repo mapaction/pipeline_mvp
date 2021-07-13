@@ -1,0 +1,30 @@
+/*
+Overpass QL query.  For more examples go to https://overpass-turbo.eu/
+
+Note: data are of types: node (point), way (linestring or if closed polygon), 
+relation (multi-geometries).  Coordinates only stored at node level.  
+Higher level must recurse down to node to retreive coordinates.
+*/
+
+// Define filter by area using country codes
+(area["ISO3166-1"="YE"]["admin_level"="2"];)->.a; 
+// Main query using geometry type (way) and tags
+( 
+	way[highway=motorway](area.a); 
+	way[highway=trunk](area.a); 
+	way[highway=primary](area.a); 
+	way[highway=secondary](area.a); 
+	way[highway=tertiary](area.a); 
+	way[highway=residential](area.a); 
+	way[highway=unclassified](area.a); 
+	way[highway=trunk_link](area.a); 
+	way[highway=motorway_link](area.a); 
+	way[highway=primary_link](area.a); 
+	way[highway=secondary_link](area.a); 
+	way[highway=tertiary_link](area.a); 
+	way[highway=road](area.a); 
+); 
+// Recursively grab geometry (nodes)
+(._;>;); 
+// Output by quadtile index (faster)
+out body qt;
