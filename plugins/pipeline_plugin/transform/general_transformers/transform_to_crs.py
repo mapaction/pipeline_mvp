@@ -1,4 +1,4 @@
-def postprocess(df, crs):
+def transform_to_crs(df, crs):
     # TODO need to convert from XML to GPKG rather than OSM to GPKG
     # Change CRS
     # Make columns needed for validation

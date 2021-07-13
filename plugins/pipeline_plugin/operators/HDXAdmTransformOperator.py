@@ -1,7 +1,7 @@
 from airflow.utils.decorators import apply_defaults
 
 from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
-from pipeline_plugin.transform.hdx_adm_transform import transform
+from pipeline_plugin.transform.admn_transform import transform
 
 
 class HDXAdmTransformOperator(MapActionOperator):
