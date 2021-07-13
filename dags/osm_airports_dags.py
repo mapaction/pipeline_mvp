@@ -1,15 +1,17 @@
 from airflow import DAG
 
 from airflow.operators.pipeline_plugin import (
-    OSMAirportsTransformOperator,
+    DefaultTransformOperator,
     OSMExtractOperator,
 )
+from pipeline_plugin.transform.airports_transform import transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
     get_default_arguments,
     get_schedule_interval,
 )
+
 
 countries = config.get_countries()
 
@@ -42,7 +44,7 @@ with DAG(
         )
 
         source = "osm"
-        airports_transform = OSMAirportsTransformOperator(
+        airports_transform = DefaultTransformOperator(
             task_id=f"{country}_osm_airports_transform",
             source=source,
             input_filename=config.get_raw_osm_data_path(
@@ -55,6 +57,7 @@ with DAG(
             schema_mapping=config.get_schema_mapping(
                 source=source, country=country, dataset_name="airports"
             ),
+            transform_method=transform,
             dag=dag,
         )
 

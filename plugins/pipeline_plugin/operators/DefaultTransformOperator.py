@@ -1,10 +1,9 @@
 from airflow.utils.decorators import apply_defaults
 
 from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
-from pipeline_plugin.transform.rail_transform import transform
 
 
-class OSMRailTransformOperator(MapActionOperator):
+class DefaultTransformOperator(MapActionOperator):
     @apply_defaults
     def __init__(
         self,
@@ -13,11 +12,12 @@ class OSMRailTransformOperator(MapActionOperator):
         output_filename,
         crs,
         schema_mapping,
+        transform_method,
         *args,
         **kwargs
     ) -> None:
         super().__init__(
-            method=transform,
+            method=transform_method,
             arguments={
                 "source": source,
                 "input_filename": input_filename,

@@ -1,9 +1,10 @@
 from airflow import DAG
 
 from airflow.operators.pipeline_plugin import (
+    DefaultTransformOperator,
     HDXExtractOperator,
-    HDXRoadsTransformOperator,
 )
+from pipeline_plugin.transform.roads_transform import transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
@@ -38,7 +39,7 @@ with DAG(
                 dag=dag,
             )
             source = "cod"
-            roads_transform = HDXRoadsTransformOperator(
+            roads_transform = DefaultTransformOperator(
                 task_id=f"{country}_hdx_roads_transform",
                 source=source,
                 input_filename=config.get_cod_raw_filename(
@@ -47,10 +48,11 @@ with DAG(
                 output_filename=config.get_cod_processed_filepath(
                     country=country, datatype="roads"
                 ),
+                crs=config.get_crs(),
                 schema_mapping=config.get_schema_mapping(
                     source=source, country=country, dataset_name="roads"
                 ),
-                crs=config.get_crs(),
+                transform_method=transform,
                 dag=dag,
             )
 

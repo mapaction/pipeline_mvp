@@ -1,9 +1,10 @@
 from airflow import DAG
 
 from airflow.operators.pipeline_plugin import (
+    DefaultTransformOperator,
     OSMExtractOperator,
-    OSMPlacesTransformOperator,
 )
+from pipeline_plugin.transform.places_transform import transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
@@ -42,7 +43,7 @@ with DAG(
         )
 
         source = "osm"
-        places_transform = OSMPlacesTransformOperator(
+        places_transform = DefaultTransformOperator(
             task_id=f"{country}_osm_places_transform",
             source=source,
             input_filename=config.get_raw_osm_data_path(
@@ -55,6 +56,7 @@ with DAG(
             schema_mapping=config.get_schema_mapping(
                 source=source, country=country, dataset_name="places"
             ),
+            transform_method=transform,
             dag=dag,
         )
 

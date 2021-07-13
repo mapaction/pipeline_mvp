@@ -1,8 +1,7 @@
 from airflow import DAG
 
 from airflow.operators.pipeline_plugin import (
-    HDXAdm0TransformOperator,
-    HDXAdm1TransformOperator,
+    HDXAdmTransformOperator,
     HDXExtractOperator,
 )
 from utils.config_parser import config
@@ -37,7 +36,7 @@ with DAG(
         )
 
         source = "cod"
-        adm0_transform = HDXAdm0TransformOperator(
+        adm0_transform = HDXAdmTransformOperator(
             task_id=f"{country}_hdx_adm0_transform",
             source=source,
             adm_level="adm0",
@@ -68,7 +67,7 @@ with DAG(
             dag=dag,
         )
 
-        adm1_transform = HDXAdm1TransformOperator(
+        adm1_transform = HDXAdmTransformOperator(
             task_id=f"{country}_hdx_adm1_transform",
             source=source,
             adm_level="adm1",

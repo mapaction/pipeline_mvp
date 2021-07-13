@@ -1,15 +1,17 @@
 from airflow import DAG
 
 from airflow.operators.pipeline_plugin import (
+    DefaultTransformOperator,
     OSMExtractOperator,
-    OSMLakesTransformOperator,
 )
+from pipeline_plugin.transform.lakes_transform import transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
     get_default_arguments,
     get_schedule_interval,
 )
+
 
 countries = config.get_countries()
 
@@ -42,7 +44,7 @@ with DAG(
         )
 
         source = "osm"
-        lakes_transform = OSMLakesTransformOperator(
+        lakes_transform = DefaultTransformOperator(
             task_id=f"{country}_osm_lakes_transform",
             source=source,
             input_filename=config.get_raw_osm_data_path(
@@ -55,6 +57,7 @@ with DAG(
             schema_mapping=config.get_schema_mapping(
                 source=source, country=country, dataset_name="lakes"
             ),
+            transform_method=transform,
             dag=dag,
         )
 

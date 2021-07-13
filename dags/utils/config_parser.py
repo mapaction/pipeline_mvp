@@ -232,21 +232,22 @@ class Config:
             column_names = ["name_en", "name_loc", "fclass"]
         elif source == "cod":
             if dataset_name in ("roads",):
-                column_name_map = self.raw_config[dataset_name]["cod"]["column_names"]
+                column_name_map = self.raw_config[dataset_name]["cod"][
+                    "column_names"
+                ]  # TODO: use fallback dict
                 column_names = ["name_en", "name_loc", "fclass"]
             elif dataset_name == "adm0":
-                column_name_map = (
-                    self._get_country(country=country)["adm0"][source]["column_names"],
-                )
-                column_names = (["ADM0_EN", "ADM0_PCODE"],)
+                column_name_map = self._get_country(country=country)["adm0"][source][
+                    "column_names"
+                ]
+                column_names = ["ADM0_EN", "ADM0_PCODE"]
             elif dataset_name == "adm1":
-                column_name_map = (
-                    self._get_country(country=country)["adm1"][source]["column_names"],
-                )
+                column_name_map = self._get_country(country=country)["adm1"][source][
+                    "column_names"
+                ]
                 column_names = ["ADM1_EN", "ADM1_PCODE", "par_pcode"]
         return self._get_schema_mapping(
-            column_name_map=column_name_map,
-            column_names=column_names,
+            column_name_map=column_name_map, column_names=column_names
         )
 
 

@@ -4,11 +4,11 @@ from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 from pipeline_plugin.transform.hdx_adm_transform import transform
 
 
-class HDXAdm0TransformOperator(MapActionOperator):
+class HDXAdmTransformOperator(MapActionOperator):
     @apply_defaults
     def __init__(
         self,
-        source: str,
+        source,
         adm_level,
         input_filename,
         input_file_type,
