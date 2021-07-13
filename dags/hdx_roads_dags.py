@@ -4,7 +4,7 @@ from airflow.operators.pipeline_plugin import (
     DefaultTransformOperator,
     HDXExtractOperator,
 )
-from pipeline_plugin.transform.default_transform import transform
+from pipeline_plugin.transform.default_transform import default_transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
@@ -52,7 +52,7 @@ with DAG(
                 schema_mapping=config.get_schema_mapping(
                     source=source, country=country, dataset_name="roads"
                 ),
-                transform_method=transform,
+                transform_method=default_transform,
                 dag=dag,
             )
 

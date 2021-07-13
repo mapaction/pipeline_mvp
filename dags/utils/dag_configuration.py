@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta
 import os
 
+from pipeline_plugin.transform.default_transform import default_transform
 
+
+# TODO: create DagsConfig class, store args and config in .yaml
 def get_default_arguments():
     default_arguments = {
         "owner": "MapAction",
@@ -14,6 +17,21 @@ def get_default_arguments():
         "retry_delay": timedelta(minutes=1),
     }
     return default_arguments
+
+
+def get_dags_configuration():
+    dags_config = {
+        "osm": {
+            "roads": {"transform": default_transform},
+            "airports": {"transform": default_transform},
+            "rail": {"transform": default_transform},
+            "lakes": {"transform": default_transform},
+            "places": {"transform": default_transform},
+            "rivers": {"transform": default_transform},
+            "seaports": {"transform": default_transform},
+        }
+    }
+    return dags_config
 
 
 def get_catchup():

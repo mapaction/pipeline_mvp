@@ -6,7 +6,7 @@ from pipeline_plugin.transform.general_transformers.transform_to_crs import (
 from pipeline_plugin.utils.files import load_file, save_shapefiles
 
 
-def transform(
+def default_transform(
     source: str, input_filename: str, output_filename: str, crs, schema_mapping
 ):
     """
