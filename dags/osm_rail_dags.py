@@ -4,7 +4,7 @@ from airflow.operators.pipeline_plugin import (
     DefaultTransformOperator,
     OSMExtractOperator,
 )
-from pipeline_plugin.transform.rail_transform import transform
+from pipeline_plugin.transform.default_transform import transform
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,
