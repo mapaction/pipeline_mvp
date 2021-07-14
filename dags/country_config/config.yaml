@@ -195,8 +195,8 @@ cmf:
     top-level: 1_Original_Data
   processed:
     top-level: 2_Active_Data
-    adm0: 202_adm
-    adm1: 202_adm
+    adm0: 202_admn
+    adm1: 202_admn
     roads: 232_tran
     rail: 232_tran
     airports: 232_tran
