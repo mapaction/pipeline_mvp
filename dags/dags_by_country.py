@@ -7,7 +7,12 @@ from utils.dag_configuration import (
     get_default_arguments,
     get_schedule_interval,
 )
+from utils.hdx_dags_filler import (
+    fill_hdx_adm_dag,
+    fill_hdx_roads_dag,
+)
 from utils.osm_dags_filler import fill_osm_dag
+
 
 # Defaults which can be overridden if needed
 default_args = get_default_arguments()
@@ -17,13 +22,15 @@ catchup = get_catchup()
 countries = config.get_countries()
 osm_datasets = get_dags_configuration()["osm"].keys()
 
-for datatype in osm_datasets:
+for country in countries:
     with DAG(
-        "osm_" + datatype,
+        country + "_dag",
         schedule_interval=schedule_interval,
         catchup=catchup,
         default_args=default_args,
     ) as dag:
-        for country in countries:
+        for datatype in osm_datasets:
             fill_osm_dag(dag, config, datatype, country)
-        globals()["osm_" + datatype + "dag_id"] = dag
+        globals()["osm_" + country + "dag_id"] = dag
+        fill_hdx_adm_dag(dag, config, country)
+        fill_hdx_roads_dag(dag, config, country)

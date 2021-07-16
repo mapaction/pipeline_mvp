@@ -119,15 +119,20 @@ $ docker compose down
 
 ## Code standards
 
+This project has adopted a number of code standards to ensure there is consistency across different contributors, and
+best practices are followed. To that end, some of these code standards are intentionally opinionated.
+
+These code standards are enforced by:
+
+* a [pre-commit hook](#pre-commit-hook) (locally)
+* [Continuous Integration](#continuous-deployment) (remotely)
+
 ### EditorConfig
 
 An [`.editorconfig`](https://editorconfig.org/) file is included to configure compatible editors to automatically
 comply with code standards adopted for this project.
 
-### Pre-commit hooks
-
-This project has adopted a number of code standards to ensure there is consistency across different contributors, and
-best practices are followed. To that end, some of these code standards are intentionally opinionated.
+### Pre-commit hook
 
 The [pre-commit](https://pre-commit.com) package (and its config file `.pre-commit-config.yaml`) is used to define,
 and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit.
@@ -192,6 +197,17 @@ $ docker compose run airflow safety check --file=/usr/local/airflow/requirements
 1. all reviews and comments should be captured in the PR
 1. once review is complete, merge PR and remove merged branch
 7. move the Jira task to 'done'
+
+## Continuous Integration
+
+GitHub Actions is used for Continuous Integration.
+
+When triggered (by editing relevant files) these actions will:
+
+* install development dependencies needed for linting tools
+* run linting tools against relevant files
+
+See the GitHub Actions configuration files in `/.github/workflows/` for details on the exact steps taken.
 
 ## Continuous Deployment
 
