@@ -5,8 +5,8 @@ osm_types:
 geom_type:
   points
 tags:
-    - landuse:
-        - industrial
     - industrial:
         - port
-flag: AND
+    - commercial:
+        - port
+flag: OR

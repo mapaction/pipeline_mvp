@@ -50,9 +50,9 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
     # will work whether yaml tag value is list, string or dict.
     main_query = "( \n"
     for osm_type in osm_yml["osm_types"]:
-        for tags in osm_yml["tags"]:
-            if osm_yml["flag"] == "AND":
-                main_query += f"{osm_type}"
+        if osm_yml["flag"] == "AND":
+            main_query += f"{osm_type}"
+            for tags in osm_yml["tags"]:
                 for tag, value in tags.items():
                     if type(value) == list:
                         for tag_value in value:
@@ -61,8 +61,9 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
                         main_query += f"[{tag}={value}]"
                     elif value is None:
                         main_query += f"[{tag}]"
-                main_query += "(area.a); \n"
-            else:
+            main_query += "(area.a); \n"
+        else:
+            for tags in osm_yml["tags"]:
                 for tag, value in tags.items():
                     if type(value) == list:
                         for tag_value in value:
@@ -74,6 +75,7 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
     main_query += "); \n"
     # Check geom_type output in osm_yml (will be used to create temp shapefile)
     # catch errors in case geom_type missing from osm_yml
+    print("MAIN QUERY = " + main_query)
     try:
         geom_type = osm_yml["geom_type"]
     except Exception as e:
