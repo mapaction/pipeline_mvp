@@ -75,7 +75,6 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
     main_query += "); \n"
     # Check geom_type output in osm_yml (will be used to create temp shapefile)
     # catch errors in case geom_type missing from osm_yml
-    print("MAIN QUERY = " + main_query)
     try:
         geom_type = osm_yml["geom_type"]
     except Exception as e:
