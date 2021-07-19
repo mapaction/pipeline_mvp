@@ -89,7 +89,6 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
 
 
 def get_osm_xml(api_url, osm_query, output_file):
-    download_url(api_url, output_file, parameters={"data": osm_query})
     """
     # Commented out as using requests wrapped in method in utils/requests_api.py
     response  = requests.get(api_url,
@@ -101,3 +100,4 @@ def get_osm_xml(api_url, osm_query, output_file):
     else:
         pass
     """
+    download_url(api_url, output_file, parameters={"data": osm_query})

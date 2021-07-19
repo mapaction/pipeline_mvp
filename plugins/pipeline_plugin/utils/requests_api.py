@@ -12,6 +12,8 @@ def download_url(url, save_path, chunk_size=1024, parameters=None):
         for chunk in r.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
     logger.info(f'Downloaded "{url}" to "{save_path}"')
+    logger.info(f"Status code is {r.status_code}")
+    # return r.status_code
 
 
 def get_json(url):

@@ -1,3 +1,5 @@
+from airflow.utils.dates import timedelta
+
 from airflow.operators.pipeline_plugin import (
     DefaultTransformOperator,
     OSMExtractOperator,
@@ -24,6 +26,10 @@ def fill_osm_dag(dag, config, dataset_name: str):
                 country=country, dataset_name=dataset_name, format="raw_gpkg"
             ),
             dag=dag,
+            retries=5,
+            retry_delay=timedelta(seconds=10),
+            retry_exponential_backoff=True,
+            max_retry_delay=timedelta(seconds=60),
         )
 
         source = "osm"
