@@ -1,7 +1,12 @@
 osm_types:
-  - nodes
+  - node
   - relation
   - way
 geom_type:
   points
 tags:
+    - landuse:
+        - industrial
+    - industrial:
+        - port
+flag: AND
