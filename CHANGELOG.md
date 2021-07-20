@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please maintain both this file AND the README.md file.
 
 ## [Unreleased]
+
 ### Added
+
+* initial GitHub Actions for Continuous Integration (CI)
+
 ### Changed
 ### Deprecated
 ### Removed
