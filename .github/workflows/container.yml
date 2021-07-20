@@ -11,6 +11,7 @@ on:
       - requirements.txt
       - plugins/**
       - .github/workflows/container.yml
+  workflow_dispatch:
 
 jobs:
   update-container:
