@@ -1,8 +1,0 @@
-osm_types:
-  - nodes
-  - relation
-  - way
-geom_type:
-  points
-tags:
-  # TODO: fill the tags

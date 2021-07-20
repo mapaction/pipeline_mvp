@@ -50,7 +50,19 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
     # will work whether yaml tag value is list, string or dict.
     main_query = "( \n"
     for osm_type in osm_yml["osm_types"]:
-        if type(osm_yml["tags"]) == list:
+        if osm_yml["flag"] == "AND":
+            main_query += f"{osm_type}"
+            for tags in osm_yml["tags"]:
+                for tag, value in tags.items():
+                    if type(value) == list:
+                        for tag_value in value:
+                            main_query += f"[{tag}={tag_value}]"
+                    elif type(value) == str:
+                        main_query += f"[{tag}={value}]"
+                    elif value is None:
+                        main_query += f"[{tag}]"
+            main_query += "(area.a); \n"
+        else:
             for tags in osm_yml["tags"]:
                 for tag, value in tags.items():
                     if type(value) == list:
@@ -60,15 +72,6 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
                         main_query += f"{osm_type}[{tag}={value}](area.a); \n"
                     elif value is None:
                         main_query += f"{osm_type}[{tag}](area.a); \n"
-        elif type(osm_yml["tags"]) == dict:
-            for tag, value in osm_yml["tags"].items():
-                if type(value) == list:
-                    for tag_value in value:
-                        main_query += f"{osm_type}[{tag}={tag_value}](area.a); \n"
-                elif type(value) == str:
-                    main_query += f"{osm_type}[{tag}={value}](area.a); \n"
-                elif value is None:
-                    main_query += f"{osm_type}[{tag}](area.a); \n"
     main_query += "); \n"
     # Check geom_type output in osm_yml (will be used to create temp shapefile)
     # catch errors in case geom_type missing from osm_yml
@@ -89,7 +92,6 @@ def osm_query(  # noqa: C901 - see Jira issue DATAPIPE-89 for more information
 
 
 def get_osm_xml(api_url, osm_query, output_file):
-    download_url(api_url, output_file, parameters={"data": osm_query})
     """
     # Commented out as using requests wrapped in method in utils/requests_api.py
     response  = requests.get(api_url,
@@ -101,3 +103,4 @@ def get_osm_xml(api_url, osm_query, output_file):
     else:
         pass
     """
+    download_url(api_url, output_file, parameters={"data": osm_query})

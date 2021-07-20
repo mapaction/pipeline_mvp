@@ -1,0 +1,11 @@
+osm_types:
+  - node
+geom_type:
+  points
+tags:
+  - place:
+      - city
+      - town
+      - village
+      - hamlet
+flag: OR
