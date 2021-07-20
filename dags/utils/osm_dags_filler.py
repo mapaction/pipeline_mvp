@@ -1,5 +1,3 @@
-from airflow.utils.dates import timedelta
-
 from airflow.operators.pipeline_plugin import (
     DefaultTransformOperator,
     OSMExtractOperator,
