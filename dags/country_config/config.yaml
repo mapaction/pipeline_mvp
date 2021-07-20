@@ -141,6 +141,21 @@ osm:
       name_en: 'name:en'
       name_loc: name
       fclass: waterway
+  seas:
+    osm_tags: 'osm_tags_seas.yml'
+    raw_osm: osm_seas.xml
+    raw_gpkg: osm_seas.gpkg
+    filename:
+      category: phys
+      theme: sea
+      geometry: py
+      scale: s0
+      source: osm
+      suffix: shp
+    column_names:
+      name_en: 'name:en'
+      name_loc: name
+      fclass: water
   places:
     osm_tags: 'osm_tags_places.yml'
     raw_osm: osm_places.xml
@@ -204,3 +219,4 @@ cmf:
     places: 229_stle
     rivers: 221_phys
     lakes: 221_phys
+    seas: 221_phys

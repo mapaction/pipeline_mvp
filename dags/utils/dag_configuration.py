@@ -29,6 +29,7 @@ def get_dags_configuration():
             "places": {"transform": default_transform},
             "rivers": {"transform": default_transform},
             "seaports": {"transform": default_transform},
+            "seas": {"transform": default_transform},
         }
     }
     return dags_config
