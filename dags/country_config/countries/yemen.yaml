@@ -15,11 +15,12 @@ adm0:
   cod:
     column_names:
       ADM0_EN: admin0Name_en
-      ADM0_PCODE: pcode
+      ADM0_PCODE: admin0Pcode
 adm1:
   cod:
     column_names:
+      ADM0_EN: admin0Name_en
+      ADM0_PCODE: admin0Pcode
       ADM1_EN: admin1Name_en
-      ADM1_PCODE: pcode
-      par_pcode: par_pcode
+      ADM1_PCODE: admin1Pcode 
 
