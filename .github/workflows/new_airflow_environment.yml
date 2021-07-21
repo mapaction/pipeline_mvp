@@ -1,4 +1,4 @@
-name: New_Airflow_Environment
+name: Create New GCP Composer Environment (Airflow instance)
 
 on:
   workflow_dispatch:
@@ -27,10 +27,7 @@ jobs:
         run: |
           dagpath=$(gcloud composer environments describe --location=europe-west2 --project=datapipeline-295515 ${{ github.event.inputs.newComposerEnvName }} --flatten=config.dagGcsPrefix --format=object)
           echo "::debug::${dagpath}"
-          echo "::set-output name=dag_url::$dagpath"
-        # Did not work
-        # echo "::debug::${{ dagpath }}"
-        # echo "::debug::${{ $dagpath }}"
+          echo "::set-output name=dag_url::${dagpath}"
       - name: Get URL of new DAG bucket root
         id: bucket_root
         run: |
