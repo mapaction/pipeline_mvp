@@ -37,10 +37,10 @@ jobs:
           url=$(python -c "import re; print(re.search('(gs:.+\/)(dags$)', r'${{ steps.dag_path.outputs.dag_url }}').group(1))")
           echo "::set-output name=bucket_url::${url}"
       - name: Update DAG bucket secret
-        run: echo ${{ steps.bucket_root.outputs.dag_url }}
+        run: echo ${{ steps.bucket_root.outputs.bucket_url }}
       #   uses: hmanzur/actions-set-secret@v2.0.0
       #   with:
       #     name: 'GCLOUD_BUCKET_PATH'
-      #     value: ${{ steps.bucket_root.outputs.dag_url }}
+      #     value: ${{ steps.bucket_root.outputs.bucket_url }}
       #     repository: ${{ env.GITHUB_REPOSITORY	}}
       #     token: ${{ secrets.REPO_ACCESS_TOKEN }}
