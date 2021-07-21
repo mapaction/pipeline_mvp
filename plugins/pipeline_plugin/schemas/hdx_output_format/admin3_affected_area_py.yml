@@ -1,0 +1,14 @@
+required:
+    - ADM3_EN
+properties:
+    geometry_type:
+        items:
+            enum:
+                - MultiPolygon
+                - Polygon
+        additionalItems: false
+    crs:
+        items:
+            enum:
+                - EPSG:4326
+        additionalItems: false

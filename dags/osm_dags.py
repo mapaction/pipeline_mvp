@@ -25,7 +25,5 @@ for datatype in osm_datasets:
         default_args=default_args,
     ) as dag:
         for country in countries:
-            if country != "dominican_republic":
-                continue
             fill_osm_dag(dag, config, datatype, country)
         globals()["osm_" + datatype + "dag_id"] = dag

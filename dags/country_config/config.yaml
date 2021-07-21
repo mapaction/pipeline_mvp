@@ -15,6 +15,8 @@ hdx_cod:
     layer_name:
       adm0: null
       adm1: null
+      adm2: null
+      adm3: null
   roads:
     include: true
     address: null
@@ -47,7 +49,36 @@ adm1:
     column_names:
       ADM1_EN: ADM1_EN
       ADM1_PCODE: ADM1_PCODE
-      par_pcode: ADM0_PCODE # parent pcode for adm1 is adm0
+      par_pcode: ADM0_PCODE
+adm2:
+  schema: admin2_affected_area_py.yml
+  cod:
+    filename:
+      category: admn
+      theme: ad2
+      geometry: py
+      scale: s2
+      source: unocha
+      suffix: shp
+    column_names:
+      ADM2_EN: ADM2_EN
+      ADM2_PCODE: ADM2_PCODE
+      par_pcode: ADM1_PCODE
+adm3:
+  schema: admin3_affected_area_py.yml
+  cod:
+    filename:
+      category: admn
+      theme: ad3
+      geometry: py
+      scale: s3
+      source: unocha
+      suffix: shp
+    column_names:
+      ADM3_EN: ADM3_EN
+      ADM3_PCODE: ADM3_PCODE
+      par_pcode: ADM2_PCODE
+
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
@@ -199,10 +230,16 @@ geoboundaries:
     raw: 'geobnd_adm0.zip'
   adm1:
     raw: 'geobnd_adm1.zip'
+  adm2:
+    raw: 'geobnd_adm2.zip'
+  adm3:
+    raw: 'geobnd_adm3.zip'
 
 gadm_layer:
   adm0: "gadm36_{ISO3}_0"
   adm1: "gadm36_{ISO3}_1"
+  adm2: "gadm36_{ISO3}_2"
+  adm3: "gadm36_{ISO3}_3"
 
 cmf:
   top-level: GIS
@@ -212,6 +249,8 @@ cmf:
     top-level: 2_Active_Data
     adm0: 202_admn
     adm1: 202_admn
+    adm2: 202_admn
+    adm3: 202_admn
     roads: 232_tran
     rail: 232_tran
     airports: 232_tran

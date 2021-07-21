@@ -246,6 +246,16 @@ class Config:
                     "column_names"
                 ]
                 column_names = ["ADM1_EN", "ADM1_PCODE", "par_pcode"]
+            elif dataset_name == "adm2":
+                column_name_map = self._get_country(country=country)["adm2"][source][
+                    "column_names"
+                ]
+                column_names = ["ADM2_EN", "ADM2_PCODE", "par_pcode"]
+            elif dataset_name == "adm3":
+                column_name_map = self._get_country(country=country)["adm3"][source][
+                    "column_names"
+                ]
+                column_names = ["ADM3_EN", "ADM3_PCODE", "par_pcode"]
         return self._get_schema_mapping(
             column_name_map=column_name_map, column_names=column_names
         )
