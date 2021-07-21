@@ -26,7 +26,7 @@ jobs:
         id: dag_path
         run: |
           dagpath=$(gcloud composer environments describe --location=europe-west2 --project=datapipeline-295515 ${{ github.event.inputs.newComposerEnvName }} --flatten=config.dagGcsPrefix --format=object)
-          echo ""::debug::$dagpath"
+          echo "::debug::$dagpath"
           echo "::set-output name=dag_url::$dagpath"
       - name: Get URL of new DAG bucket root
         id: bucket_root
