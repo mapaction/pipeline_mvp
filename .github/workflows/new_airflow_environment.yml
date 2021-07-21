@@ -20,8 +20,8 @@ jobs:
           project_id: ${{ secrets.GCS_PROJECT }}
           export_default_credentials: true
       - name: Create New Environment
-        # run: gcloud composer environments create ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515 --machine-type=n1-standard-2
-        run: gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515
+        run: gcloud composer environments create ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515 --machine-type=n1-standard-2
+        # run: gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515
       - name: Get URL of new DAG bucket full path
         id: dag_path
         run: |
