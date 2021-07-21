@@ -1,6 +1,8 @@
+import logging
 import os
 import zipfile
 
+from airflow.exceptions import AirflowFailException
 import fiona
 import geopandas as gpd
 from jsonschema import validate
@@ -10,6 +12,8 @@ from pipeline_plugin.utils.files import load_file, save_shapefiles
 from pipeline_plugin.utils.yaml_api import parse_yaml
 
 GADM_FILENAME = "gadm36_{ISO3}.gpkg"
+
+logger = logging.getLogger()
 
 
 def transform(
@@ -29,8 +33,9 @@ def transform(
     input_filename = load_file(input_filename)
 
     adm_df = gpd.GeoDataFrame()
-
+    logger.info(f"Source = {source}")
     if source == "cod":
+        logger.info(f"Input file type = {input_file_type}")
         if input_file_type == "gpkg":
             adm_df = transform_cod_gpkg(input_filename, adm_level)
         elif input_file_type == "shp":
@@ -46,14 +51,16 @@ def transform(
 
     elif source == "geoboundaries":
         adm_df = transform_geoboundaries(source_geoboundaries)
-
+    logger.info("Admin DataFrame successfully created.")
     adm_df = postprocess(
         adm_df=adm_df,
         schema_mapping=schema_mapping,
         output_schema_filename=output_schema_filename,
         crs=crs,
     )
+    logger.info("Postprocessing was successful.")
     save_shapefiles(geopandas_df=adm_df, output_filename=output_filename)
+    logger.info("Saved shapefiles.")
 
 
 def transform_cod_gpkg(input_filename, adm_level) -> gpd.GeoDataFrame:
@@ -74,12 +81,21 @@ def transform_cod_gpkg(input_filename, adm_level) -> gpd.GeoDataFrame:
 
 
 def transform_cod_shp(input_filename, adm_level, layer_name=None) -> gpd.GeoDataFrame:
+    logger.info(
+        f"Transform Cod Shp Arguments:\n"
+        f"Input Filename = {input_filename}"
+        f"Admin Level = {adm_level}"
+        f"Layer Name = {layer_name}"
+    )
     if layer_name is None:
         with zipfile.ZipFile(input_filename) as z:
             for filename in z.namelist():
                 if adm_level in filename.lower() and filename.lower().endswith(".shp"):
                     layer_name = filename
-    # TODO: error for no match
+    if layer_name is None:
+        raise AirflowFailException(
+            f"There is no {adm_level} layer in the input dataset!"
+        )
     return gpd.read_file(f"zip://{input_filename}!{layer_name}")
 
 
