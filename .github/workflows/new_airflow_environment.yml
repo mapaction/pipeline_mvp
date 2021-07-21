@@ -35,7 +35,7 @@ jobs:
         id: bucket_root
         run: |
           url=$(python -c "import re; print(re.search('(gs:.+\/)(dags$)', r'${{ steps.dag_path.outputs.dag_url }}').group(1))")
-          echo "::set-output name=bucket_url::$url"
+          echo "::set-output name=bucket_url::${url}"
       - name: Update DAG bucket secret
         run: echo ${{ steps.bucket_root.outputs.dag_url }}
       #   uses: hmanzur/actions-set-secret@v2.0.0
