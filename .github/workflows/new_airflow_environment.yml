@@ -24,7 +24,10 @@ jobs:
         run: gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515
       - name: Get URL of new DAG bucket full path
         id: dag_path
-        run: echo "::set-output name=dag_url::$(gcloud composer environments describe --location=europe-west2 --project=datapipeline-295515 ${{ github.event.inputs.newComposerEnvName }} --flatten=config.dagGcsPrefix --format=object)"
+        run: |
+          dagpath=$(gcloud composer environments describe --location=europe-west2 --project=datapipeline-295515 ${{ github.event.inputs.newComposerEnvName }} --flatten=config.dagGcsPrefix --format=object)
+          echo ""::debug::$dagpath"
+          echo "::set-output name=dag_url::$dagpath"
       - name: Get URL of new DAG bucket root
         id: bucket_root
         run: |
