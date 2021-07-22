@@ -1,4 +1,4 @@
-name: New_Airflow_Environment
+name: Create New GCP Composer Environment (Airflow instance)
 
 on:
   workflow_dispatch:
@@ -20,24 +20,24 @@ jobs:
           project_id: ${{ secrets.GCS_PROJECT }}
           export_default_credentials: true
       - name: Create New Environment
-        # run: gcloud composer environments create ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515 --machine-type=n1-standard-2
-        run: gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515
+        run: gcloud composer environments create ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project ${{ secrets.GCLOUD_PROJECT }} --machine-type=n1-standard-2 --zone=europe-west2-a --env-variables ENVIRONMENT=PRODUCTION --env-variables GCP=TRUE
+        # run: gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project=datapipeline-295515
       - name: Get URL of new DAG bucket full path
         id: dag_path
         run: |
-          dagpath=$(gcloud composer environments describe --location=europe-west2 --project=datapipeline-295515 ${{ github.event.inputs.newComposerEnvName }} --flatten=config.dagGcsPrefix --format=object)
-          echo ""::debug::$dagpath"
-          echo "::set-output name=dag_url::$dagpath"
+          dagpath=$(gcloud composer environments describe ${{ github.event.inputs.newComposerEnvName }} --location=europe-west2 --project= ${{ secrets.GCLOUD_PROJECT }} --flatten=config.dagGcsPrefix --format=object)
+          echo "::debug::${dagpath}"
+          echo "::set-output name=dag_url::${dagpath}"
       - name: Get URL of new DAG bucket root
         id: bucket_root
         run: |
-          url=$(python -c "import re; print(re.search('(gs:.+\/)(dags$)', r'${{ steps.dag_path.outputs.dag_url }}').group(1))")
-          echo "::set-output name=bucket_url::$url"
+          url=$(python -c "import re; print(re.search('gs:\/\/(.+)(\/dags$)', r'${{ steps.dag_path.outputs.dag_url }}').group(1))")
+          echo "::set-output name=bucket_url::${url}"
       - name: Update DAG bucket secret
-        run: echo ${{ steps.bucket_root.outputs.dag_url }}
+        run: echo ${{ steps.bucket_root.outputs.bucket_url }}
       #   uses: hmanzur/actions-set-secret@v2.0.0
       #   with:
       #     name: 'GCLOUD_BUCKET_PATH'
-      #     value: ${{ steps.bucket_root.outputs.dag_url }}
+      #     value: ${{ steps.bucket_root.outputs.bucket_url }}
       #     repository: ${{ env.GITHUB_REPOSITORY	}}
       #     token: ${{ secrets.REPO_ACCESS_TOKEN }}

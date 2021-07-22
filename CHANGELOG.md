@@ -9,8 +9,9 @@ Please maintain both this file AND the README.md file.
 ## [Unreleased]
 
 ### Added
-
-* initial GitHub Actions for Continuous Integration (CI)
+- Changed to GitHub Actions:
+  * initial GitHub Actions for Continuous Integration (CI)
+  * A new GCP Composer Environment can now be creatd using GitHub Actions
 
 ### Changed
 ### Deprecated
