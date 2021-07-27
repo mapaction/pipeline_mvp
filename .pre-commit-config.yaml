@@ -1,0 +1,25 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: check-added-large-files
+    -   id: check-json
+    -   id: check-yaml
+    -   id: check-merge-conflict
+    -   id: check-toml
+    -   id: mixed-line-ending
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+
+-   repo: local
+    hooks:
+    -   id: docker-python-flake8
+        name: Python Flake8 (Docker)
+        language: docker_image
+        files: ^dags\/|plugins\/|tests\/
+        types:
+        -   file
+        -   python
+        entry: mapaction-pipeline-airflow-local:latest flake8 dags/ plugins/ tests/

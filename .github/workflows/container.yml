@@ -7,9 +7,11 @@ on:
     branches:
       - master
     paths:
-      - Dockerfile
+      - kubernetes-pod-operator.Dockerfile
       - requirements.txt
       - plugins/**
+      - .github/workflows/container.yml
+  workflow_dispatch:
 
 jobs:
   update-container:

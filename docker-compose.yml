@@ -12,10 +12,11 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./plugins/:/home/airflow/gcs/plugins
-      - ./data/:/opt/data
-      - ./dags/:/home/airflow/gcs/dags
-      - ./test:/home/airflow/gcs/test
+      - ./plugins/:/home/airflow/gcs/plugins/
+      - ./data/:/opt/data/
+      - ./dags/:/home/airflow/gcs/dags/
+      - ./tests/:/home/airflow/gcs/tests/
+      - ./.flake8:/home/airflow/gcs/.flake8
     environment:
       AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE: "True"
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"

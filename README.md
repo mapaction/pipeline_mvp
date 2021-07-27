@@ -46,6 +46,10 @@ the local environment.
 
 Required Python packages.
 
+`/requirements-dev.txt`
+
+Required Python packages for development, only installed within local container.
+
 `/docker-compose.yml`
 
 Configuration file for running Airflow locally using Docker containers
@@ -65,26 +69,41 @@ There are seperate instructions on developing on Windows Subsystem for Linux (WS
 
 https://github.com/mapaction/pipeline_mvp/wiki/Docker-on-Windows
 
-### Requirements
+### Local requirements
 
-Docker and Docker compose are required dependencies for running a local version of the Pipeline.
+1. [Git](https://git-scm.com/)
+1. [Docker](https://www.docker.com) and [Docker compose](https://docs.docker.com/compose/)
+    - Docker for Windows/macOS is recommended on these platforms
+1. [Python](https://python.org) and the [pre-commit](https://pre-commit.com/#install) package
 
-### Initial setup
+To install for macOS using brew:
 
-Build a local Docker image using Docker Compose:
-
-```shell
-$ docker-compose build airflow
+```
+$ brew install git pre-commit
+$ brew install --cask docker
 ```
 
-**Note:** This image is ~2GB.
+### Local setup
 
-### Development
+Clone the project repository and build a local Docker image using Docker Compose:
+
+```shell
+$ git clone https://github.com/mapaction/pipeline_mvp.git
+$ cd pipeline_mvp/
+$ docker compose build airflow
+```
+
+**Note:** This image is approx ~2GB in size.
+
+**Note:** On Linux you will need to use `docker-compose` (with a hyphen) instead of `docker compose` (for MacOS and Windows).
+
+### Local usage
 
 To start the Airflow server:
 
 ```shell
-$ docker-compose up
+$ cd pipeline_mvp/
+$ docker compose up
 ```
 
 The Airflow server runs in a Docker container, which as a number of directories (such as `/dags` and `/data`) mounted
@@ -97,19 +116,100 @@ without needing to update or recreate the container).
 To stop the Airflow server:
 
 ```shell
-$ docker-compose down
+$ docker compose down
+```
+
+## Code standards
+
+This project has adopted a number of code standards to ensure there is consistency across different contributors, and
+best practices are followed. To that end, some of these code standards are intentionally opinionated.
+
+These code standards are enforced by:
+
+* a [pre-commit hook](#pre-commit-hook) (locally)
+* [Continuous Integration](#continuous-deployment) (remotely)
+
+### EditorConfig
+
+An [`.editorconfig`](https://editorconfig.org/) file is included to configure compatible editors to automatically
+comply with code standards adopted for this project.
+
+### Pre-commit hook
+
+The [pre-commit](https://pre-commit.com) package (and its config file `.pre-commit-config.yaml`) is used to define,
+and enforce, code standards adopted for this project. `pre-commit` will run automatically on each Git commit.
+
+To run manually:
+
+```
+$ pre-commit run --all-files
+```
+
+To install so that `pre-commit` will run automatically on each Git commit enter this command:
+
+```
+pre-commit install
+```
+
+### Flake8
+
+The [Flake8](https://flake8.pycqa.org/) package (and its config file `.flake8`) is used to define, and enforce, Python
+specific code standards for this project. Flake8 checks will be automatically run as part of the
+[Pre-commit hook](#pre-commit-hooks).
+
+To run manually:
+
+```
+$ docker compose run airflow flake8 dags/ plugins/ tests/
+```
+
+### Black
+
+The [Black](https://black.readthedocs.io/en/stable/) package is used to define, and enforce, Python code style rules for
+this project. Black formatting will automatically be checked as part of the [Flake8](#flake8) checks.
+
+To run manually:
+
+```
+$ docker compose run airflow black dags/ plugins/ tests/
+```
+
+## Package security
+
+The [Safety](https://github.com/pyupio/safety-db) package is used to check for vulnerable Python packages used in this
+project.
+
+To run manually:
+
+```
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements.txt --full-report
+$ docker compose run airflow safety check --file=/usr/local/airflow/requirements-dev.txt --full-report
 ```
 
 ## Contribution workflow
 
 1. create a task in the [Data Pipeline Development](https://mapaction.atlassian.net/browse/DATAPIPE) Jira project (Internal, MapAction)
-1. create a local Git branch, make changes and push branch to GitHub
+1. create a local Git branch.
+1. make changes until you are satisfied.
+1. update the CHANGELOG.md as appropriate.
+1. commit and push branch to GitHub
 1. create a pull request from your branch targetting the `master` branch
 1. move the Jira task to 'in review' and add a link to the GitHub PR
 1. notify other project members of your branch in the [#topic-automation](https://mapaction.slack.com/archives/CKF3LQGGL) Slack channel (Internal, MapAction) with a link to the GitHub PR for review
 1. all reviews and comments should be captured in the PR
 1. once review is complete, merge PR and remove merged branch
 7. move the Jira task to 'done'
+
+## Continuous Integration
+
+GitHub Actions is used for Continuous Integration.
+
+When triggered (by editing relevant files) these actions will:
+
+* install development dependencies needed for linting tools
+* run linting tools against relevant files
+
+See the GitHub Actions configuration files in `/.github/workflows/` for details on the exact steps taken.
 
 ## Continuous Deployment
 
@@ -142,9 +242,9 @@ are added (see )
 
 ## Tests
 
-To run the (limited) project tests locally:
+To run project tests locally:
 
 ```
-$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/test airflow
+$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/tests airflow
 $ python -m pytest .
 ```

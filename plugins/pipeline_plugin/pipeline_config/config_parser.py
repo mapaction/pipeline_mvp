@@ -1,20 +1,39 @@
 import os
-import yaml
 from pathlib import Path
 
 from airflow.models import Variable
+import yaml
 
 
 class Config:
     def __init__(self, path=None):
         if path is None:
             if os.environ.get("ENVIRONMENT") == "LOCAL":
-                path = Path(os.getcwd()) / "plugins" / "pipeline_plugin" / "pipeline_config"
+                path = (
+                    Path(os.getcwd())
+                    / "plugins"
+                    / "pipeline_plugin"
+                    / "pipeline_config"
+                )
             else:
                 if self.is_inside_kubernetes_pod():
-                    path = Path("/") / "usr" / "src" / "pipeline_plugin" / "pipeline_config"
+                    path = (
+                        Path("/")
+                        / "usr"
+                        / "src"
+                        / "pipeline_plugin"
+                        / "pipeline_config"
+                    )
                 else:
-                    path = Path("/") / "home" / "airflow" / "gcs" / "plugins" / "pipeline_plugin" / "config"
+                    path = (
+                        Path("/")
+                        / "home"
+                        / "airflow"
+                        / "gcs"
+                        / "plugins"
+                        / "pipeline_plugin"
+                        / "pipeline_config"
+                    )
 
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
@@ -51,7 +70,11 @@ class Config:
         return Variable.get("DOCKER_IMAGE_VERSION", default_var="latest")
 
     def get_docker_image(self):
-        return self.raw_config["docker"]["imageName"] + ":" + self.get_docker_image_version()
+        return (
+            self.raw_config["docker"]["imageName"]
+            + ":"
+            + self.get_docker_image_version()
+        )
 
 
 config = Config()
