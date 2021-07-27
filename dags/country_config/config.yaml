@@ -45,9 +45,10 @@ adm1:
       source: unocha
       suffix: shp
     column_names:
+      ADM0_EN: ADM0_EN
+      ADM0_PCODE: ADM0_PCODE
       ADM1_EN: ADM1_EN
       ADM1_PCODE: ADM1_PCODE
-      par_pcode: ADM0_PCODE
 
 osm:
   url: 'http://overpass-api.de/api/interpreter?'
