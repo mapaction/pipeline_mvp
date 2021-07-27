@@ -303,7 +303,7 @@ class Config:
     def get_adm1_schema_mapping(self, source: str, country: str) -> dict:
         return self._get_schema_mapping(
             column_name_map=self._get_adm(country=country, adm_number=1)[source][
-              "column_names"
+                "column_names"
             ],
             column_names=["ADM1_EN", "ADM1_PCODE", "ADM0_EN", "ADM0_PCODE"]
         )
