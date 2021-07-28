@@ -1,5 +1,8 @@
 from airflow import DAG
 
+import sys
+sys.path.append('/home/airflow/gcs/dags_utils/')
+
 from utils.config_parser import config
 from utils.dag_configuration import (
     get_catchup,

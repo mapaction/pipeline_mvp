@@ -29,9 +29,12 @@ Platform using Airflow.
 
 GitLab Actions configuration files (see [Continuous Deployment](#continuous-deployment)).
 
-`/dags`
+`/airflow_logic`
+Folder with high-level scripts related to airflow (DAGs, Operators, etc).
 
-Folder with the DAG scripts, every DAG instance in the global namespace will be available inside Airflow.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`/dags`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Folder with the DAG scripts, every DAG instance in the global namespace will be available inside Airflow.
 
 `/plugins`
 

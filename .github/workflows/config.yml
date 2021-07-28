@@ -7,6 +7,7 @@ on:
     branches:
       - master
     paths:
+      - airflow_logic/**
       - dags/**
       - plugins/**
       - .github/workflows/config.yml
@@ -28,3 +29,5 @@ jobs:
         run: gsutil rsync -d -r ./dags gs://${{ secrets.GCLOUD_BUCKET_PATH }}/dags/
       - name: Copy plugins
         run: gsutil rsync -d -r ./plugins gs://${{ secrets.GCLOUD_BUCKET_PATH }}/plugins/
+      - name: Copy Airflow Logic
+        run: gsutil rsync -d -r ./airflow_logic gs://${{ secrets.GCLOUD_BUCKET_PATH }}/airflow_logic/

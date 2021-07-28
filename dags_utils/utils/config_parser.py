@@ -22,7 +22,7 @@ class Config:
                 self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / "schemas"
             )
         if not path:
-            path = self._MAIN_AIRFLOW_FOLDER / "dags" / "country_config"
+            path = self._MAIN_AIRFLOW_FOLDER / "dags_utils" / "country_config"
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
         self.country_config = dict()

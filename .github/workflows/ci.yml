@@ -5,6 +5,7 @@ name: Continuous Integration
 on:
   push:
     paths:
+      - airflow_logic/**
       - dags/**
       - plugins/**
       - tests/**

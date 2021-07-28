@@ -1,12 +1,12 @@
 from airflow import DAG
 
-from utils.config_parser import config
-from utils.dag_configuration import (
+from dags_utils.utils.config_parser import config
+from dags_utils.utils.dag_configuration import (
     get_catchup,
     get_default_arguments,
     get_schedule_interval,
 )
-from utils.hdx_dags_filler import fill_hdx_adm_dag
+from dags_utils.utils.hdx_dags_filler import fill_hdx_adm_dag
 
 countries = config.get_countries()
 

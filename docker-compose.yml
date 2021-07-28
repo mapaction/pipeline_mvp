@@ -14,7 +14,8 @@ services:
     volumes:
       - ./plugins/:/home/airflow/gcs/plugins/
       - ./data/:/opt/data/
-      - ./dags/:/home/airflow/gcs/dags/
+      - ./dags_utils/:/home/airflow/gcs/dags_utils/
+      - ./airflow_logic/dags/:/home/airflow/gcs/dags/
       - ./tests/:/home/airflow/gcs/tests/
       - ./.flake8:/home/airflow/gcs/.flake8
     environment:
