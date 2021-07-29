@@ -37,6 +37,8 @@ RUN mkdir -p ${AIRFLOW_USER_HOME}
 RUN mkdir -p /opt/data
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/dags_utils"
+
 USER airflow
 WORKDIR ${AIRFLOW_USER_HOME}
 ENTRYPOINT ["/entrypoint.sh"]
