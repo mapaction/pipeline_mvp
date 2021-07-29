@@ -1,7 +1,8 @@
 from airflow import DAG
 
 from dags_utils.utils.config_parser import config
-from dags_utils.utils.dag_configuration import (
+
+from dags.dags_utils.dag_configuration import (
     get_catchup,
     get_dags_configuration,
     get_default_arguments,

@@ -2,7 +2,7 @@ from airflow.operators.pipeline_plugin import (
     DefaultTransformOperator,
     OSMExtractOperator,
 )
-from utils.dag_configuration import get_dags_configuration
+from dags.dags_utils.dag_configuration import get_dags_configuration
 
 
 def fill_osm_dag(dag, config, dataset_name: str, country: str):
