@@ -1,7 +1,6 @@
 from airflow.utils.decorators import apply_defaults
 from airflow_logic.operators.BaseMapActionOperator import MapActionOperator
-
-from pipeline_plugin.extract.hdx_load import get_dataset_from_hdx
+from map_action_logic.extract.hdx_load import get_dataset_from_hdx
 
 
 class HDXExtractOperator(MapActionOperator):

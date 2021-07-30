@@ -14,6 +14,7 @@ services:
     volumes:
       - ./plugins/:/home/airflow/gcs/plugins/
       - ./airflow_logic/:/home/airflow/gcs/airflow_logic/
+      - ./map_action_logic/:/home/airflow/gcs/map_action_logic/
       - ./dags_utils/:/home/airflow/gcs/dags_utils/
       - ./data/:/opt/data/
       - ./airflow_logic/dags/:/home/airflow/gcs/dags/
