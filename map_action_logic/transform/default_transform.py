@@ -3,7 +3,7 @@ from map_action_logic.transform.general_transformers.osm_transform import transf
 from map_action_logic.transform.general_transformers.transform_to_crs import (
     transform_to_crs,
 )
-from pipeline_plugin.utils.files import load_file, save_shapefiles
+from storage_access.files import load_file, save_shapefiles
 
 
 def default_transform(

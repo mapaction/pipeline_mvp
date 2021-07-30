@@ -41,7 +41,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/dags_utils"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/map_action_logic"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/api_access/"
-ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_access/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_settings/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/config_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/storage_access/"
 
