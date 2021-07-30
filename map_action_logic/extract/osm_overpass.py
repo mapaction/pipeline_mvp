@@ -1,5 +1,5 @@
 from pipeline_plugin.utils.files import create_download_folder, save_file
-from pipeline_plugin.utils.requests_api import download_url
+from api_access.requests_api import download_url
 from pipeline_plugin.utils.yaml_api import parse_yaml
 from map_action_logic.extract.extract_utils.osm import convert_osm2gpkg
 

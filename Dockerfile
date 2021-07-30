@@ -40,6 +40,7 @@ RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/dags_utils"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/map_action_logic"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/api_access/"
 
 
 

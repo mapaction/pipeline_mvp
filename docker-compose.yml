@@ -15,6 +15,7 @@ services:
       - ./plugins/:/home/airflow/gcs/plugins/
       - ./airflow_logic/:/home/airflow/gcs/airflow_logic/
       - ./map_action_logic/:/home/airflow/gcs/map_action_logic/
+      - ./auxiliary_modules/api_access/:/home/airflow/gcs/api_access/
       - ./dags_utils/:/home/airflow/gcs/dags_utils/
       - ./data/:/opt/data/
       - ./airflow_logic/dags/:/home/airflow/gcs/dags/
