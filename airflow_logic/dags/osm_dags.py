@@ -1,13 +1,11 @@
 from airflow import DAG
-
-from dags_utils.utils.config_parser import config
-
-from dags.dags_utils.dag_configuration import (
+from airflow_logic.dags.dags_utils.dag_configuration import (
     get_catchup,
     get_dags_configuration,
     get_default_arguments,
     get_schedule_interval,
 )
+from dags_utils.utils.config_parser import config
 from dags_utils.utils.osm_dags_filler import fill_osm_dag
 
 # Defaults which can be overridden if needed

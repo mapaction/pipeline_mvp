@@ -1,6 +1,5 @@
 from airflow.utils.decorators import apply_defaults
-
-from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
+from airflow_logic.operators.BaseMapActionOperator import MapActionOperator
 
 
 class DefaultTransformOperator(MapActionOperator):

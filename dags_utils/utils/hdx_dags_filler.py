@@ -1,8 +1,7 @@
-from airflow.operators.pipeline_plugin import (
-    DefaultTransformOperator,
-    HDXAdmTransformOperator,
-    HDXExtractOperator,
-)
+from airflow_logic.operators.DefaultTransformOperator import DefaultTransformOperator
+from airflow_logic.operators.HDXAdmTransformOperator import  HDXAdmTransformOperator
+from airflow_logic.operators.HDXExtractOperator import HDXExtractOperator
+
 from pipeline_plugin.transform.default_transform import default_transform
 
 

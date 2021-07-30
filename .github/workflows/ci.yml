@@ -6,7 +6,6 @@ on:
   push:
     paths:
       - airflow_logic/**
-      - dags/**
       - plugins/**
       - tests/**
       - .github/workflows/ci.yml
@@ -28,4 +27,4 @@ jobs:
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
-          flake8 dags/ plugins/ tests/ --count --show-source --statistics
+          flake8 airflow_logic/ plugins/ tests/ --count --show-source --statistics

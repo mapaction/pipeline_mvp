@@ -1,7 +1,7 @@
 from airflow.utils.decorators import apply_defaults
+from airflow_logic.operators.BaseMapActionOperator import MapActionOperator
 
 from pipeline_plugin.extract.osm_overpass import extract_osm_query
-from pipeline_plugin.operators.BaseMapActionOperator import MapActionOperator
 
 
 class OSMExtractOperator(MapActionOperator):

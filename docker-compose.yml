@@ -13,7 +13,7 @@ services:
       - "8080:8080"
     volumes:
       - ./plugins/:/home/airflow/gcs/plugins/
-      #- ./dags_utils/:/home/airflow/gcs/plugins/dags_utils/
+      - ./airflow_logic/:/home/airflow/gcs/airflow_logic/
       - ./dags_utils/:/home/airflow/gcs/dags_utils/
       - ./data/:/opt/data/
       - ./airflow_logic/dags/:/home/airflow/gcs/dags/

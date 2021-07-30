@@ -38,6 +38,8 @@ RUN mkdir -p /opt/data
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/dags_utils"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic/operators"
 
 USER airflow
 WORKDIR ${AIRFLOW_USER_HOME}
