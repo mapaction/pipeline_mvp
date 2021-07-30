@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import os
 
-from pipeline_plugin.transform.default_transform import default_transform
+from map_action_logic.transform.default_transform import default_transform
 
 
 # TODO: create DagsConfig class, store args and config in .yaml

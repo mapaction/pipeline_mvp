@@ -2,7 +2,7 @@ from airflow_logic.operators.DefaultTransformOperator import DefaultTransformOpe
 from airflow_logic.operators.HDXAdmTransformOperator import  HDXAdmTransformOperator
 from airflow_logic.operators.HDXExtractOperator import HDXExtractOperator
 
-from pipeline_plugin.transform.default_transform import default_transform
+from map_action_logic.transform.default_transform import default_transform
 
 
 def fill_hdx_roads_dag(dag, config, country):

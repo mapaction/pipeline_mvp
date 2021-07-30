@@ -1,6 +1,6 @@
-from pipeline_plugin.transform.general_transformers.cod_transform import transform_cod
-from pipeline_plugin.transform.general_transformers.osm_transform import transform_osm
-from pipeline_plugin.transform.general_transformers.transform_to_crs import (
+from map_action_logic.transform.general_transformers.cod_transform import transform_cod
+from map_action_logic.transform.general_transformers.osm_transform import transform_osm
+from map_action_logic.transform.general_transformers.transform_to_crs import (
     transform_to_crs,
 )
 from pipeline_plugin.utils.files import load_file, save_shapefiles
