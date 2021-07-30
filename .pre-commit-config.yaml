@@ -18,7 +18,7 @@ repos:
     -   id: docker-python-flake8
         name: Python Flake8 (Docker)
         language: docker_image
-        files: ^airflow_logic\/|dags\/|plugins\/|tests\/
+        files: ^airflow_logic\/|plugins\/|tests\/
         types:
         -   file
         -   python
