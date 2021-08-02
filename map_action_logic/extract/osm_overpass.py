@@ -3,6 +3,7 @@ from map_action_logic.extract.extract_utils.osm import convert_osm2gpkg
 from storage_access.files import create_download_folder, save_file
 from storage_access.yaml_api import parse_yaml
 
+
 def extract_osm_query(
     osm_url,
     country_iso2,

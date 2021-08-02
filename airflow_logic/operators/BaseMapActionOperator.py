@@ -7,8 +7,7 @@ from airflow.utils.decorators import apply_defaults
 from airflow_logic.operators.operators_utils.deep_inspection import (
     get_function_information,
 )
-
-from pipeline_plugin.pipeline_config.config_parser import config
+from gcp_settings.environment_config import config
 
 
 class MapActionKubernetesPodOperator(KubernetesPodOperator):

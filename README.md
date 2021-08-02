@@ -172,7 +172,7 @@ this project. Black formatting will automatically be checked as part of the [Fla
 To run manually:
 
 ```
-$ docker compose run airflow black dags/ plugins/ tests/
+$ docker-compose run airflow black dags/ plugins/ tests/ airflow_logic/ map_action_logic/ gcp_settings/ storage_access/ config_access/ api_access/
 ```
 
 ## Package security

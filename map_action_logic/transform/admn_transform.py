@@ -6,8 +6,6 @@ from airflow.exceptions import AirflowFailException
 import fiona
 import geopandas as gpd
 from jsonschema import validate
-
-
 from storage_access.files import load_file, save_shapefiles
 from storage_access.yaml_api import parse_yaml
 

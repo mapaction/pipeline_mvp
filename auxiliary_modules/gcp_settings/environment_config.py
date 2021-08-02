@@ -9,31 +9,12 @@ class Config:
     def __init__(self, path=None):
         if path is None:
             if os.environ.get("ENVIRONMENT") == "LOCAL":
-                path = (
-                    Path(os.getcwd())
-                    / "plugins"
-                    / "pipeline_plugin"
-                    / "pipeline_config"
-                )
+                path = Path(os.getcwd()) / "gcp_settings"
             else:
                 if self.is_inside_kubernetes_pod():
-                    path = (
-                        Path("/")
-                        / "usr"
-                        / "src"
-                        / "pipeline_plugin"
-                        / "pipeline_config"
-                    )
+                    path = Path("/") / "usr" / "src" / "gcp_settings"
                 else:
-                    path = (
-                        Path("/")
-                        / "home"
-                        / "airflow"
-                        / "gcs"
-                        / "plugins"
-                        / "pipeline_plugin"
-                        / "pipeline_config"
-                    )
+                    path = Path("/") / "home" / "airflow" / "gcs" / "gcp_settings"
 
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
@@ -42,32 +23,39 @@ class Config:
             self.environment_config = yaml.safe_load(f)
             self.raw_config.update(self.environment_config)
 
-    def is_inside_gcp(self):
+    @staticmethod
+    def is_inside_gcp():
         return os.environ.get("GCP") == "TRUE"
 
-    def is_inside_kubernetes_pod(self):
+    @staticmethod
+    def is_inside_kubernetes_pod():
         return os.getenv("INSIDE_KUBERNETES_POD") == "TRUE"
 
-    def use_kubernetes(self):
+    @staticmethod
+    def use_kubernetes():
         return os.environ.get("ENVIRONMENT") != "LOCAL"
 
-    def use_remote_storage(self):
+    @staticmethod
+    def use_remote_storage():
         return os.environ.get("ENVIRONMENT") != "LOCAL"
 
-    def get_remote_data_path(self, relative_path):
+    @staticmethod
+    def get_remote_data_path(relative_path):
         return os.path.join(Path("data"), relative_path)
 
-    def get_local_data_path(self, relative_path):
+    @staticmethod
+    def get_local_data_path(relative_path):
         if os.environ.get("ENVIRONMENT") == "LOCAL":
             return Path("/") / "opt" / "data" / relative_path
         else:
             return Path("/") / "usr" / "src" / "data" / relative_path
 
+    @staticmethod
+    def get_docker_image_version():
+        return Variable.get("DOCKER_IMAGE_VERSION", default_var="latest")
+
     def get_data_bucket_name(self):
         return self.raw_config["googleCloudStorage"]["dataBucketName"]
-
-    def get_docker_image_version(self):
-        return Variable.get("DOCKER_IMAGE_VERSION", default_var="latest")
 
     def get_docker_image(self):
         return (

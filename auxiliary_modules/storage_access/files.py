@@ -5,9 +5,8 @@ import tempfile
 import time
 from typing import Union
 
+from gcp_settings.environment_config import config
 import geopandas as gpd
-
-from pipeline_plugin.pipeline_config.config_parser import config
 from storage_access.google_cloud_storage import download_file, upload_file
 
 CACHE_INVALID_AFTER_DAYS = 7

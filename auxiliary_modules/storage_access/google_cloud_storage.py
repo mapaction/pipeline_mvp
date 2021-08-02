@@ -1,8 +1,7 @@
 from pathlib import Path
 
+from gcp_settings.environment_config import config
 from google.cloud import storage
-
-from pipeline_plugin.pipeline_config.config_parser import config
 
 
 class GoogleCloudStorageClient:

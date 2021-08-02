@@ -21,8 +21,17 @@ RUN pip install -r /usr/src/requirements.txt
 # Copy code into container
 COPY plugins/pipeline_plugin /usr/src/pipeline_plugin
 
+COPY auxiliary_modules/api_access /usr/src/api_access
+COPY auxiliary_modules/config_access /usr/src/config_access
+COPY auxiliary_modules/gcp_access /usr/src/gcp_access
+COPY auxiliary_modules/storage_access /usr/src/storage_access
+
 # Add /usr/src to PYTHONPATH
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src"
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/api_access"
+ENV PYTHONPATH "${PYTHONPATH}:/usr/srcconfig_access"
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/gcp_access"
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/storage_access"
 
 RUN mkdir /usr/src/data
 
