@@ -1,7 +1,6 @@
 from airflow_logic.operators.DefaultTransformOperator import DefaultTransformOperator
-from airflow_logic.operators.HDXAdmTransformOperator import  HDXAdmTransformOperator
+from airflow_logic.operators.HDXAdmTransformOperator import HDXAdmTransformOperator
 from airflow_logic.operators.HDXExtractOperator import HDXExtractOperator
-
 from map_action_logic.transform.default_transform import default_transform
 
 

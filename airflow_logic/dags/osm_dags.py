@@ -5,8 +5,8 @@ from airflow_logic.dags.dags_utils.dag_configuration import (
     get_default_arguments,
     get_schedule_interval,
 )
+from airflow_logic.dags.dags_utils.osm_dags_filler import fill_osm_dag
 from config_access.config_parser import config
-from dags_utils.utils.osm_dags_filler import fill_osm_dag
 
 # Defaults which can be overridden if needed
 default_args = get_default_arguments()
