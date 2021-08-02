@@ -29,7 +29,7 @@ COPY auxiliary_modules/storage_access /usr/src/storage_access
 # Add /usr/src to PYTHONPATH
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src"
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src/api_access"
-ENV PYTHONPATH "${PYTHONPATH}:/usr/srcconfig_access"
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/config_access"
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src/gcp_access"
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src/storage_access"
 

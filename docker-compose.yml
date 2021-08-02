@@ -13,6 +13,7 @@ services:
       - "8080:8080"
     volumes:
       - ./plugins/:/home/airflow/gcs/plugins/
+      - ./configs/:/home/airflow/gcs/configs/
       - ./airflow_logic/:/home/airflow/gcs/airflow_logic/
       - ./map_action_logic/:/home/airflow/gcs/map_action_logic/
       - ./auxiliary_modules/api_access/:/home/airflow/gcs/api_access/

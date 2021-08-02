@@ -44,6 +44,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/api_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_settings/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/config_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/storage_access/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/configs/"
 
 
 USER airflow

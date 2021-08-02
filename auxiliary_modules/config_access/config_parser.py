@@ -11,23 +11,19 @@ class Config:
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
             self._DATA_FOLDER = Path("data")
-            self._SCHEMAS_FOLDER = (
-                Path("/") / "usr" / "src" / "pipeline_plugin" / "schemas"
-            )
+            self._SCHEMAS_FOLDER = Path("/") / "usr" / "src" / "configs" / "schemas"
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
             self._DATA_FOLDER = Path("/") / "opt" / "data"
-            self._SCHEMAS_FOLDER = (
-                self._MAIN_AIRFLOW_FOLDER / "plugins" / "pipeline_plugin" / "schemas"
-            )
+            self._SCHEMAS_FOLDER = self._MAIN_AIRFLOW_FOLDER / "configs" / "schemas"
         if not path:
-            path = self._MAIN_AIRFLOW_FOLDER / "dags_utils" / "country_config"
+            path = self._MAIN_AIRFLOW_FOLDER / "configs"
         with open(path / "config.yaml") as f:
             self.raw_config = yaml.safe_load(f)
         self.country_config = dict()
         self.countries = []
-        for country_config in os.listdir(path / "countries"):
-            with open(path / "countries" / country_config) as f:
+        for country_config in os.listdir(path / "country_configs"):
+            with open(path / "country_configs" / country_config) as f:
                 country = country_config.split(".")[0]
                 self.country_config[country] = yaml.safe_load(f)
                 self.countries.append(country)
