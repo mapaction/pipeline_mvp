@@ -5,7 +5,7 @@ from airflow_logic.dags.dags_utils.dag_configuration import (
     get_default_arguments,
     get_schedule_interval,
 )
-from dags_utils.utils.config_parser import config
+from config_access.config_parser import config
 from dags_utils.utils.hdx_dags_filler import (
     fill_hdx_adm_dag,
     fill_hdx_roads_dag,
