@@ -30,15 +30,21 @@ Platform using Airflow.
 GitLab Actions configuration files (see [Continuous Deployment](#continuous-deployment)).
 
 `/airflow_logic`
+
 Folder with high-level scripts related to airflow (DAGs, Operators, etc).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`/dags`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Folder with the DAG scripts, every DAG instance in the global namespace will be available inside Airflow.
+`/map_action_logic`
 
-`/plugins`
+Folder with the core MapAction logic.
 
-Folder with the `pipeline_plugin` that contains the custom operators and the domain logic.
+`/auxiliary modules`
+
+Folder with low-level supportive functions
+
+`/configs`
+
+Folder with configs and chemas
 
 `/data`
 
@@ -161,7 +167,7 @@ specific code standards for this project. Flake8 checks will be automatically ru
 To run manually:
 
 ```
-$ docker compose run airflow flake8 dags/ plugins/ tests/
+$ docker compose run airflow flake8 dags/ plugins/ tests/ airflow_logic/ map_action_logic/ gcp_settings/ storage_access/ config_access/ api_access/
 ```
 
 ### Black
