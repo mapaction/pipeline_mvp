@@ -19,3 +19,10 @@ class FallbackDict:
                 return FallbackDict(None, self.custom_values[key])
         else:
             return self.custom_values[key]
+
+    def __len__(self):
+        length = len(self.default_values)
+        for value in self.custom_values:
+            if value not in self.default_values:
+                length += 1
+        return length
