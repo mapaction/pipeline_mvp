@@ -20,6 +20,13 @@ class FallbackDeepTestCase:
     value: str
 
 
+@dataclass
+class FallbackErrorTestCase:
+    default_values: dict
+    custom_values: dict
+    keys: tuple
+
+
 FALLBACK_SIMPLE_TEST_CASES = [
     FallbackTestCase(
         {"Country": "UK"}, {"City": "London"}, {"Country": "UK", "City": "London"}
@@ -175,3 +182,48 @@ def test_deep_inclusion_fallback_dict(case):
     for i in range(1, len(case.keys)):
         answer_value = answer_value[case.keys[i]]
     assert answer_value == case.value
+
+
+FALLBACK_NO_VALUE_CASES = [
+    FallbackErrorTestCase(
+        {"Country": "UK", "City": "Unknown", "Year": "Unknown"},
+        {"City": "London", "Year": 2021},
+        ("Month",),
+    ),
+    FallbackErrorTestCase(
+        {"Moscow": {"South": {"Brateevo": {"Square": "348"}}}},
+        {"Moscow": {"South": {"Brateevo": {"Square": "763"}}}},
+        ("Moscow", "East"),
+    ),
+    FallbackErrorTestCase(
+        {"Moscow": {"South": {"Brateevo": {"Square": "348"}}}},
+        {"Moscow": {"South": {"Brateevo": {"Square": "763"}}}},
+        ("Moscow", "South", "Brateevo", "Population"),
+    ),
+    FallbackErrorTestCase(
+        {"Moscow": {"South": {"Population": "Unknown"}}},
+        {"Moscow": {"South": {"Population": "1.59"}}},
+        ("London",),
+    ),
+    FallbackErrorTestCase(
+        {"Moscow": {"South": {"Brateevo": None}}},
+        {},
+        ("Moscow", "South", "Brateevo", "Square"),
+    ),
+    FallbackErrorTestCase(
+        {"Moscow": {"Population": "11.92"}}, {}, ("Moscow", "Population", "History")
+    ),
+]
+
+
+@pytest.mark.parametrize("case", FALLBACK_NO_VALUE_CASES)
+def test_no_value_fallback_dict(case):
+    fallback_dict = FallbackDict(case.default_values, case.custom_values)
+    try:
+        answer_value = fallback_dict[case.keys[0]]
+        for i in range(1, len(case.keys)):
+            answer_value = answer_value[case.keys[i]]
+    except KeyError:
+        pass
+    except TypeError:
+        pass
