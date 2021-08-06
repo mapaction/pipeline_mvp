@@ -2,8 +2,9 @@ import os
 from pathlib import Path
 from typing import List
 
-from config_access.fallback_dict import FallbackDict
 import yaml
+
+from .fallback_dict import FallbackDict
 
 
 class Config:
