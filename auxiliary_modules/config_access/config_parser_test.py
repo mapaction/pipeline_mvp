@@ -53,6 +53,36 @@ class HDXGetCodProcessedFilePathCase:
     processed_filepath: str
 
 
+@dataclass
+class GetDamnLayerCase:
+    datatype: str
+    layer: str
+
+
+@dataclass
+class GetGeoboundariesRawCase:
+    datatype: str
+    geoboundaries: str
+
+
+@dataclass
+class GetIsoCase:
+    country: str
+    iso_code: str
+
+
+@dataclass
+class GetSchemaMappingOsmSourceCase:
+    dataset_name: str
+    fclass: str
+
+
+@dataclass
+class GetSchemaMappingCodSourceCase:
+    dataset_name: str
+    schem_mapping: dict
+
+
 # TESTS FOR PUBLIC METHODS
 
 
@@ -272,4 +302,136 @@ def test_get_cod_processed_filepath(case):
         end = case.processed_filepath.format(config.get_iso3(country)).lower()
         assert config.get_cod_processed_filepath(country, case.dataset_name).endswith(
             end
+        )
+
+
+def test_roads_schema():
+    answer = config.get_roads_schema()
+    assert answer.endswith("/configs/schemas/roads_affected_area_ln.yml")
+
+
+def test_get_crs():
+    assert config.get_crs() == "EPSG:4326"
+
+
+GET_GADM_LAYERS_CASES = [
+    GetDamnLayerCase("adm0", "gadm36_{ISO3}_0"),
+    GetDamnLayerCase("adm1", "gadm36_{ISO3}_1"),
+    GetDamnLayerCase("adm2", "gadm36_{ISO3}_2"),
+    GetDamnLayerCase("adm3", "gadm36_{ISO3}_3"),
+]
+
+
+@pytest.mark.parametrize("case", GET_GADM_LAYERS_CASES)
+def test_get_gadm_level(case):
+    assert config.get_gadm_layer(case.datatype) == case.layer
+
+
+GET_GEOBOUNDARIES_RAW_CASES = [
+    GetGeoboundariesRawCase("adm0", "/{}/GIS/1_Original_Data/geobnd_adm0.zip"),
+    GetGeoboundariesRawCase("adm1", "/{}/GIS/1_Original_Data/geobnd_adm1.zip"),
+    GetGeoboundariesRawCase("adm2", "/{}/GIS/1_Original_Data/geobnd_adm2.zip"),
+    GetGeoboundariesRawCase("adm3", "/{}/GIS/1_Original_Data/geobnd_adm3.zip"),
+]
+
+
+@pytest.mark.parametrize("case", GET_GEOBOUNDARIES_RAW_CASES)
+def test_get_geoboundaries_raw(case):
+    for country in PARSED_COUNTRIES:
+        end = case.geoboundaries.format(country)
+        assert config.get_geoboundaries_raw(country, case.datatype).endswith(end)
+
+
+GET_ISO3_CASES = [
+    GetIsoCase("bangladesh", "BGD"),
+    GetIsoCase("cameroon", "CMR"),
+    GetIsoCase("dominica", "DMA"),
+    GetIsoCase("dominican_republic", "DOM"),
+    GetIsoCase("haiti", "HTI"),
+    GetIsoCase("fiji", "FJI"),
+    GetIsoCase("malawi", "MWI"),
+    GetIsoCase("nepal", "NPL"),
+    GetIsoCase("pakistan", "PAK"),
+    GetIsoCase("philippines", "PHL"),
+    GetIsoCase("south_sudan", "SSD"),
+    GetIsoCase("vanuatu", "VUT"),
+    GetIsoCase("yemen", "YEM"),
+]
+
+
+@pytest.mark.parametrize("case", GET_ISO3_CASES)
+def test_get_iso3(case):
+    assert config.get_iso3(case.country) == case.iso_code
+
+
+GET_ISO2_CASES = [
+    GetIsoCase("bangladesh", "BD"),
+    GetIsoCase("cameroon", "CM"),
+    GetIsoCase("dominica", "DM"),
+    GetIsoCase("dominican_republic", "DO"),
+    GetIsoCase("haiti", "HT"),
+    GetIsoCase("fiji", "FJ"),
+    GetIsoCase("malawi", "MW"),
+    GetIsoCase("nepal", "NP"),
+    GetIsoCase("pakistan", "PK"),
+    GetIsoCase("philippines", "PH"),
+    GetIsoCase("south_sudan", "SS"),
+    GetIsoCase("vanuatu", "VU"),
+    GetIsoCase("yemen", "YE"),
+]
+
+
+@pytest.mark.parametrize("case", GET_ISO2_CASES)
+def test_get_iso2(case):
+    assert config.get_iso2(case.country) == case.iso_code
+
+
+GET_SCHEMA_MAPPING_OSM_SOURCE_CASES = [
+    GetSchemaMappingOsmSourceCase("roads", "highway"),
+    GetSchemaMappingOsmSourceCase("rail", "railway"),
+    GetSchemaMappingOsmSourceCase("airports", "aerodrome:type"),
+    GetSchemaMappingOsmSourceCase("seaports", "port:type"),
+    GetSchemaMappingOsmSourceCase("rivers", "waterway"),
+    GetSchemaMappingOsmSourceCase("lakes", "water"),
+    GetSchemaMappingOsmSourceCase("seas", "water"),
+    GetSchemaMappingOsmSourceCase("places", "place"),
+]
+
+
+@pytest.mark.parametrize("case", GET_SCHEMA_MAPPING_OSM_SOURCE_CASES)
+def test_get_schema_mapping_osm_source(case):
+    for country in PARSED_COUNTRIES:
+        answer = {"name:en": "name_en", "name": "name_loc", case.fclass: "fclass"}
+        assert config.get_schema_mapping("osm", country, case.dataset_name) == answer
+
+
+# TODO: Set the correct schema mappings in tests and fix the code
+GET_SCHEMA_MAPPING_COD_SOURCE_CASES = [
+    GetSchemaMappingCodSourceCase(
+        "roads", {"name:en": "name_en", "name": "name_loc", "highway": "fclass"}
+    ),
+    GetSchemaMappingCodSourceCase(
+        "adm0", {"admin0Name_en": "ADM0_EN", "pcode": "ADM0_PCODE"}
+    ),
+    GetSchemaMappingCodSourceCase(
+        "adm1",
+        {"admin1Name_en": "ADM1_EN", "pcode": "ADM1_PCODE", "par_pcode": "par_pcode"},
+    ),
+    GetSchemaMappingCodSourceCase(
+        "adm2",
+        {"ADM2_EN": "ADM2_EN", "ADM2_PCODE": "ADM2_PCODE", "ADM1_PCODE": "par_pcode"},
+    ),
+    GetSchemaMappingCodSourceCase(
+        "adm3",
+        {"ADM3_EN": "ADM3_EN", "ADM3_PCODE": "ADM3_PCODE", "ADM2_PCODE": "par_pcode"},
+    ),
+]
+
+
+@pytest.mark.parametrize("case", GET_SCHEMA_MAPPING_COD_SOURCE_CASES)
+def test_get_schema_mapping_cod_source(case):
+    for country in PARSED_COUNTRIES:
+        assert (
+            config.get_schema_mapping("cod", country, case.dataset_name)
+            == case.schem_mapping
         )
