@@ -41,6 +41,18 @@ class OSMGetRawProcessedPathCase:
     processed_path: str
 
 
+@dataclass
+class HDXGetOutputSchemaCase:
+    datatype: str
+    schema: str
+
+
+@dataclass
+class HDXGetCodProcessedFilePathCase:
+    dataset_name: str
+    processed_filepath: str
+
+
 # TESTS FOR PUBLIC METHODS
 
 
@@ -220,3 +232,44 @@ def test_get_osm_query_schema():
         for dataset_name in OSM_DATA_TYPES:
             postfix = OSM_QUERY_CORRECT_PATH.format(dataset_name)
             assert config.get_osm_query_schema(country, dataset_name).endswith(postfix)
+
+
+HDX_GET_OUTPUT_SCHEMA_CASES = [
+    HDXGetOutputSchemaCase("adm0", "admin0_affected_area_py.yml"),
+    HDXGetOutputSchemaCase("adm1", "admin1_affected_area_py.yml"),
+    HDXGetOutputSchemaCase("adm2", "admin2_affected_area_py.yml"),
+    HDXGetOutputSchemaCase("adm3", "admin3_affected_area_py.yml"),
+]
+
+
+@pytest.mark.parametrize("case", HDX_GET_OUTPUT_SCHEMA_CASES)
+def test_get_hdx_output_schema(case):
+    for country in PARSED_COUNTRIES:
+        assert config.get_hdx_output_schema(country, case.datatype).endswith(
+            case.schema
+        )
+
+
+GET_COD_PROCESSED_FILEPATH_CASES = [
+    HDXGetCodProcessedFilePathCase(
+        "adm0", "/202_admn/{}_admn_ad0_py_s0_unocha_pp_pipeline_generated.shp"
+    ),
+    HDXGetCodProcessedFilePathCase(
+        "adm1", "/202_admn/{}_admn_ad1_py_s1_unocha_pp_pipeline_generated.shp"
+    ),
+    HDXGetCodProcessedFilePathCase(
+        "adm2", "/202_admn/{}_admn_ad2_py_s2_unocha_pp_pipeline_generated.shp"
+    ),
+    HDXGetCodProcessedFilePathCase(
+        "adm3", "/202_admn/{}_admn_ad3_py_s3_unocha_pp_pipeline_generated.shp"
+    ),
+]
+
+
+@pytest.mark.parametrize("case", GET_COD_PROCESSED_FILEPATH_CASES)
+def test_get_cod_processed_filepath(case):
+    for country in PARSED_COUNTRIES:
+        end = case.processed_filepath.format(config.get_iso3(country)).lower()
+        assert config.get_cod_processed_filepath(country, case.dataset_name).endswith(
+            end
+        )
