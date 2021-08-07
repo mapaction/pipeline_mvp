@@ -14,7 +14,7 @@ def fill_osm_dag(dag, config, dataset_name: str, country: str):
             country=country, dataset_name=dataset_name
         ),
         osm_output_filename=config.get_raw_osm_data_path(
-            country=country, dataset_name=dataset_name, format="raw_osm"
+            country=country, dataset_name=dataset_name, format="raw_xml"
         ),
         gpkg_output_filename=config.get_raw_osm_data_path(
             country=country, dataset_name=dataset_name, format="raw_gpkg"

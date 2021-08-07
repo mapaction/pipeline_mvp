@@ -26,6 +26,21 @@ class HDXGetRawCODFilenameCase:
     filename: str
 
 
+@dataclass
+class OSMGetRawDataPathCase:
+    country: str
+    dataset_name: str
+    format: str
+    path: str
+
+
+@dataclass
+class OSMGetRawProcessedPathCase:
+    country: str
+    dataset_name: str
+    processed_path: str
+
+
 # TESTS FOR PUBLIC METHODS
 
 
@@ -128,10 +143,80 @@ HDX_GET_RAW_COD_FILENAME_CASES = [
 
 @pytest.mark.parametrize("case", HDX_GET_RAW_COD_FILENAME_CASES)
 def test_get_raw_cod_filename(case):
-
-    assert (
+    assert config.get_cod_raw_filename(case.country, case.datatype).endswith(
         case.filename
-        == config.get_cod_raw_filename(case.country, case.datatype)[
-            -len(case.filename) :
-        ]
     )
+
+
+def test_get_osm_url():
+    for country in PARSED_COUNTRIES:
+        assert config.get_osm_url(country).startswith("http://overpass-api.de/")
+
+
+RAW_OSM_DATA_PATH_CASES = [
+    OSMGetRawDataPathCase("fiji", "roads", "raw_xml", "fji_osm_roads.xml"),
+    OSMGetRawDataPathCase("yemen", "rail", "raw_xml", "yem_osm_rail.xml"),
+    OSMGetRawDataPathCase(
+        "bangladesh", "airports", "raw_gpkg", "bgd_osm_airports.gpkg"
+    ),
+    OSMGetRawDataPathCase("dominica", "seaports", "raw_gpkg", "dma_osm_seaports.gpkg"),
+]
+
+
+@pytest.mark.parametrize("case", RAW_OSM_DATA_PATH_CASES)
+def test_get_raw_osm_data_path(case):
+    country = case.country
+    dataformat = case.format
+    dataset_name = case.dataset_name
+    path = case.path
+    assert config.get_raw_osm_data_path(country, dataset_name, dataformat).endswith(
+        path
+    )
+
+
+GET_RAW_OSM_PROCESSED_PATH_CASES = [
+    OSMGetRawProcessedPathCase(
+        "yemen", "roads", "/232_tran/yem_tran_rds_ln_s1_osm_pp_pipeline_generated.shp"
+    ),
+    OSMGetRawProcessedPathCase(
+        "bangladesh",
+        "rail",
+        "/232_tran/bgd_tran_rrd_ln_s1_osm_pp_pipeline_generated.shp",
+    ),
+    OSMGetRawProcessedPathCase(
+        "fiji", "lakes", "/221_phys/fji_phys_lak_py_s1_osm_pp_pipeline_generated.shp"
+    ),
+    OSMGetRawProcessedPathCase(
+        "cameroon",
+        "rivers",
+        "/221_phys/cmr_phys_riv_ln_s1_osm_pp_pipeline_generated.shp",
+    ),
+]
+
+
+@pytest.mark.parametrize("case", GET_RAW_OSM_PROCESSED_PATH_CASES)
+def test_get_raw_osm_processed_filepath(case):
+    assert config.get_osm_processed_filepath(case.country, case.dataset_name).endswith(
+        case.processed_path
+    )
+
+
+# The list of osm data types must be updated when including new countries to the pipeline.
+OSM_DATA_TYPES = (
+    "roads",
+    "rail",
+    "seaports",
+    "airports",
+    "places",
+    "rivers",
+    "lakes",
+    "seas",
+)
+OSM_QUERY_CORRECT_PATH = "/configs/schemas/overpass_queries/osm_tags_{}.yml"
+
+
+def test_get_osm_query_schema():
+    for country in PARSED_COUNTRIES:
+        for dataset_name in OSM_DATA_TYPES:
+            postfix = OSM_QUERY_CORRECT_PATH.format(dataset_name)
+            assert config.get_osm_query_schema(country, dataset_name).endswith(postfix)

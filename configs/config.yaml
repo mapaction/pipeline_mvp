@@ -84,7 +84,7 @@ osm:
   url: 'http://overpass-api.de/api/interpreter?'
   roads:
     osm_tags: 'osm_tags_roads.yml'
-    raw_osm: '{iso3}_osm_roads.xml'
+    raw_xml: '{iso3}_osm_roads.xml'
     raw_gpkg: '{iso3}_osm_roads.gpkg'
     filename:
       category: tran
@@ -99,7 +99,7 @@ osm:
       fclass: highway
   rail:
     osm_tags: 'osm_tags_rail.yml'
-    raw_osm: '{iso3}_osm_rail.xml'
+    raw_xml: '{iso3}_osm_rail.xml'
     raw_gpkg: '{iso3}_osm_rail.gpkg'
     filename:
       category: tran
@@ -114,8 +114,8 @@ osm:
       fclass: railway
   airports:
     osm_tags: 'osm_tags_airports.yml'
-    raw_osm: osm_airports.xml
-    raw_gpkg: osm_airports.gpkg
+    raw_xml: '{iso3}_osm_airports.xml'
+    raw_gpkg: '{iso3}_osm_airports.gpkg'
     filename:
       category: tran
       theme: air
@@ -129,8 +129,8 @@ osm:
       fclass: aerodrome:type
   seaports:
     osm_tags: 'osm_tags_seaports.yml'
-    raw_osm: osm_seaports.xml
-    raw_gpkg: osm_seaports.gpkg
+    raw_xml: '{iso3}_osm_seaports.xml'
+    raw_gpkg: '{iso3}_osm_seaports.gpkg'
     filename:
       category: tran
       theme: por
@@ -141,11 +141,11 @@ osm:
     column_names:
       name_en: 'name:en'
       name_loc: name
-      fclass: port:type # no fclass???
+      fclass: port:type # no fclass?
   lakes:
     osm_tags: 'osm_tags_lakes.yml'
-    raw_osm: osm_lakes.xml
-    raw_gpkg: osm_lakes.gpkg
+    raw_xml: '{iso3}_osm_lakes.xml'
+    raw_gpkg: '{iso3}_osm_lakes.gpkg'
     filename:
       category: phys
       theme: lak
@@ -159,8 +159,8 @@ osm:
       fclass: water
   rivers:
     osm_tags: 'osm_tags_rivers.yml'
-    raw_osm: osm_rivers.xml
-    raw_gpkg: osm_rivers.gpkg
+    raw_xml: '{iso3}_osm_rivers.xml'
+    raw_gpkg: '{iso3}_osm_rivers.gpkg'
     filename:
       category: phys
       theme: riv
@@ -174,8 +174,8 @@ osm:
       fclass: waterway
   seas:
     osm_tags: 'osm_tags_seas.yml'
-    raw_osm: osm_seas.xml
-    raw_gpkg: osm_seas.gpkg
+    raw_xml: '{iso3}_osm_seas.xml'
+    raw_gpkg: '{iso3}_osm_seas.gpkg'
     filename:
       category: phys
       theme: sea
@@ -189,8 +189,8 @@ osm:
       fclass: water
   places:
     osm_tags: 'osm_tags_places.yml'
-    raw_osm: osm_places.xml
-    raw_gpkg: osm_places.gpkg
+    raw_xml: '{iso3}_osm_places.xml'
+    raw_gpkg: '{iso3}_osm_places.gpkg'
     filename:
       category: stle
       theme: stl

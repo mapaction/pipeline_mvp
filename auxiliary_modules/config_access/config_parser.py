@@ -125,13 +125,13 @@ class Config:
         return self._get_osm(country=country)["url"]
 
     def get_raw_osm_data_path(
-        self, country: str, dataset_name: str, format: str = "raw_osm"
+        self, country: str, dataset_name: str, format: str = "raw_xml"
     ):
         """
         Get filename of osm raw datafile.
         :param country: desired country.
         :param dataset_name: desired data artefact: 'rail', 'roads', 'seaports', etc.
-        :param format: 'raw_osm' or 'raw_gpkg'
+        :param format: 'raw_xml' or 'raw_gpkg'
         :return:
         """
         return os.path.join(
