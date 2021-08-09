@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2021-07-09T05:16:21.055Z" agent="5.0 (Windows)" etag="viSUkaZKcJtG6Mif0dQU" version="14.8.5" type="google" pages="2">
+  <diagram name="Page-1" id="c7558073-3199-34d8-9f00-42111426c3f3">
+    <mxGraphModel dx="3114" dy="1317" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5" value="Data Pipeline Architecture" style="shape=process;whiteSpace=wrap;align=center;verticalAlign=middle;size=0.0475;fontStyle=1;strokeWidth=3;fillColor=#FFCCCC;fontSize=30;" parent="1" vertex="1">
+          <mxGeometry x="500" y="30" width="540" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;DAGs&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#E6FFCC" parent="1" vertex="1">
+          <mxGeometry x="540" y="150" width="310" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-96" value="HDX DAGs" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="550" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-97" value="OSM DAGs" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="710" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-100" value="&lt;font style=&quot;font-size: 24px&quot;&gt;Operators&lt;/font&gt;" style="swimlane;html=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;horizontal=1;startSize=20;horizontalStack=0;fontSize=18;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="150" width="480" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-101" value="&lt;div&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;Transform operators&lt;/font&gt;&lt;/div&gt;" style="swimlane;html=1;startSize=20;horizontal=0;fillColor=#d5e8d4;strokeColor=#82b366;glass=0;rounded=0;" parent="XiQuW-xQ6s5TS-nq2A6A-100" vertex="1">
+          <mxGeometry y="20" width="480" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-117" value="HDX Transform&amp;nbsp; Operators" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="XiQuW-xQ6s5TS-nq2A6A-101" vertex="1">
+          <mxGeometry x="60" y="55" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-120" value="OSMTransform&amp;nbsp; Operators" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="XiQuW-xQ6s5TS-nq2A6A-101" vertex="1">
+          <mxGeometry x="280" y="55" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-104" value="&lt;div&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;Extract operators&lt;/font&gt;&lt;/div&gt;" style="swimlane;html=1;startSize=20;horizontal=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="XiQuW-xQ6s5TS-nq2A6A-100" vertex="1">
+          <mxGeometry y="190" width="480" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-116" value="HDX Extract Operators" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="XiQuW-xQ6s5TS-nq2A6A-104" vertex="1">
+          <mxGeometry x="60" y="80" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-119" value="OSM Extract Operators" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="XiQuW-xQ6s5TS-nq2A6A-104" vertex="1">
+          <mxGeometry x="280" y="80" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-126" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="XiQuW-xQ6s5TS-nq2A6A-100" target="6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1000" y="330" as="sourcePoint" />
+            <mxPoint x="780" y="146" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1050" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-127" value="Operators are DAG vertices" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="760" y="120" width="420" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-128" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;DAGs utils&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="-240" y="150" width="470" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-129" value="Fallback dict" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="-210" y="205" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-130" value="Config parser" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="110" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-131" value="DAG config" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="100" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-133" value="&lt;p&gt;Fallback Dict is used to fill gaps in the country config using data from the general config&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="280" width="270" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-137" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=30;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="XiQuW-xQ6s5TS-nq2A6A-131" target="6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="500" as="sourcePoint" />
+            <mxPoint x="683" y="110" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="260" y="240" />
+              <mxPoint x="260" y="110" />
+              <mxPoint x="618" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-138" value="&lt;div&gt;DAG config contains DAG&lt;/div&gt;&lt;div&gt;arguments such as default params and info about whether we&#39;re developing things locally or in GCP&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="270" y="120" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-140" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;" parent="1" source="XiQuW-xQ6s5TS-nq2A6A-129" target="XiQuW-xQ6s5TS-nq2A6A-130" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-60" y="430" as="sourcePoint" />
+            <mxPoint x="-10" y="380" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="20" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-142" value="Config entity is needed to access country specific arguments that are used to create operators" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="345" y="360" width="340" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-144" value="Schemas contain information for each data type. This info is later used to create operators" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="450" y="1800" width="360" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="XiQuW-xQ6s5TS-nq2A6A-148" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;fontSize=18;entryX=0.024;entryY=0.997;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="XiQuW-xQ6s5TS-nq2A6A-130" target="XiQuW-xQ6s5TS-nq2A6A-101" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="810" y="480" as="sourcePoint" />
+            <mxPoint x="860" y="430" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="980" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-6" value="&lt;font style=&quot;font-size: 24px&quot;&gt;BaseMapAction operators&lt;/font&gt;" style="swimlane;html=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;horizontal=1;startSize=20;horizontalStack=0;fontSize=18;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="730" width="480" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-7" value="" style="swimlane;html=1;startSize=20;horizontal=0;fillColor=#f5f5f5;strokeColor=#666666;glass=0;rounded=0;fontColor=#333333;" parent="hq5fzKsgdrRfx1hr4r4I-6" vertex="1">
+          <mxGeometry y="20" width="480" height="170" as="geometry">
+            <mxRectangle y="20" width="480" height="20" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-8" value="MapAction Python Operator" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="hq5fzKsgdrRfx1hr4r4I-7" vertex="1">
+          <mxGeometry x="40" y="40" width="170" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-9" value="&lt;div&gt;MapAction&lt;/div&gt;&lt;div&gt;&lt;span class=&quot;pl-v&quot;&gt;&lt;span class=&quot;pl-token&quot;&gt;KubernetesPod Operator&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="hq5fzKsgdrRfx1hr4r4I-7" vertex="1">
+          <mxGeometry x="250" y="40" width="180" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-13" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-6" target="XiQuW-xQ6s5TS-nq2A6A-104" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1100" y="640" as="sourcePoint" />
+            <mxPoint x="1380" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-14" value="Each operator is inherited from MapActionOperator. MapAction operator is either a python or Kubernetes operator depending on whether we&#39;re working locally or in GCP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="1100" y="570" width="260" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-17" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Airflow library&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="450" y="860" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-20" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;entryX=0.887;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-17" target="6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="880" y="910" as="sourcePoint" />
+            <mxPoint x="930" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-21" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Config&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry y="870" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-22" value="General Config" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="20" y="950" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-23" value="Country configs" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="210" y="950" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-24" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-21" target="XiQuW-xQ6s5TS-nq2A6A-130" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="680" as="sourcePoint" />
+            <mxPoint x="450" y="630" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-25" value="Configs specify what shall be the name of output files, where they shall be stored, etc." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="190" y="770" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-26" value="Each dag is an airflow object (obviously)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="820" y="370" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-28" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-17" target="hq5fzKsgdrRfx1hr4r4I-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="850" as="sourcePoint" />
+            <mxPoint x="1400" y="990" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-29" value="&lt;div&gt;Both MapAction operators are inherited from airflow operators. &lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Airflow PythonOperator allows us to execute python callable functions from dags. Airflow KubernetesPod Operator allows us to launch a pod in Kubernetes cluster and execute the task associated with the operator in this pod.&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="790" y="970" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-30" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Kubernetes&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="930" y="1170" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-31" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Docker&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="930" y="1400" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-32" value="" style="endArrow=classic;startArrow=classic;html=1;fontSize=18;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-30" target="hq5fzKsgdrRfx1hr4r4I-31" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="670" y="1070" as="sourcePoint" />
+            <mxPoint x="720" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-33" value="&lt;font style=&quot;font-size: 18px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; color: rgb(8 , 8 , 8) ; background-color: rgb(255 , 255 , 255) ; font-weight: 400 ; font-style: normal ; font-variant: normal ; text-decoration: none ; vertical-align: baseline&quot; id=&quot;docs-internal-guid-04f001f2-7fff-f0a1-81e1-844ec7e9bc56&quot;&gt;Docker is used to package up all the code and necessary dependencies into containers. We use a separate container for each operator. Kubernetes is used to manage created containers.&lt;/span&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1230" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-34" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-30" target="hq5fzKsgdrRfx1hr4r4I-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1420" y="1219" as="sourcePoint" />
+            <mxPoint x="1490" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-37" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Pipeline plugin&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="1960" y="220" width="1320" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-38" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Extract&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2070" y="720" width="400" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-40" value="HDX Load" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2100" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-41" value="&lt;div&gt;OSM Load&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2290" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-42" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Utils&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2090" y="1090" width="1080" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-44" value="Deep Inspection" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2100" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-45" value="Flies" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2470" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-46" value="Google Cloud Storage" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2280" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-47" value="OSM functions" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2640" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-48" value="Request API" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-49" value="Yaml API" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2970" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-50" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;HDX library&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="1540" y="1080" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-51" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Overpass API&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="1525" y="1650" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-52" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-50" target="hq5fzKsgdrRfx1hr4r4I-40" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1570" y="1160" as="sourcePoint" />
+            <mxPoint x="2070" y="1190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1910" y="1020" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-53" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-51" target="hq5fzKsgdrRfx1hr4r4I-48" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2020" y="1190" as="sourcePoint" />
+            <mxPoint x="2070" y="1140" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2530" y="1740" />
+              <mxPoint x="2290" y="1050" />
+              <mxPoint x="2150" y="1050" />
+              <mxPoint x="2290" y="950" />
+              <mxPoint x="2290" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-54" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-45" target="hq5fzKsgdrRfx1hr4r4I-38" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2510" y="1000" as="sourcePoint" />
+            <mxPoint x="2170" y="900" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2370" y="1020" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-55" value="HDX lib is used to easily download HDX data" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="1560" y="980" width="390" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-56" value="Files and GCS utils are used to create/delete files, folders, etc. on google cloud" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2330" y="1240" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-58" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-47" target="hq5fzKsgdrRfx1hr4r4I-41" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2570" y="1159.9999999999998" as="sourcePoint" />
+            <mxPoint x="2360" y="909.9999999999998" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2530" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-59" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-48" target="hq5fzKsgdrRfx1hr4r4I-41" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2710" y="1159.9999999999998" as="sourcePoint" />
+            <mxPoint x="2360" y="909.9999999999998" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2620" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-60" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-49" target="hq5fzKsgdrRfx1hr4r4I-41" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2880" y="1159.9999999999998" as="sourcePoint" />
+            <mxPoint x="2360" y="909.9999999999998" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2690" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-61" value="OSM functions are mainly osm to gpkg and gpkg to osm converters" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2681" y="1230" width="129" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-62" value="Yaml functions parse config from .yaml file to a python object" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2970" y="1240" width="129" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-63" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-21" target="hq5fzKsgdrRfx1hr4r4I-51" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="1180" as="sourcePoint" />
+            <mxPoint x="1670" y="1700" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="990" y="1778" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-65" value="Overpass API url is stored in the config" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="130" y="1710" width="960" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-68" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Schemas&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2930" y="510" width="270" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-69" value="Overpass API is accessed using Request API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2230" y="1770" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-73" value="Schemas are used to create requests to overpass (schema ~= request)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2590" y="710" width="260" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-74" value="" style="endArrow=classic;html=1;fontSize=18;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-68" target="XiQuW-xQ6s5TS-nq2A6A-130" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="3420" y="880" as="sourcePoint" />
+            <mxPoint x="180.21126760563357" y="540" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="3410" y="590" />
+              <mxPoint x="3410" y="1910" />
+              <mxPoint x="-290" y="1900" />
+              <mxPoint x="-290" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-77" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;fontSize=18;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-38" target="XiQuW-xQ6s5TS-nq2A6A-104" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1950" y="690" as="sourcePoint" />
+            <mxPoint x="2000" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hq5fzKsgdrRfx1hr4r4I-79" value="Extract and transform functions are used as callables for&amp;nbsp; operators" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="1654" y="320" width="216" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Transform&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2060" y="340" width="400" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-7" value="HDX transforms" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2290" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-8" value="OSM transforms" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2100" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-9" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;fontSize=18;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-45" target="gWdorv6ptarJT7HuSdHu-6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2540" y="1160" as="sourcePoint" />
+            <mxPoint x="2280" y="990" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2250" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-10" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;fontSize=18;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-68" target="gWdorv6ptarJT7HuSdHu-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2940" y="600" as="sourcePoint" />
+            <mxPoint x="2780" y="800" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2860" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-11" value="Schemas are used to check if output satisfies the desired format (schema ~ output format)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;" parent="1" vertex="1">
+          <mxGeometry x="2540" y="490" width="300" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-12" value="ALERT: Schemas mean different things here. Must be separated!" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=36;opacity=45;fontColor=#FF0080;" parent="1" vertex="1">
+          <mxGeometry x="2960" y="260" width="270" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-13" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;fontSize=36;fontColor=#FF0080;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-44" target="hq5fzKsgdrRfx1hr4r4I-9" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1930" y="940" as="sourcePoint" />
+            <mxPoint x="1980" y="890" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1930" y="1440" />
+              <mxPoint x="1970" y="1290" />
+              <mxPoint x="1660" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-17" value="Deep Inspection is used to extract function name and function module (from which this function could be imported). They are then passed to the KubernetesPod Operator as environmental variales." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;opacity=45;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1570" y="1250" width="320" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-18" value="" style="endArrow=classic;html=1;fontSize=18;fontColor=#000000;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-46" target="hq5fzKsgdrRfx1hr4r4I-45" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2620" y="1270" as="sourcePoint" />
+            <mxPoint x="2570" y="1330" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2340" y="1270" />
+              <mxPoint x="2530" y="1270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-19" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;Pipeline config&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;opacity=80;" parent="1" vertex="1">
+          <mxGeometry x="2230" y="1520" width="410" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-20" value="Config Parsers" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="2280" y="1590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-21" value="Google Cloud Configs" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2450" y="1590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-22" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;fontColor=#000000;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="hq5fzKsgdrRfx1hr4r4I-68" target="hq5fzKsgdrRfx1hr4r4I-38" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2750" y="800" as="sourcePoint" />
+            <mxPoint x="2800" y="750" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2880" y="595" />
+              <mxPoint x="2880" y="810" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-23" value="" style="endArrow=classic;html=1;fontSize=18;fontColor=#000000;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" parent="1" target="hq5fzKsgdrRfx1hr4r4I-46" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2310" y="1519" as="sourcePoint" />
+            <mxPoint x="2350" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-24" value="" style="endArrow=classic;html=1;fontSize=18;fontColor=#000000;exitX=0.805;exitY=-0.008;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="gWdorv6ptarJT7HuSdHu-19" target="hq5fzKsgdrRfx1hr4r4I-45" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2326.67" y="1518.6399999999999" as="sourcePoint" />
+            <mxPoint x="2320" y="1220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-25" value="Config helps to access data on GCP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;fontSize=18;fontColor=#000000;opacity=80;" parent="1" vertex="1">
+          <mxGeometry x="2330" y="1410" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-26" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;fontColor=#000000;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="gWdorv6ptarJT7HuSdHu-19" target="hq5fzKsgdrRfx1hr4r4I-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1890" y="1340" as="sourcePoint" />
+            <mxPoint x="1420" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-27" value="Pipeline config is used to get docker image for KubernetesPod Operator" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;fontSize=18;fontColor=#000000;opacity=80;" parent="1" vertex="1">
+          <mxGeometry x="1525" y="1540" width="370" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-28" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;strong style=&quot;font-size: 24px&quot;&gt;GCP&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=middle;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=1;fontStyle=1;strokeWidth=3;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="190" y="1290" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-29" value="GCP stores all the files. All the pipelines operators are executed on GCP." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="540" y="1370" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-31" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;fontColor=#000000;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=0.456;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="gWdorv6ptarJT7HuSdHu-28" target="hq5fzKsgdrRfx1hr4r4I-30" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="640" y="1340" as="sourcePoint" />
+            <mxPoint x="690" y="1290" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="345" y="1213" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gWdorv6ptarJT7HuSdHu-32" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;fontSize=18;fontColor=#000000;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="gWdorv6ptarJT7HuSdHu-28" target="hq5fzKsgdrRfx1hr4r4I-31" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="355.03999999999996" y="1300" as="sourcePoint" />
+            <mxPoint x="940" y="1222.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="355" y="1460" />
+              <mxPoint x="355" y="1528" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ez7CQci08RXNUviIIuGI-6" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;fontSize=18;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="gWdorv6ptarJT7HuSdHu-6" target="XiQuW-xQ6s5TS-nq2A6A-101" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2080" y="860" as="sourcePoint" />
+            <mxPoint x="1630" y="460" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1890" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="5CDKFGRcTrZcOxfILydH" name="Page-2">
+    <mxGraphModel dx="590" dy="349" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="j3fsQJkRp_nPdGFeBNKI-0" />
+        <mxCell id="j3fsQJkRp_nPdGFeBNKI-1" parent="j3fsQJkRp_nPdGFeBNKI-0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

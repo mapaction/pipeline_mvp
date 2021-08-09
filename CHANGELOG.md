@@ -31,6 +31,7 @@ Please maintain both this file AND the README.md file.
   * Admin 1 & 2 from HDX
 - Expanded from just Yemen to 14 countries. Additional countries are automatically from config files.
 - Various changes to align the output with MapAction default Crash Move Folder structure and data schema.
+- Added a pipeline architecture visualization for both current status and future proposed status, in the docs folder.
 
 ### Changed
 - n/a
