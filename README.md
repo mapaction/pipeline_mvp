@@ -248,8 +248,19 @@ testing account. This is recognised as being sub-optimal and will be changed in 
 are added (see )
 
 ## Tests
+To run unit tests locally run pytest in the root directory:
+```
+$ pytest
+```
 
-To run project tests locally:
+To run unit tests in the airflow local environment:
+
+```
+$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/ airflow
+$ python -m pytest .
+```
+
+To run integration tests (not implemented yet) locally:
 
 ```
 $ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/tests airflow
