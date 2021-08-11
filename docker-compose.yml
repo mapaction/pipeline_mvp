@@ -13,8 +13,15 @@ services:
       - "8080:8080"
     volumes:
       - ./plugins/:/home/airflow/gcs/plugins/
+      - ./configs/:/home/airflow/gcs/configs/
+      - ./airflow_logic/:/home/airflow/gcs/airflow_logic/
+      - ./map_action_logic/:/home/airflow/gcs/map_action_logic/
+      - ./auxiliary_modules/api_access/:/home/airflow/gcs/api_access/
+      - ./auxiliary_modules/gcp_settings/:/home/airflow/gcs/gcp_settings/
+      - ./auxiliary_modules/config_access/:/home/airflow/gcs/config_access/
+      - ./auxiliary_modules/storage_access/:/home/airflow/gcs/storage_access/
       - ./data/:/opt/data/
-      - ./dags/:/home/airflow/gcs/dags/
+      - ./airflow_logic/dags/:/home/airflow/gcs/dags/
       - ./tests/:/home/airflow/gcs/tests/
       - ./.flake8:/home/airflow/gcs/.flake8
     environment:

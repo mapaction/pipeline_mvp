@@ -18,8 +18,8 @@ repos:
     -   id: docker-python-flake8
         name: Python Flake8 (Docker)
         language: docker_image
-        files: ^dags\/|plugins\/|tests\/
+        files: ^airflow_logic\/|map_action_logic\/|auxiliary_modules\/|plugins\/|tests\/
         types:
         -   file
         -   python
-        entry: mapaction-pipeline-airflow-local:latest flake8 dags/ plugins/ tests/
+        entry: mapaction-pipeline-airflow-local:latest flake8 airflow_logic/ map_action_logic/ auxiliary_modules/ plugins/ tests/

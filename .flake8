@@ -16,7 +16,9 @@ select = B,B9,BLK,C,E,F,I,W,S
 ignore = E203,E501,W503
 
 # S101: Use of assert - ignored in tests due to PyTest
-per-file-ignores = tests/*:S101
+per-file-ignores =
+    tests/*:S101
+    *test.py:S101
 
 # Flake8-Bugbear
 
