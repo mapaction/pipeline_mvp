@@ -1,0 +1,14 @@
+osm_types:
+  - way
+geom_type:
+  points
+tags:
+    - landuse:
+        - port
+    - industrial:
+        - port
+    - amenity:
+        - ferry_terminal
+    - port:
+    - seaway:
+flag: OR

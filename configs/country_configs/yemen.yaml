@@ -1,0 +1,25 @@
+constants:
+  ISO3: YEM
+  ISO2: YE
+
+hdx_cod:
+  adm:
+    address: yemen-admin-boundaries
+    filename: yem_adm_govyem_cso_ochayemen_20191002_GPKG.zip
+    file_type: gpkg
+  roads:
+    address: yemen-roads
+    filename: ymn-roads.zip
+
+adm0:
+  cod:
+    column_names:
+      ADM0_EN: admin0Name_en
+      ADM0_PCODE: admin0Pcode
+adm1:
+  cod:
+    column_names:
+      ADM0_EN: admin0Name_en
+      ADM0_PCODE: admin0Pcode
+      ADM1_EN: admin1Name_en
+      ADM1_PCODE: admin1Pcode

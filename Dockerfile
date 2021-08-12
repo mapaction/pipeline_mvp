@@ -37,6 +37,15 @@ RUN mkdir -p ${AIRFLOW_USER_HOME}
 RUN mkdir -p /opt/data
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/map_action_logic"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/api_access/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_settings/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/config_access/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/storage_access/"
+ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/configs/"
+
+
 USER airflow
 WORKDIR ${AIRFLOW_USER_HOME}
 ENTRYPOINT ["/entrypoint.sh"]

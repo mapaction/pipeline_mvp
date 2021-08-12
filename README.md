@@ -29,13 +29,22 @@ Platform using Airflow.
 
 GitLab Actions configuration files (see [Continuous Deployment](#continuous-deployment)).
 
-`/dags`
+`/airflow_logic`
 
-Folder with the DAG scripts, every DAG instance in the global namespace will be available inside Airflow.
+Folder with high-level scripts related to airflow (DAGs, Operators, etc).
 
-`/plugins`
 
-Folder with the `pipeline_plugin` that contains the custom operators and the domain logic.
+`/map_action_logic`
+
+Folder with the core MapAction logic.
+
+`/auxiliary modules`
+
+Folder with low-level supportive functions
+
+`/configs`
+
+Folder with configs and chemas
 
 `/data`
 
@@ -160,7 +169,7 @@ specific code standards for this project. Flake8 checks will be automatically ru
 To run manually:
 
 ```
-$ docker compose run airflow flake8 dags/ plugins/ tests/
+$ docker compose run airflow flake8 dags/ plugins/ tests/ airflow_logic/ map_action_logic/ gcp_settings/ storage_access/ config_access/ api_access/
 ```
 
 ### Black
@@ -171,7 +180,7 @@ this project. Black formatting will automatically be checked as part of the [Fla
 To run manually:
 
 ```
-$ docker compose run airflow black dags/ plugins/ tests/
+$ docker compose run airflow black dags/ plugins/ tests/ airflow_logic/ map_action_logic/ gcp_settings/ storage_access/ config_access/ api_access/
 ```
 
 ## Package security
@@ -241,8 +250,19 @@ testing account. This is recognised as being sub-optimal and will be changed in 
 are added (see )
 
 ## Tests
+To run unit tests locally run pytest in the root directory:
+```
+$ pytest
+```
 
-To run project tests locally:
+To run unit tests in the airflow local environment:
+
+```
+$ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/ airflow
+$ python -m pytest .
+```
+
+To run integration tests (not implemented yet) locally:
 
 ```
 $ docker-compose run --entrypoint bash --workdir /home/airflow/gcs/tests airflow

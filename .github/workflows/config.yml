@@ -7,7 +7,8 @@ on:
     branches:
       - master
     paths:
-      - dags/**
+      - airflow_logic/**
+      #- dags/**
       - plugins/**
       - .github/workflows/config.yml
   workflow_dispatch:
@@ -24,7 +25,9 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           project_id: ${{ secrets.GCS_PROJECT }}
           export_default_credentials: true
-      - name: Copy DAGs
-        run: gsutil -m rsync -d -r ./dags gs://${{ secrets.GCLOUD_BUCKET_PATH }}/dags/
+      - name: Copy DAGs # TODO: verify this command
+        run: gsutil rsync -d -r ./airflow_logic/dags gs://${{ secrets.GCLOUD_BUCKET_PATH }}/dags/
       - name: Copy plugins
-        run: gsutil -m rsync -d -r ./plugins gs://${{ secrets.GCLOUD_BUCKET_PATH }}/plugins/
+        run: gsutil rsync -d -r ./plugins gs://${{ secrets.GCLOUD_BUCKET_PATH }}/plugins/
+      - name: Copy Airflow Logic
+        run: gsutil rsync -d -r ./airflow_logic gs://${{ secrets.GCLOUD_BUCKET_PATH }}/airflow_logic/

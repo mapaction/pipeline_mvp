@@ -9,10 +9,43 @@ Please maintain both this file AND the README.md file.
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
 
-* initial GitHub Actions for Continuous Integration (CI)
+## [v0.3]
+
+### Added
+
+* Initial GitHub Actions for Continuous Integration (CI)
+* New osm datasets: rivers, lakes, airports, seaports, seas, places.
+* New admin2 and amdin3 polygon boundaries datasets.
+* Allowed dag creation by countries rather than only data types.
+* Created new folder structure that includes airflow_logic, map_action_logic, auxiliary_modules, configs.
+* Implemented 9 tests for request API. No problems found.
+* Implemented 21 tests for Fallback Dictionary class. An important error that leads to incorrect behavior of config parser was revealed by one of the tests.
+* Implemented a test for yaml api. No problems found.
+* Implemented 87 tests for config parser. 10 of them fail, revealing various bugs that exist in config parser code.
 
 ### Changed
+* Separated output format validation schemas from the overpass request configs (they were both called schemas, which brought inconsistency to the code).
+* Optimized config_parser.py by generalizing most of the function there(reduced 523 strings of code to 250)
+* Refactored operators: combined all (except for adm0 and adm1) transform operators into generic DefaultTransformOperator and all admin transform operators into generic admin transform operator.
+* Refactored transforms (combined most of the transforms into generic default_transform)
+* Refactored osm dags. Defined a united procedure to create osm dags (now there is only one file for osm dags).
+* Fixed osm extract and made it robust. Previously, osm extracts often failed reaching the quota of osm overpass api requests. Now upon failing the extract tasks will be launched multiple times with an exponential delay.
+* Rewrote osm_query to support more sophisticated queries. Previously, only simple OR queries were supported. Now it is possible to create AND queries as well.
+* Rewrote docker-compose and Dockerfile to make new structure accessible to airflow server.
+
+* Refactored dags and operators and moved them, as well as the files associated with them, to airflow_logic.
+* Moved files related to MapAction specific logic, such as transform and extract logic implementation, to map_action_logic.
+* Edited flake8 scripts as well as github CI to cover new entities.
+* Refactored requests api module and moved it to auxiliary_modules folder.
+* Refactored requests storage access and moved it to auxiliary_modules folder.
+* Refactored requests gcp access and moved it to auxiliary_modules folder.
+* Refactored requests config access module and moved it to auxiliary_modules folder.
 ### Deprecated
 ### Removed
 ### Fixed

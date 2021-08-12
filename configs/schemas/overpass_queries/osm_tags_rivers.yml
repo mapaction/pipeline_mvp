@@ -1,0 +1,11 @@
+osm_types:
+  - relation
+  - way
+geom_type:
+  lines
+tags:
+  - waterway:
+    - river
+    - stream
+    - canal
+flag: OR

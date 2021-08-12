@@ -1,0 +1,11 @@
+osm_types:
+  - relation
+  - way
+geom_type:
+  lines
+tags:
+  - boundary:
+      - sea
+  - border_type:
+      - baseline
+flag: AND
