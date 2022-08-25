@@ -41,7 +41,8 @@ RUN mkdir -p ${AIRFLOW_USER_HOME}
 USER root
 RUN mkdir -p /opt/data
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
-RUN chown -R airflow: /opt/data
+#TODO: make user specific, not suitable for production
+RUN chmod -R 755 /opt/data
 #RUN chgrp -R 0 ${AIRFLOW_USER_HOME} && chmod -R g+rwX ${AIRFLOW_USER_HOME}
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
@@ -51,3 +52,21 @@ ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_settings/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/config_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/storage_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/configs/"
+
+
+# USER airflow
+# WORKDIR ${AIRFLOW_USER_HOME}
+
+#ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["webserver"]
+
+# RUN airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
+# RUN airflow db upgrade
+# RUN airflow db init
+
+# USER 1001
+# ENTRYPOINT [ "/opt/scripts/airflow/entrypoint.sh" ]
+# CMD [ "/opt/scripts/airflow/run.sh" ]
+
+USER airflow
+WORKDIR ${AIRFLOW_USER_HOME}
