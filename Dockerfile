@@ -3,6 +3,7 @@ FROM apache/airflow:2.3.4
 # Airflow
 ARG AIRFLOW_VERSION=2.3.4
 ARG AIRFLOW_USER_HOME=/home/airflow/gcs
+ARG AIRFLOW_DATA_MOUNT=/opt/airflow/data
 ARG AIRFLOW_DEPS="gcp"
 ARG PYTHON_DEPS=""
 ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
@@ -23,7 +24,8 @@ RUN apt-get update -yqq \
     && ogrinfo --version \
 #    && pip install GDAL==3.2.2  *Make sure to replace this
 
-RUN useradd -rm -d /opt/airflow -s /bin/bash -g root -G sudo -u 1001 airflow
+# RUN useradd -rm -d /opt/airflow -s /bin/bash -g root -G sudo -u 1000 airflow
+RUN useradd -U -u 1000 airflow
 USER airflow
 
 RUN pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION}
@@ -38,11 +40,12 @@ RUN pip install -r requirements-dev.txt
 RUN pip install attrs==20.3.0
 
 RUN mkdir -p ${AIRFLOW_USER_HOME}
-USER root
-RUN mkdir -p /opt/data
-RUN chown -R airflow: ${AIRFLOW_USER_HOME}
-#TODO: make user specific, not suitable for production
-RUN chmod -R 755 /opt/data
+# RUN chown -R airflow: ${AIRFLOW_USER_HOME}
+
+# USER root
+RUN mkdir ${AIRFLOW_DATA_MOUNT}
+RUN chown airflow: ${AIRFLOW_DATA_MOUNT}
+# RUN chown -R airflow: ${AIRFLOW_DATA_MOUNT}
 #RUN chgrp -R 0 ${AIRFLOW_USER_HOME} && chmod -R g+rwX ${AIRFLOW_USER_HOME}
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"

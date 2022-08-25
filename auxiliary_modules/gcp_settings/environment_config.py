@@ -46,7 +46,7 @@ class Config:
     @staticmethod
     def get_local_data_path(relative_path):
         if os.environ.get("ENVIRONMENT") == "LOCAL":
-            return Path("/") / "opt" / "data" / relative_path
+            return Path("/") / "opt" / "airflow" / "data" / relative_path           #TODO This is basically hardcoded and should be passed in
         else:
             return Path("/") / "usr" / "src" / "data" / relative_path
 

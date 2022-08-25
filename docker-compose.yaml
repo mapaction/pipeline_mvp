@@ -70,7 +70,7 @@ x-airflow-common:
     - ./auxiliary_modules/gcp_settings/:/home/airflow/gcs/gcp_settings/
     - ./auxiliary_modules/config_access/:/home/airflow/gcs/config_access/
     - ./auxiliary_modules/storage_access/:/home/airflow/gcs/storage_access/
-    - ./data/:/opt/data/
+    - ./data/:/opt/airflow/data/
     - ./airflow_logic/dags/:/home/airflow/gcs/dags/
     - ./tests/:/home/airflow/gcs/tests/
     - ./.flake8:/home/airflow/gcs/.flake8
