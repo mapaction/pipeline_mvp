@@ -61,7 +61,7 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     ENVIRONMENT: LOCAL
   volumes:
-    - ./logs:/opt/airflow/logs
+    - ./logs:/home/airflow/gcs/logs
     - ./plugins/:/home/airflow/gcs/plugins/
     - ./configs/:/home/airflow/gcs/configs/
     - ./airflow_logic/:/home/airflow/gcs/airflow_logic/

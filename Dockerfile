@@ -41,6 +41,7 @@ RUN mkdir -p ${AIRFLOW_USER_HOME}
 USER root
 RUN mkdir -p /opt/data
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
+RUN chown -R airflow: /opt/data
 #RUN chgrp -R 0 ${AIRFLOW_USER_HOME} && chmod -R g+rwX ${AIRFLOW_USER_HOME}
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
