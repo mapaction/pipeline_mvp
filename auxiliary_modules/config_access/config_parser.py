@@ -11,11 +11,11 @@ class Config:
     def __init__(self, path=None):
         if os.environ.get("GCP") == "TRUE":
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd()) / "gcs"
-            self._DATA_FOLDER = Path("data")
+            self._DATA_FOLDER = Path("airflow/data")
             self._SCHEMAS_FOLDER = Path("/") / "usr" / "src" / "configs" / "schemas"
         else:
             self._MAIN_AIRFLOW_FOLDER = Path(os.getcwd())
-            self._DATA_FOLDER = Path("/") / "opt" / "data"
+            self._DATA_FOLDER = Path("/") / "opt" / "airflow" / "data"
             self._SCHEMAS_FOLDER = self._MAIN_AIRFLOW_FOLDER / "configs" / "schemas"
         if not path:
             path = self._MAIN_AIRFLOW_FOLDER / "configs"

@@ -22,11 +22,13 @@ RUN apt-get update -yqq \
     && export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
     && ogrinfo --version \
-#    && pip install GDAL==3.2.2  *Make sure to replace this
 
-# RUN useradd -rm -d /opt/airflow -s /bin/bash -g root -G sudo -u 1000 airflow
 RUN useradd -U -u 1000 airflow
 USER airflow
+
+RUN pip install GDAL==3.2.2
+RUN pip install ogr
+
 
 RUN pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION}
 
@@ -40,13 +42,10 @@ RUN pip install -r requirements-dev.txt
 RUN pip install attrs==20.3.0
 
 RUN mkdir -p ${AIRFLOW_USER_HOME}
-# RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
-# USER root
 RUN mkdir ${AIRFLOW_DATA_MOUNT}
+USER root
 RUN chown airflow: ${AIRFLOW_DATA_MOUNT}
-# RUN chown -R airflow: ${AIRFLOW_DATA_MOUNT}
-#RUN chgrp -R 0 ${AIRFLOW_USER_HOME} && chmod -R g+rwX ${AIRFLOW_USER_HOME}
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/airflow_logic"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/map_action_logic"
@@ -55,21 +54,6 @@ ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/gcp_settings/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/config_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/storage_access/"
 ENV PYTHONPATH "${PYTHONPATH}:/home/airflow/gcs/configs/"
-
-
-# USER airflow
-# WORKDIR ${AIRFLOW_USER_HOME}
-
-#ENTRYPOINT ["/entrypoint.sh"]
-#CMD ["webserver"]
-
-# RUN airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
-# RUN airflow db upgrade
-# RUN airflow db init
-
-# USER 1001
-# ENTRYPOINT [ "/opt/scripts/airflow/entrypoint.sh" ]
-# CMD [ "/opt/scripts/airflow/run.sh" ]
 
 USER airflow
 WORKDIR ${AIRFLOW_USER_HOME}

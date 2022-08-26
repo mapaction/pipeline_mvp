@@ -41,7 +41,7 @@ class Config:
 
     @staticmethod
     def get_remote_data_path(relative_path):
-        return os.path.join(Path("data"), relative_path)
+        return os.path.join(Path("airflow/data"), relative_path)
 
     @staticmethod
     def get_local_data_path(relative_path):

@@ -25,8 +25,8 @@ def hstore2dict(str):
 
 
 def convert_osm2gpkg(in_file, out_file, geom_type="multipolygons"):
-    import ogr
-    import gdal
+    from osgeo import ogr
+    from osgeo import gdal
 
     """
     Translate an OSM .pbf or .xml file to a shape file
