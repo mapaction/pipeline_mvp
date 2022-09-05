@@ -11,3 +11,4 @@ pycountry==20.7.3
 google-cloud-storage
 urllib3>=1.26
 psycopg2-binary==2.9.3
+python-dotenv
