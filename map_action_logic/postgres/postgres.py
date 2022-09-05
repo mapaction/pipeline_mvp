@@ -118,3 +118,40 @@ def delete_data_osm():
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+
+def check_table_exists(table_name):
+    try:
+        connection = psycopg2.connect(user=conf[0],
+                                    password=conf[1],
+                                    host=conf[2],
+                                    port=conf[3],
+                                    database=conf[4])
+
+        cursor = connection.cursor()
+        # Check if table exists
+        cursor.execute("SELECT EXISTS(SELECT * FROM information_schema.tables WHERE table_name=%s)", (table_name,))
+        exists = cursor.fetchone()[0]
+        if exists:
+            print("Table exists")
+        else:
+            print("Table does not exist")
+            create_table_osm()
+
+    except (Exception, Error) as error:
+        print("Error while connecting to PostgreSQL", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+def save_file_to_db(table_name, file_name):
+    in_file = open(file_name, "rb")
+    data = in_file.read()
+    in_file.close()
+
+    if check_table_exists(table_name):
+        insert_data_osm()
+    else:
+        create_table_osm()
+        insert_data_osm(file_name, data)

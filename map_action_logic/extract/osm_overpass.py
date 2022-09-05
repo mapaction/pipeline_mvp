@@ -1,5 +1,6 @@
 from api_access.requests_api import download_url
 from map_action_logic.extract.extract_utils.osm import convert_osm2gpkg
+from map_action_logic.postgres.postgres import save_file_to_db
 from storage_access.files import create_download_folder, save_file
 from storage_access.yaml_api import parse_yaml
 
@@ -21,6 +22,8 @@ def extract_osm_query(
 
     save_file(osm_output_filename)
     save_file(gpkg_output_filename)
+
+    save_file_to_db("osm_output_files", osm_output_filename)
 
 
 
