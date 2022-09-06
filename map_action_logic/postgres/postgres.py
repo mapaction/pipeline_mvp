@@ -45,7 +45,7 @@ def create_table_osm():
             connection.close()
             print("PostgreSQL connection is closed")
 
-def insert_data_osm(filename, data):
+def insert_data(country_iso2, file_name, data):
     try:
         connection = psycopg2.connect(user=conf[0],
                                     password=conf[1],
@@ -55,12 +55,12 @@ def insert_data_osm(filename, data):
 
         cursor = connection.cursor()
         # Insert data into table
-        insert_query = """INSERT INTO osm_output_files (FILE, DATA, TIMESTAMP) VALUES (%s,%s,%s)"""
-        record_to_insert = (filename, data, utc_timestamp())
+        insert_query = """INSERT INTO """+ country_iso2 +""" (FILE, DATA, TIMESTAMP) VALUES (%s,%s,%s)"""
+        record_to_insert = (file_name, data, utc_timestamp())
         cursor.execute(insert_query, record_to_insert)
         connection.commit()
         count = cursor.rowcount
-        print(count, "Record inserted successfully into osm_output_files table")
+        print(count, "Record inserted successfully into "+ country_iso2 +" table")
 
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL", error)
@@ -95,7 +95,7 @@ def select_data_osm():
             connection.close()
             print("PostgreSQL connection is closed")
 
-def delete_data_osm():
+def delete_data_osm(id_number):
     try:
         connection = psycopg2.connect(user=conf[0],
                                     password=conf[1],
@@ -106,7 +106,7 @@ def delete_data_osm():
         cursor = connection.cursor()
         # Delete data from table
         delete_query = """DELETE from osm_output_files where ID = %s"""
-        cursor.execute(delete_query, (1,))
+        cursor.execute(delete_query, (id_number,))
         connection.commit()
         count = cursor.rowcount
         print(count, "Record deleted successfully from osm_output_files table")
@@ -145,13 +145,13 @@ def check_table_exists(table_name):
             connection.close()
             print("PostgreSQL connection is closed")
 
-def save_file_to_db(table_name, file_name):
+def save_file_to_db(country_iso2, file_name):
     in_file = open(file_name, "rb")
     data = in_file.read()
     in_file.close()
 
-    if check_table_exists(table_name):
-        insert_data_osm()
+    if check_table_exists(country_iso2):
+        insert_data(country_iso2, file_name, data)
     else:
         create_table_osm()
-        insert_data_osm(file_name, data)
+        insert_data(country_iso2, file_name, data)

@@ -23,7 +23,8 @@ def extract_osm_query(
     save_file(osm_output_filename)
     save_file(gpkg_output_filename)
 
-    save_file_to_db("osm_output_files", osm_output_filename)
+    save_file_to_db(country_iso2, osm_output_filename)
+    save_file_to_db(country_iso2, gpkg_output_filename)
 
 
 
